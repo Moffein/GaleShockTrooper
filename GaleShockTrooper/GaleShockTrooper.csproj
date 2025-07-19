@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Configurations>Release;Debug</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove=".gitignore" />
+    <None Remove="nuget.config" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="BepInEx.Analyzers" Version="1.0.*">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="BepInEx.Core" Version="5.*" />
+		<PackageReference Include="RiskOfRain2.GameLibs" Version="1.3.9-r.0" />
+		<PackageReference Include="UnityEngine.Modules" Version="2021.3.33" />
+		<PackageReference Include="MMHOOK.RoR2" Version="2025.6.3">
+			<NoWarn>NU1701</NoWarn>
+		</PackageReference>
+		<PackageReference Include="R2API.Core" Version="5.*" />
+		<PackageReference Include="R2API.Prefab" Version="1.*" />
+		<PackageReference Include="R2API.RecalculateStats" Version="1.*" />
+		<PackageReference Include="R2API.Language" Version="1.*" />
+		<PackageReference Include="R2API.Sound" Version="1.*" />
+		<PackageReference Include="R2API.DamageType" Version="1.*" />
+		<PackageReference Include="R2API.Dot" Version="1.*" />
+	</ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if &quot;$(Username)&quot; == &quot;Lenovo&quot; set build=true&#xD;&#xA;copy &quot;$(TargetPath)&quot; &quot;$(ProjectDir)..\Build\plugins\GaleShockTrooper&quot;&#xD;&#xA;if exist &quot;$(ProjectDir)..\GaleShockTrooperUnityProject\AssetBundles\StandaloneWindows\galeshocktrooperassetbundle&quot; (&#xD;&#xA;copy &quot;$(ProjectDir)..\GaleShockTrooperUnityProject\AssetBundles\StandaloneWindows\galeshocktrooperassetbundle&quot; &quot;$(ProjectDir)..\Build\plugins\GaleShockTrooper\AssetBundles&quot;&#xD;&#xA;)&#xD;&#xA;if exist &quot;$(ProjectDir)..\GaleShockTrooperWWISE\GeneratedSoundBanks\Windows\GaleShockTrooperSoundbank.bnk&quot; (&#xD;&#xA;copy &quot;$(ProjectDir)..\GaleShockTrooperWWISE\GeneratedSoundBanks\Windows\GaleShockTrooperSoundbank.bnk&quot; &quot;$(ProjectDir)..\Build\plugins\GaleShockTrooper\Soundbanks&quot;&#xD;&#xA;)" />
+  </Target>
+
+</Project>

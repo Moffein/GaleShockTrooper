@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{402601BD-6AEA-4ECC-B1B8-C9EA1785D9E9}" SchemaVersion="119">
+	<SoundBanks>
+		<WorkUnit Name="Default Work Unit" ID="{402601BD-6AEA-4ECC-B1B8-C9EA1785D9E9}" PersistMode="Standalone">
+			<ChildrenList>
+				<SoundBank Name="GaleShockTrooperSoundbank" ID="{9E6B8704-F70E-4E45-8157-1B5CDB018E7F}">
+					<ObjectInclusionList>
+						<ObjectRef Name="Play_GaleShockTrooper_MicroMissile" ID="{4B0294E1-36BF-4B45-AC54-ED9425F0A01E}" WorkUnitID="{ED4A1FAA-691C-4356-931E-CD07E7847D50}" Origin="Manual" Filter="7"/>
+					</ObjectInclusionList>
+					<ObjectExclusionList/>
+					<GameSyncExclusionList/>
+				</SoundBank>
+			</ChildrenList>
+		</WorkUnit>
+	</SoundBanks>
+</WwiseDocument>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{ED4A1FAA-691C-4356-931E-CD07E7847D50}" SchemaVersion="119">
+	<Events>
+		<WorkUnit Name="Default Work Unit" ID="{ED4A1FAA-691C-4356-931E-CD07E7847D50}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="Play_GaleShockTrooper_MicroMissile" ID="{4B0294E1-36BF-4B45-AC54-ED9425F0A01E}">
+					<ChildrenList>
+						<Action Name="" ID="{F3416A7F-6300-419D-AD43-467924AB06C7}" ShortID="325764617">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Shock Trooper Missile" ID="{F59C0B0F-EEF2-458F-A424-9FD608746A2B}" WorkUnitID="{DF3CE7A6-39AE-43B2-A2B8-80A753BD319B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>
