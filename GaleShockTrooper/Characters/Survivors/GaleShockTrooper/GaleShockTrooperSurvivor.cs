@@ -38,7 +38,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooper
             bodyNameToken = TOKEN_PREFIX + "NAME",
             subtitleNameToken = TOKEN_PREFIX + "SUBTITLE",
 
-            characterPortrait = assetBundle.LoadAsset<Texture>("texHenryIcon"),
+            characterPortrait = assetBundle.LoadAsset<Texture>("texGaleShockTrooperPortrait"),
             bodyColor = Color.white,
             sortPosition = 100,
 

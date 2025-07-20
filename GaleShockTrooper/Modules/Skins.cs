@@ -25,8 +25,6 @@ namespace GaleShockTrooper.Modules
                 UnlockableDef = unlockableDef
             };
 
-            On.RoR2.SkinDef.Awake += DoNothing;
-
             SkinDef skinDef = ScriptableObject.CreateInstance<RoR2.SkinDef>();
             skinDef.baseSkins = skinDefInfo.BaseSkins;
             skinDef.icon = skinDefInfo.Icon;
@@ -41,13 +39,7 @@ namespace GaleShockTrooper.Modules
             skinDef.nameToken = skinDefInfo.NameToken;
             skinDef.name = skinDefInfo.Name;
 
-            On.RoR2.SkinDef.Awake -= DoNothing;
-
             return skinDef;
-        }
-
-        private static void DoNothing(On.RoR2.SkinDef.orig_Awake orig, RoR2.SkinDef self)
-        {
         }
 
         internal struct SkinDefInfo
