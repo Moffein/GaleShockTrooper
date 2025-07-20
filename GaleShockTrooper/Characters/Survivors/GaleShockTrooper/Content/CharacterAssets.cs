@@ -6,6 +6,7 @@ using RoR2.Projectile;
 using R2API;
 using System.IO;
 using BepInEx;
+using UnityEngine.AddressableAssets;
 
 namespace GaleShockTrooper.Survivors.GaleShockTrooper.Content
 {
@@ -17,6 +18,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooper.Content
         {
             _assetBundle = assetBundle;
             LoadSounds();
+            CreatePrimaryShotgunTracer();
         }
 
         private static void LoadSounds()
@@ -28,6 +30,14 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooper.Content
                 manifestResourceStream.Read(array, 0, array.Length);
                 SoundAPI.SoundBanks.Add(array);
             }
+        }
+
+        private static void CreatePrimaryShotgunTracer()
+        {
+            GameObject effect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/TracerCommandoShotgun.prefab").WaitForCompletion().InstantiateClone("GaleShockTrooper_ShotgunTracer", false);
+            effect.GetComponent<Tracer>().speed = 360f;
+            Modules.Content.AddEffectDef(new EffectDef(effect));
+            EntityStates.GaleShockTrooper.Weapon.FireShotgun.tracerEffectPrefab = effect;
         }
     }
 }

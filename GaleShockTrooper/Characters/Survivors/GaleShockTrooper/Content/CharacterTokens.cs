@@ -45,6 +45,9 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooper.Content
             Language.Add(prefix + "PASSIVE_DESCRIPTION", "Sample text.");
             #endregion
 
+            Language.Add(prefix + "PRIMARY_NAME", "PRD-12 Auto Shotgun");
+            Language.Add(prefix + "PRIMARY_DESCRIPTION", "Fire a shotgun blast for <style=cIsDamage>5x60%</style> damage.");
+
             #region Achievements
             Language.Add(Modules.Tokens.GetAchievementNameToken(MasteryAchievement.identifier), "Henry: Mastery");
             Language.Add(Modules.Tokens.GetAchievementDescriptionToken(MasteryAchievement.identifier), "As Henry, beat the game or obliterate on Monsoon.");

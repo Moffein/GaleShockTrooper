@@ -221,7 +221,31 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooper
         private void AddPrimarySkills()
         {
             Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, SkillSlot.Primary);
-            Skills.AddPrimarySkills(bodyPrefab, Addressables.LoadAssetAsync<SkillDef>("RoR2/Base/Heretic/HereticDefaultAbility.asset").WaitForCompletion());
+
+            Modules.Content.AddEntityState(typeof(EntityStates.GaleShockTrooper.Weapon.FireShotgun));
+            Skills.AddPrimarySkills(bodyPrefab, Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                activationState = new EntityStates.SerializableEntityStateType(typeof(EntityStates.GaleShockTrooper.Weapon.FireShotgun)),
+                stockToConsume = 1,
+                baseRechargeInterval = 0f,
+                rechargeStock = 1,
+                activationStateMachineName = "Weapon",
+                cancelSprintingOnActivation = true,
+                fullRestockOnAssign = true,
+                dontAllowPastMaxStocks = true,
+                baseMaxStock = 1,
+                beginSkillCooldownOnSkillEnd = false,
+                forceSprintDuringState = false,
+                interruptPriority = EntityStates.InterruptPriority.Any,
+                isCombatSkill = true,
+                canceledFromSprinting = false,
+                requiredStock = 0,
+                skillNameToken = TOKEN_PREFIX + "PRIMARY_NAME",
+                skillDescriptionToken = TOKEN_PREFIX + "PRIMARY_DESCRIPTION",
+                mustKeyPress = false,
+                resetCooldownTimerOnUse = false,
+                skillName = "GaleShockTrooper_AutoShotgun"
+            }));
         }
 
         private void AddSecondarySkills()
