@@ -2,7 +2,7 @@
 using RoR2.CharacterAI;
 using UnityEngine;
 
-namespace GaleShockTrooper.Survivors.GaleShockTrooper.HenryContent
+namespace GaleShockTrooper.Survivors.GaleShockTrooper.Content
 {
     public static class CharacterAI
     {

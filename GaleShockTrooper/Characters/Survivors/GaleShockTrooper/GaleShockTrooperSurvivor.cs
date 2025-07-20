@@ -1,14 +1,13 @@
 ﻿using BepInEx.Configuration;
 using GaleShockTrooper.Modules;
 using GaleShockTrooper.Modules.Characters;
-using GaleShockTrooper.Survivors.GaleShockTrooper.Components;
-using GaleShockTrooper.Survivors.GaleShockTrooper.SkillStates;
 using R2API;
 using RoR2;
 using RoR2.Skills;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace GaleShockTrooper.Survivors.GaleShockTrooper
 {
@@ -70,9 +69,9 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooper
             }
         };
 
-        public override UnlockableDef characterUnlockableDef => HenryContent.CharacterUnlockables.characterUnlockableDef;
+        public override UnlockableDef characterUnlockableDef => Content.CharacterUnlockables.characterUnlockableDef;
         
-        public override ItemDisplaysBase itemDisplays => new HenryContent.CharacterItemDisplaySetup();
+        public override ItemDisplaysBase itemDisplays => new Content.CharacterItemDisplaySetup();
 
         //set in base classes
         public override AssetBundle assetBundle { get; protected set; }
@@ -99,7 +98,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooper
         public override void InitializeCharacter()
         {
             //need the character unlockable before you initialize the survivordef
-            HenryContent.CharacterUnlockables.Init();
+            Content.CharacterUnlockables.Init();
             
             //the magic. creating your survivor
             base.InitializeCharacterBodyPrefab();
@@ -107,15 +106,14 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooper
             base.InitializeDisplayPrefab();
             base.InitializeSurvivor();
 
-            HenryContent.CharacterStates.Init();
-            HenryContent.CharacterBuffs.Init(assetBundle);
-            HenryContent.CharacterDots.Init();
-            HenryContent.CharacterDamageTypes.Init();
+            Content.CharacterBuffs.Init(assetBundle);
+            Content.CharacterDots.Init();
+            Content.CharacterDamageTypes.Init();
 
-            HenryContent.CharacterConfig.Init();
-            HenryContent.CharacterTokens.Init();
+            Content.CharacterConfig.Init();
+            Content.CharacterTokens.Init();
 
-            HenryContent.CharacterAssets.Init(assetBundle);
+            Content.CharacterAssets.Init(assetBundle);
 
             InitializeEntityStateMachines();
             InitializeSkills();
@@ -130,9 +128,6 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooper
         private void AdditionalBodySetup()
         {
             AddHitBoxes();
-            bodyPrefab.AddComponent<HenryWeaponComponent>();
-            //bodyPrefab.AddComponent<HuntressTrackerComopnent>();
-            //anything else here
         }
 
         public void AddHitBoxes()
@@ -226,129 +221,25 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooper
         private void AddPrimarySkills()
         {
             Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, SkillSlot.Primary);
-
-            //the primary skill is created using a constructor for a typical primary
-            //it is also a SteppedSkillDef. Custom Skilldefs are very useful for custom behaviors related to casting a skill. see ror2's different skilldefs for reference
-            SteppedSkillDef primarySkillDef1 = Skills.CreateSkillDef<SteppedSkillDef>(new SkillDefInfo
-                (
-                    "HenrySlash",
-                    TOKEN_PREFIX + "PRIMARY_SLASH_NAME",
-                    TOKEN_PREFIX + "PRIMARY_SLASH_DESCRIPTION",
-                    assetBundle.LoadAsset<Sprite>("texPrimaryIcon"),
-                    new EntityStates.SerializableEntityStateType(typeof(SkillStates.SlashCombo)),
-                    "Weapon",
-                    true
-                ));
-            //custom Skilldefs can have additional fields that you can set manually
-            primarySkillDef1.stepCount = 2;
-            primarySkillDef1.stepGraceDuration = 0.5f;
-
-            Skills.AddPrimarySkills(bodyPrefab, primarySkillDef1);
+            Skills.AddPrimarySkills(bodyPrefab, Addressables.LoadAssetAsync<SkillDef>("RoR2/Base/Heretic/HereticDefaultAbility.asset").WaitForCompletion());
         }
 
         private void AddSecondarySkills()
         {
             Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, SkillSlot.Secondary);
-
-            //here is a basic skill def with all fields accounted for
-            SkillDef secondarySkillDef1 = Skills.CreateSkillDef(new SkillDefInfo
-            {
-                skillName = "HenryGun",
-                skillNameToken = TOKEN_PREFIX + "SECONDARY_GUN_NAME",
-                skillDescriptionToken = TOKEN_PREFIX + "SECONDARY_GUN_DESCRIPTION",
-                keywordTokens = new string[] { "KEYWORD_AGILE" },
-                skillIcon = assetBundle.LoadAsset<Sprite>("texSecondaryIcon"),
-
-                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Shoot)),
-                activationStateMachineName = "Weapon2",
-                interruptPriority = EntityStates.InterruptPriority.Skill,
-
-                baseRechargeInterval = 1f,
-                baseMaxStock = 1,
-
-                rechargeStock = 1,
-                requiredStock = 1,
-                stockToConsume = 1,
-
-                resetCooldownTimerOnUse = false,
-                fullRestockOnAssign = true,
-                dontAllowPastMaxStocks = false,
-                mustKeyPress = false,
-                beginSkillCooldownOnSkillEnd = false,
-
-                isCombatSkill = true,
-                canceledFromSprinting = false,
-                cancelSprintingOnActivation = false,
-                forceSprintDuringState = false,
-
-            });
-
-            Skills.AddSecondarySkills(bodyPrefab, secondarySkillDef1);
+            Skills.AddSecondarySkills(bodyPrefab, Addressables.LoadAssetAsync<SkillDef>("RoR2/Base/Heretic/HereticDefaultAbility.asset").WaitForCompletion());
         }
 
         private void AddUtiitySkills()
         {
             Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, SkillSlot.Utility);
-
-            //here's a skilldef of a typical movement skill.
-            SkillDef utilitySkillDef1 = Skills.CreateSkillDef(new SkillDefInfo
-            {
-                skillName = "HenryRoll",
-                skillNameToken = TOKEN_PREFIX + "UTILITY_ROLL_NAME",
-                skillDescriptionToken = TOKEN_PREFIX + "UTILITY_ROLL_DESCRIPTION",
-                skillIcon = assetBundle.LoadAsset<Sprite>("texUtilityIcon"),
-
-                activationState = new EntityStates.SerializableEntityStateType(typeof(Roll)),
-                activationStateMachineName = "Body",
-                interruptPriority = EntityStates.InterruptPriority.PrioritySkill,
-
-                baseRechargeInterval = 4f,
-                baseMaxStock = 1,
-
-                rechargeStock = 1,
-                requiredStock = 1,
-                stockToConsume = 1,
-
-                resetCooldownTimerOnUse = false,
-                fullRestockOnAssign = true,
-                dontAllowPastMaxStocks = false,
-                mustKeyPress = false,
-                beginSkillCooldownOnSkillEnd = false,
-
-                isCombatSkill = false,
-                canceledFromSprinting = false,
-                cancelSprintingOnActivation = false,
-                forceSprintDuringState = true,
-            });
-
-            Skills.AddUtilitySkills(bodyPrefab, utilitySkillDef1);
+            Skills.AddUtilitySkills(bodyPrefab, Addressables.LoadAssetAsync<SkillDef>("RoR2/Base/Heretic/HereticDefaultAbility.asset").WaitForCompletion());
         }
 
         private void AddSpecialSkills()
         {
             Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, SkillSlot.Special);
-
-            //a basic skill. some fields are omitted and will just have default values
-            SkillDef specialSkillDef1 = Skills.CreateSkillDef(new SkillDefInfo
-            {
-                skillName = "HenryBomb",
-                skillNameToken = TOKEN_PREFIX + "SPECIAL_BOMB_NAME",
-                skillDescriptionToken = TOKEN_PREFIX + "SPECIAL_BOMB_DESCRIPTION",
-                skillIcon = assetBundle.LoadAsset<Sprite>("texSpecialIcon"),
-
-                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.ThrowBomb)),
-                //setting this to the "weapon2" EntityStateMachine allows us to cast this skill at the same time primary, which is set to the "weapon" EntityStateMachine
-                activationStateMachineName = "Weapon2",
-                interruptPriority = EntityStates.InterruptPriority.Skill,
-
-                baseMaxStock = 1,
-                baseRechargeInterval = 10f,
-
-                isCombatSkill = true,
-                mustKeyPress = false,
-            });
-
-            Skills.AddSpecialSkills(bodyPrefab, specialSkillDef1);
+            Skills.AddSpecialSkills(bodyPrefab, Addressables.LoadAssetAsync<SkillDef>("RoR2/Base/Heretic/HereticDefaultAbility.asset").WaitForCompletion());
         }
         #endregion skills
         
@@ -433,7 +324,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooper
             //Modules.Prefabs.CloneDopplegangerMaster(bodyPrefab, masterName, "Merc");
 
             //how to set up AI in code
-            HenryContent.CharacterAI.Init(bodyPrefab, masterName);
+            Content.CharacterAI.Init(bodyPrefab, masterName);
 
             //how to load a master set up in unity, can be an empty gameobject with just AISkillDriver components
             //assetBundle.LoadMaster(bodyPrefab, masterName);
@@ -441,27 +332,6 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooper
 
         private void AddHooks()
         {
-            R2API.RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
-
-            On.RoR2.HealthComponent.TakeDamageProcess += HealthComponent_TakeDamageProcess;
-        }
-
-        private void HealthComponent_TakeDamageProcess(On.RoR2.HealthComponent.orig_TakeDamageProcess orig, HealthComponent self, DamageInfo damageInfo)
-        {
-            orig(self, damageInfo);
-            if(!damageInfo.rejected && damageInfo.HasModdedDamageType(HenryContent.CharacterDamageTypes.comboFinisherDebuffDamage))
-            {
-                DotController.InflictDot(self.gameObject, damageInfo.attacker, HenryContent.CharacterDots.comboFinisherDot, 4, 1);
-            }
-        }
-
-        private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, R2API.RecalculateStatsAPI.StatHookEventArgs args)
-        {
-
-            if (sender.HasBuff(HenryContent.CharacterBuffs.armorBuff))
-            {
-                args.armorAdd += 300;
-            }
         }
     }
 }

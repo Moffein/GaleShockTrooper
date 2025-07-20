@@ -2,7 +2,7 @@
 using GaleShockTrooper.Modules;
 using GaleShockTrooper.Survivors.GaleShockTrooper.Achievements;
 
-namespace GaleShockTrooper.Survivors.GaleShockTrooper.HenryContent
+namespace GaleShockTrooper.Survivors.GaleShockTrooper.Content
 {
     public static class CharacterTokens
     {
@@ -43,26 +43,6 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooper.HenryContent
             #region Passive
             Language.Add(prefix + "PASSIVE_NAME", "Henry passive");
             Language.Add(prefix + "PASSIVE_DESCRIPTION", "Sample text.");
-            #endregion
-
-            #region Primary
-            Language.Add(prefix + "PRIMARY_SLASH_NAME", "Sword");
-            Language.Add(prefix + "PRIMARY_SLASH_DESCRIPTION", Modules.Tokens.agilePrefix + $"Swing forward for <style=cIsDamage>{100f * HenryContent.CharacterStaticValues.swordDamageCoefficient}% damage</style>.");
-            #endregion
-
-            #region Secondary
-            Language.Add(prefix + "SECONDARY_GUN_NAME", "Handgun");
-            Language.Add(prefix + "SECONDARY_GUN_DESCRIPTION", Modules.Tokens.agilePrefix + $"Fire a handgun for <style=cIsDamage>{100f * HenryContent.CharacterStaticValues.gunDamageCoefficient}% damage</style>.");
-            #endregion
-
-            #region Utility
-            Language.Add(prefix + "UTILITY_ROLL_NAME", "Roll");
-            Language.Add(prefix + "UTILITY_ROLL_DESCRIPTION", "Roll a short distance, gaining <style=cIsUtility>300 armor</style>. <style=cIsUtility>You cannot be hit during the roll.</style>");
-            #endregion
-
-            #region Special
-            Language.Add(prefix + "SPECIAL_BOMB_NAME", "Bomb");
-            Language.Add(prefix + "SPECIAL_BOMB_DESCRIPTION", $"Throw a bomb for <style=cIsDamage>{100f * HenryContent.CharacterStaticValues.bombDamageCoefficient}% damage</style>.");
             #endregion
 
             #region Achievements

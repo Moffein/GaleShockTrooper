@@ -2,7 +2,7 @@
 using RoR2;
 using UnityEngine;
 
-namespace GaleShockTrooper.Survivors.GaleShockTrooper.HenryContent
+namespace GaleShockTrooper.Survivors.GaleShockTrooper.Content
 {
     public static class CharacterUnlockables
     {
