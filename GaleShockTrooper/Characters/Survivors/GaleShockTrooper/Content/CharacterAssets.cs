@@ -3,6 +3,9 @@ using UnityEngine;
 using GaleShockTrooper.Modules;
 using System;
 using RoR2.Projectile;
+using R2API;
+using System.IO;
+using BepInEx;
 
 namespace GaleShockTrooper.Survivors.GaleShockTrooper.HenryContent
 {
@@ -25,12 +28,24 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooper.HenryContent
         public static void Init(AssetBundle assetBundle)
         {
             _assetBundle = assetBundle;
+            LoadSounds();
 
             swordHitSoundEvent = Modules.Content.CreateAndAddNetworkSoundEventDef("HenrySwordHit");
 
             CreateEffects();
 
             CreateProjectiles();
+        }
+
+        private static void LoadSounds()
+        {
+            using (Stream manifestResourceStream = new FileStream(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(GaleShockTrooperPlugin.instance.Info.Location), "SoundBanks")
+                + "\\GaleShockTrooperSoundbank.bnk", FileMode.Open))
+            {
+                byte[] array = new byte[manifestResourceStream.Length];
+                manifestResourceStream.Read(array, 0, array.Length);
+                SoundAPI.SoundBanks.Add(array);
+            }
         }
 
         #region effects
