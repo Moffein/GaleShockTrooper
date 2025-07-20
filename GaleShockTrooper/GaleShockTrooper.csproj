@@ -37,6 +37,12 @@
 		<PackageReference Include="R2API.DamageType" Version="1.*" />
 		<PackageReference Include="R2API.Dot" Version="1.*" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="ShaderSwapper">
+	    <HintPath>..\libs\ShaderSwapper.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="if &quot;$(Username)&quot; == &quot;Lenovo&quot; set build=true&#xD;&#xA;copy &quot;$(TargetPath)&quot; &quot;$(ProjectDir)..\Build\plugins\GaleShockTrooper&quot;&#xD;&#xA;if exist &quot;$(ProjectDir)..\GaleShockTrooperUnityProject\AssetBundles\StandaloneWindows\galeshocktrooperassetbundle&quot; (&#xD;&#xA;copy &quot;$(ProjectDir)..\GaleShockTrooperUnityProject\AssetBundles\StandaloneWindows\galeshocktrooperassetbundle&quot; &quot;$(ProjectDir)..\Build\plugins\GaleShockTrooper\AssetBundles&quot;&#xD;&#xA;)&#xD;&#xA;if exist &quot;$(ProjectDir)..\GaleShockTrooperWWISE\GeneratedSoundBanks\Windows\GaleShockTrooperSoundbank.bnk&quot; (&#xD;&#xA;copy &quot;$(ProjectDir)..\GaleShockTrooperWWISE\GeneratedSoundBanks\Windows\GaleShockTrooperSoundbank.bnk&quot; &quot;$(ProjectDir)..\Build\plugins\GaleShockTrooper\Soundbanks&quot;&#xD;&#xA;)" />
   </Target>

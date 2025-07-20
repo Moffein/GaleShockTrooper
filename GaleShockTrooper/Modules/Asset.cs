@@ -35,6 +35,7 @@ namespace GaleShockTrooper.Modules
             try
             {
                 assetBundle = AssetBundle.LoadFromFile(Path.Combine(Path.GetDirectoryName(GaleShockTrooperPlugin.instance.Info.Location), "AssetBundles", bundleName));
+                ShaderSwapper.ShaderSwapper.UpgradeStubbedShaders(assetBundle);
             }
             catch (System.Exception e)
             {
