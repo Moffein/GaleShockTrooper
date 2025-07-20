@@ -3,9 +3,29 @@ guid: 5cf8f3ba84531e84598e96e8a36ed746
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: trooper_01
+    second: {fileID: 2100000, guid: 7cc597ee0c9f8ef45a7f06bc6d1ff373, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: trooper_backpack
+    second: {fileID: 2100000, guid: f2c4ff5cbb3c3344881aff4d50ce1c96, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: trooper_body
+    second: {fileID: 2100000, guid: 1da06fb1b24e5bb4ebe3c6a81e3f8cfe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: trooper_weapon
+    second: {fileID: 2100000, guid: dcfbf9cea21805645ab35d750459f2b5, type: 2}
   materials:
-    materialImportMode: 1
+    materialImportMode: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 1
