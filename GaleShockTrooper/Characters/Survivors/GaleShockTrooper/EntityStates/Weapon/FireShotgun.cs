@@ -6,13 +6,13 @@ namespace EntityStates.GaleShockTrooper.Weapon
 {
     public class FireShotgun : BaseState
     {
-        public static float maxRange = 200f;
+        public static float maxRange = 60f;
         public static uint pelletCount = 5;
-        public static float damageCoefficient = 0.5f;
+        public static float damageCoefficient = 0.6f;
         public static float procCoefficient = 0.6f;
-        public static float baseDuration = 0.25f;
+        public static float baseDuration = 0.3f;
         public static float force = 100f;
-        public static float spread = 2f;
+        public static float spread = 3f;
         public static float recoil = 1f;
         public static GameObject hitEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/HitsparkCommandoShotgun.prefab").WaitForCompletion();
         public static GameObject tracerEffectPrefab;
@@ -57,7 +57,7 @@ namespace EntityStates.GaleShockTrooper.Weapon
 
             }
             AddRecoil(-recoil, recoil, -0.5f * recoil, 0.5f * recoil);
-            characterBody.AddSpreadBloom(1f);
+            characterBody.AddSpreadBloom(0.4f);
 
             characterBody.SetAimTimer(2f);
         }

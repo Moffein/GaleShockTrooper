@@ -42,14 +42,14 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooper
             bodyColor = Color.white,
             sortPosition = 100,
 
-            crosshair = Asset.LoadCrosshair("Standard"),
+            crosshair = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Toolbot/SMGCrosshair.prefab").WaitForCompletion(),
             podPrefab = LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/SurvivorPod"),
 
             maxHealth = 110f,
             healthRegen = 1.5f,
             armor = 0f,
 
-            jumpCount = 1,
+            jumpCount = 1
         };
 
         public override CustomRendererInfo[] customRendererInfos => new CustomRendererInfo[]
@@ -127,13 +127,23 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooper
 
         private void AdditionalBodySetup()
         {
-            AddHitBoxes();
-        }
-
-        public void AddHitBoxes()
-        {
-            //example of how to create a HitBoxGroup. see summary for more details
-            Prefabs.SetupHitBoxGroup(characterModelObject, "SwordGroup", "SwordHitbox");
+            CharacterBody body = bodyPrefab.GetComponent<CharacterBody>();
+            body.spreadBloomCurve = new AnimationCurve()
+            {
+                keys = new Keyframe[]
+                {
+                     new Keyframe()
+                     {
+                         time = 0f,
+                         value = 1.5f
+                     },
+                     new Keyframe()
+                     {
+                         time = 1f,
+                         value = 3f
+                     },
+                }
+            };
         }
 
         public override void InitializeEntityStateMachines() 
