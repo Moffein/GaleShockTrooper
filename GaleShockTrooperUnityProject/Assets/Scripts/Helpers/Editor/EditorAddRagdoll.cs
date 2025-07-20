@@ -36,16 +36,16 @@ public class EditorAddRagdoll {
         CapsuleCollider collider = Undo.AddComponent<CapsuleCollider>(bone.gameObject);
         Undo.RegisterCreatedObjectUndo(collider, "getting boned");
 
-        collider.radius = 0.1f/ 126.0706f;
+        collider.radius = 0.1f / 1.27f;
 
         if (bone.childCount < 1) {
-            collider.height = 0.2f/ 126.0706f;
+            collider.height = 0.2f / 1.27f;
             return;
         }
 
         Transform child = bone.GetChild(0);
-        collider.height = child.localPosition.y * 0.9f / 126.0706f;
-        collider.center = new Vector3(0, child.localPosition.y * 0.5f);
+        collider.height = child.localPosition.y * 0.9f / 1.27f;
+        collider.center = new Vector3(0, child.localPosition.y * 0.5f / 1.27f);
     }
     
     private static void CreateRigidBody(Transform bone) {
