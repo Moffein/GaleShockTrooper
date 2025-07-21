@@ -48,6 +48,9 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooper.Content
             Language.Add(prefix + "PRIMARY_NAME", "PRD-12 Auto Shotgun");
             Language.Add(prefix + "PRIMARY_DESCRIPTION", "Fire a shotgun blast for <style=cIsDamage>5x60%</style> damage.");
 
+            Language.Add(prefix + "UTILITY_NAME", "Overdrive");
+            Language.Add(prefix + "UTILITY_DESCRIPTION", "<style=cIsDamage>Shocking</style>. <style=cIsUtility>Dash</style> a short distance while electrocuting nearby enemies for <style=cIsDamage>100% damage</style>.");
+
             #region Achievements
             Language.Add(Modules.Tokens.GetAchievementNameToken(MasteryAchievement.identifier), "Henry: Mastery");
             Language.Add(Modules.Tokens.GetAchievementDescriptionToken(MasteryAchievement.identifier), "As Henry, beat the game or obliterate on Monsoon.");

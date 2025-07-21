@@ -232,10 +232,10 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooper
         {
             Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, SkillSlot.Primary);
 
-            Modules.Content.AddEntityState(typeof(EntityStates.GaleShockTrooper.Weapon.FireShotgun));
+            Modules.Content.AddEntityState(typeof(EntityStates.GaleShockTrooperStates.Weapon.FireShotgun));
             Skills.AddPrimarySkills(bodyPrefab, Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                activationState = new EntityStates.SerializableEntityStateType(typeof(EntityStates.GaleShockTrooper.Weapon.FireShotgun)),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(EntityStates.GaleShockTrooperStates.Weapon.FireShotgun)),
                 stockToConsume = 1,
                 baseRechargeInterval = 0f,
                 rechargeStock = 1,
@@ -254,7 +254,8 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooper
                 skillDescriptionToken = TOKEN_PREFIX + "PRIMARY_DESCRIPTION",
                 mustKeyPress = false,
                 resetCooldownTimerOnUse = false,
-                skillName = "GaleShockTrooper_AutoShotgun"
+                skillName = "GaleShockTrooper_AutoShotgun",
+                skillIcon = Addressables.LoadAssetAsync<SkillDef>("RoR2/Base/Commando/CommandoBodyFireShotgunBlast.asset").WaitForCompletion().icon
             }));
         }
 
@@ -267,7 +268,39 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooper
         private void AddUtiitySkills()
         {
             Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, SkillSlot.Utility);
-            Skills.AddUtilitySkills(bodyPrefab, Addressables.LoadAssetAsync<SkillDef>("RoR2/Base/Heretic/HereticDefaultAbility.asset").WaitForCompletion());
+            Modules.Content.AddEntityState(typeof(EntityStates.GaleShockTrooperStates.Dash.EnterShockDash));
+            Modules.Content.AddEntityState(typeof(EntityStates.GaleShockTrooperStates.Dash.ShockDashBase));
+            Modules.Content.AddEntityState(typeof(EntityStates.GaleShockTrooperStates.Dash.ShockDashR));
+            Modules.Content.AddEntityState(typeof(EntityStates.GaleShockTrooperStates.Dash.ShockDashL));
+            Modules.Content.AddEntityState(typeof(EntityStates.GaleShockTrooperStates.Dash.ShockDashB));
+            Skills.AddUtilitySkills(bodyPrefab, Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                activationState = new EntityStates.SerializableEntityStateType(typeof(EntityStates.GaleShockTrooperStates.Dash.EnterShockDash)),
+                stockToConsume = 1,
+                baseRechargeInterval = 5f,
+                rechargeStock = 1,
+                activationStateMachineName = "Body",
+                cancelSprintingOnActivation = false,
+                fullRestockOnAssign = true,
+                dontAllowPastMaxStocks = false,
+                baseMaxStock = 1,
+                beginSkillCooldownOnSkillEnd = false,
+                forceSprintDuringState = true,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                isCombatSkill = false,
+                canceledFromSprinting = false,
+                requiredStock = 1,
+                skillNameToken = TOKEN_PREFIX + "UTILITY_NAME",
+                skillDescriptionToken = TOKEN_PREFIX + "UTILITY_DESCRIPTION",
+                mustKeyPress = false,
+                resetCooldownTimerOnUse = false,
+                skillName = "GaleShockTrooper_ShockDash",
+                keywordTokens = new string[]
+                {
+                    "KEYWORD_SHOCKING"
+                },
+                skillIcon = Addressables.LoadAssetAsync<SkillDef>("RoR2/Base/Huntress/HuntressBodyBlink.asset").WaitForCompletion().icon
+            }));
         }
 
         private void AddSpecialSkills()

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace EntityStates.GaleShockTrooper.Weapon
+namespace EntityStates.GaleShockTrooperStates.Weapon
 {
     public class FireShotgun : BaseState
     {
@@ -58,7 +58,6 @@ namespace EntityStates.GaleShockTrooper.Weapon
             }
             AddRecoil(-recoil, recoil, -0.5f * recoil, 0.5f * recoil);
             characterBody.AddSpreadBloom(0.4f);
-
             characterBody.SetAimTimer(2f);
         }
 
