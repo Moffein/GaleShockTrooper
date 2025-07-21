@@ -7,7 +7,7 @@ namespace EntityStates.GaleShockTrooperStates.Weapon
 {
     public class FireRicochetSlug : BaseState
     {
-        public static float ricochetRange = 60f;
+        public static float ricochetRange = 45f;
         public static float damageCoefficient = 10f;
         public static float baseDuration = 0.6f;
         public static float force = 2000f;

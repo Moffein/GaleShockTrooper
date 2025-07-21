@@ -5347,10 +5347,18 @@ MonoBehaviour:
   transformPairs:
   - name: MainHurtbox
     transform: {fileID: 8399329506545387212}
+  - name: Armor
+    transform: {fileID: 324300436919949110}
+  - name: Back
+    transform: {fileID: 7107835098204696424}
+  - name: Body
+    transform: {fileID: 4713921932468697572}
+  - name: Drone
+    transform: {fileID: 1266164581481619538}
+  - name: GunRender
+    transform: {fileID: 8424376074508523882}
   - name: Head
     transform: {fileID: 8570175777143991790}
-  - name: Gun
-    transform: {fileID: 7833078016871015912}
   - name: Muzzle
     transform: {fileID: 8399329507215738934}
 --- !u!114 &8173347870035828618

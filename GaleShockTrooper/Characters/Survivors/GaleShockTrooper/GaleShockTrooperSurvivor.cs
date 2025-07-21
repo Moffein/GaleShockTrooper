@@ -56,16 +56,28 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
         {
             new CustomRendererInfo
             {
-                childName = "SwordModel",
-                material = assetBundle.LoadMaterial("matHenry"),
+                childName = "Armor",
+                material = assetBundle.LoadMaterial("matTrooper01"),
             },
             new CustomRendererInfo
             {
-                childName = "GunModel",
+                childName = "Back",
+                material = assetBundle.LoadMaterial("matTrooperBackpack"),
             },
             new CustomRendererInfo
             {
-                childName = "Model",
+                childName = "Body",
+                material = assetBundle.LoadMaterial("matTrooper01"),
+            },
+            new CustomRendererInfo
+            {
+                childName = "Drone",
+                material = assetBundle.LoadMaterial("matTrooper01"),
+            },
+            new CustomRendererInfo
+            {
+                childName = "GunRender",
+                material = assetBundle.LoadMaterial("matTrooperWeapon"),
             }
         };
 
