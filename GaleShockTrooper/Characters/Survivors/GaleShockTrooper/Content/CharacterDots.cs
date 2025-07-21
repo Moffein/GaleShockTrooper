@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GaleShockTrooper.Survivors.GaleShockTrooper.Content
+namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
 {
     public class CharacterDots
     {

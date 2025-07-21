@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace GaleShockTrooper.Survivors.GaleShockTrooper
+namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
 {
     public class GaleShockTrooperSurvivor : SurvivorBase<GaleShockTrooperSurvivor>
     {
@@ -306,7 +306,31 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooper
         private void AddSpecialSkills()
         {
             Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, SkillSlot.Special);
-            Skills.AddSpecialSkills(bodyPrefab, Addressables.LoadAssetAsync<SkillDef>("RoR2/Base/Heretic/HereticDefaultAbility.asset").WaitForCompletion());
+            Modules.Content.AddEntityState(typeof(EntityStates.GaleShockTrooperStates.Weapon.FireRicochetSlug));
+            Skills.AddSpecialSkills(bodyPrefab, Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                activationState = new EntityStates.SerializableEntityStateType(typeof(EntityStates.GaleShockTrooperStates.Weapon.FireRicochetSlug)),
+                stockToConsume = 1,
+                baseRechargeInterval = 7f,
+                rechargeStock = 1,
+                activationStateMachineName = "Weapon",
+                cancelSprintingOnActivation = true,
+                fullRestockOnAssign = true,
+                dontAllowPastMaxStocks = false,
+                baseMaxStock = 1,
+                beginSkillCooldownOnSkillEnd = false,
+                forceSprintDuringState = false,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                isCombatSkill = true,
+                canceledFromSprinting = false,
+                requiredStock = 1,
+                skillNameToken = TOKEN_PREFIX + "SPECIAL_NAME",
+                skillDescriptionToken = TOKEN_PREFIX + "SPECIAL_DESCRIPTION",
+                mustKeyPress = false,
+                resetCooldownTimerOnUse = false,
+                skillName = "GaleShockTrooper_RicochetSlug",
+                skillIcon = Addressables.LoadAssetAsync<SkillDef>("RoR2/Base/Bandit2/Bandit2Blast.asset").WaitForCompletion().icon
+            }));
         }
         #endregion skills
         

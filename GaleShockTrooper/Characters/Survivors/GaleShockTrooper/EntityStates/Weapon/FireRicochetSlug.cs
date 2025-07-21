@@ -1,22 +1,24 @@
-﻿using RoR2;
+﻿using R2API;
+using RoR2;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 namespace EntityStates.GaleShockTrooperStates.Weapon
 {
-    public class FireShotgun : BaseState
+    public class FireRicochetSlug : BaseState
     {
-        public static float maxRange = 80f;
-        public static uint pelletCount = 5;
-        public static float damageCoefficient = 0.6f;
-        public static float procCoefficient = 0.6f;
-        public static float baseDuration = 0.3f;
-        public static float force = 100f;
-        public static float spread = 3f;
-        public static float recoil = 1f;
-        public static GameObject hitEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/HitsparkCommandoShotgun.prefab").WaitForCompletion();
+        public static float ricochetRange = 60f;
+        public static float damageCoefficient = 10f;
+        public static float baseDuration = 0.6f;
+        public static float force = 2000f;
+        public static float recoil = 3f;
+        public static int ricochetCount = 9;
+
+        public static GameObject hitEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/Railgunner/ImpactRailgun.prefab").WaitForCompletion();
         public static GameObject tracerEffectPrefab;
-        public static GameObject muzzleflashEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/MuzzleflashFMJ.prefab").WaitForCompletion();
+        public static GameObject muzzleflashEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Bandit2/MuzzleflashBandit2.prefab").WaitForCompletion();
+        public static GameObject orbEffectPrefab;
+        public static GameObject ricochetImpactEffect;
 
         private float duration;
 
@@ -25,23 +27,23 @@ namespace EntityStates.GaleShockTrooperStates.Weapon
             base.OnEnter();
             duration = baseDuration / attackSpeedStat;
 
-            Util.PlaySound("Play_bandit2_m1_shotgun", gameObject);
+            Util.PlaySound("Play_bandit_M2_shot", gameObject);
             EffectManager.SimpleMuzzleFlash(muzzleflashEffectPrefab, gameObject, "Muzzle", false);
-            PlayAnimation("Gesture, Additive", "ShootGun", "Shootgun.playbackRate", duration);
+            PlayAnimation("Gesture, Additive", "ShootSlug", "Shootgun.playbackRate", duration);
 
             if (isAuthority)
             {
                 Ray aimRay = GetAimRay();
-                new BulletAttack
+                BulletAttack ba = new BulletAttack
                 {
                     damage = damageStat * damageCoefficient,
                     procChainMask = default,
-                    procCoefficient = procCoefficient,
-                    maxDistance = maxRange,
+                    procCoefficient = 1f,
+                    maxDistance = 2000f,
                     hitEffectPrefab = hitEffectPrefab,
                     tracerEffectPrefab = tracerEffectPrefab,
-                    bulletCount = pelletCount,
-                    damageType = DamageTypeCombo.GenericPrimary,
+                    bulletCount = 1,
+                    damageType = DamageTypeCombo.GenericSpecial,
                     falloffModel = BulletAttack.FalloffModel.DefaultBullet,
                     force = force,
                     isCrit = RollCrit(),
@@ -49,11 +51,14 @@ namespace EntityStates.GaleShockTrooperStates.Weapon
                     aimVector = aimRay.direction,
                     origin = aimRay.origin,
                     minSpread = 0f,
-                    maxSpread = spread,
+                    maxSpread = 0f,
                     owner = gameObject,
-                    radius = 0.3f,
+                    radius = 2f,
                     smartCollision = true
-                }.Fire();
+                };
+                ba.damageType.AddModdedDamageType(GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content.CharacterDamageTypes.SpecialSlugProc);
+                ba.damageType.AddModdedDamageType(GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content.CharacterDamageTypes.SpecialSlugVisual);
+                ba.Fire();
 
             }
             AddRecoil(-recoil, recoil, -0.5f * recoil, 0.5f * recoil);
@@ -72,7 +77,7 @@ namespace EntityStates.GaleShockTrooperStates.Weapon
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.Skill;
+            return InterruptPriority.PrioritySkill;
         }
     }
 }

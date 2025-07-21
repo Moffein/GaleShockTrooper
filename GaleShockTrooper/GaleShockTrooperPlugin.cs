@@ -1,5 +1,5 @@
 ﻿using BepInEx;
-using GaleShockTrooper.Survivors.GaleShockTrooper;
+using GaleShockTrooper.Survivors.GaleShockTrooperSurvivor;
 using R2API.Utils;
 using RoR2;
 using System.Collections.Generic;

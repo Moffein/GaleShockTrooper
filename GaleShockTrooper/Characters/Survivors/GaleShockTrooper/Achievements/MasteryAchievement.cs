@@ -1,7 +1,7 @@
 ﻿using RoR2;
 using GaleShockTrooper.Modules.Achievements;
 
-namespace GaleShockTrooper.Survivors.GaleShockTrooper.Achievements
+namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Achievements
 {
     //automatically creates language tokens "ACHIEVMENT_{identifier.ToUpper()}_NAME" and "ACHIEVMENT_{identifier.ToUpper()}_DESCRIPTION" 
     [RegisterAchievement(identifier, unlockableIdentifier, null, 10, null)]

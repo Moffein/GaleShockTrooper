@@ -11,7 +11,7 @@ using UnityEngine;
                     {localScale})
 */
 
-namespace GaleShockTrooper.Survivors.GaleShockTrooper.Content
+namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
 {
     public class CharacterItemDisplaySetup : ItemDisplaysBase
     {

@@ -1,8 +1,8 @@
-﻿using GaleShockTrooper.Survivors.GaleShockTrooper.Achievements;
+﻿using GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Achievements;
 using RoR2;
 using UnityEngine;
 
-namespace GaleShockTrooper.Survivors.GaleShockTrooper.Content
+namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
 {
     public static class CharacterUnlockables
     {

@@ -1,7 +1,7 @@
 ﻿using BepInEx.Configuration;
 using GaleShockTrooper.Modules;
 
-namespace GaleShockTrooper.Survivors.GaleShockTrooper.Content
+namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
 {
     public static class CharacterConfig
     {

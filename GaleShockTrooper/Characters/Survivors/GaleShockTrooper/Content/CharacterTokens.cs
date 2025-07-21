@@ -1,8 +1,8 @@
 ﻿using System;
 using GaleShockTrooper.Modules;
-using GaleShockTrooper.Survivors.GaleShockTrooper.Achievements;
+using GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Achievements;
 
-namespace GaleShockTrooper.Survivors.GaleShockTrooper.Content
+namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
 {
     public static class CharacterTokens
     {
@@ -50,6 +50,9 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooper.Content
 
             Language.Add(prefix + "UTILITY_NAME", "Overdrive");
             Language.Add(prefix + "UTILITY_DESCRIPTION", "<style=cIsDamage>Shocking</style>. <style=cIsUtility>Dash</style> a short distance while electrocuting nearby enemies for <style=cIsDamage>100% damage</style>.");
+
+            Language.Add(prefix + "SPECIAL_NAME", "Easy Prey");
+            Language.Add(prefix + "SPECIAL_DESCRIPTION", "Fire a slug for <style=cIsDamage>1000% damage</style>. Upon hitting an enemy, <style=cIsDamage>ricochets</style> to up to <style=cIsDamage>9</style> additional targets.");
 
             #region Achievements
             Language.Add(Modules.Tokens.GetAchievementNameToken(MasteryAchievement.identifier), "Henry: Mastery");
