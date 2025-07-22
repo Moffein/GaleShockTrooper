@@ -190,7 +190,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: cd646f1ee342d9a4aaed3edb0163b5da, type: 2}
+  m_Motion: {fileID: 7400000, guid: c978ffdda4c9ca64f8d949f8f2d36c0e, type: 2}
   m_Tag: 
   m_SpeedParameter: ShootGun.playbackRate
   m_MirrorParameter: 
@@ -580,7 +580,7 @@ BlendTree:
     m_DirectBlendParameter: forwardSpeed
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 86a44a733e0b4cc47877098c56e06f00, type: 2}
+    m_Motion: {fileID: 7400000, guid: f6abb49bea281b64fa68820d767ad770, type: 2}
     m_Threshold: 0.5
     m_Position: {x: -1, y: 0}
     m_TimeScale: 1
@@ -588,7 +588,7 @@ BlendTree:
     m_DirectBlendParameter: forwardSpeed
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 86a44a733e0b4cc47877098c56e06f00, type: 2}
+    m_Motion: {fileID: 7400000, guid: 6d56e305686970347960723c58ae59c6, type: 2}
     m_Threshold: 0.75
     m_Position: {x: 1, y: 0}
     m_TimeScale: 1
@@ -596,7 +596,7 @@ BlendTree:
     m_DirectBlendParameter: forwardSpeed
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 86a44a733e0b4cc47877098c56e06f00, type: 2}
+    m_Motion: {fileID: 7400000, guid: 7216f60a7ce57a143be32732afb0b90a, type: 2}
     m_Threshold: 1
     m_Position: {x: 0, y: -1}
     m_TimeScale: 1
