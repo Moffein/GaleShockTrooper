@@ -271,7 +271,33 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
         private void AddSecondarySkills()
         {
             Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, SkillSlot.Secondary);
-            Skills.AddSecondarySkills(bodyPrefab, Addressables.LoadAssetAsync<SkillDef>("RoR2/Base/Heretic/HereticDefaultAbility.asset").WaitForCompletion());
+            Modules.Content.AddEntityState(typeof(EntityStates.GaleShockTrooperStates.Weapon.MissilePainter.PaintMissiles));
+            SkillDef skillDef1 = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                activationState = new EntityStates.SerializableEntityStateType(typeof(EntityStates.GaleShockTrooperStates.Weapon.MissilePainter.PaintMissiles)),
+                stockToConsume = 0,
+                baseRechargeInterval = 2.5f,
+                rechargeStock = 1,
+                activationStateMachineName = "Weapon",
+                cancelSprintingOnActivation = true,
+                fullRestockOnAssign = true,
+                dontAllowPastMaxStocks = true,
+                baseMaxStock = 1,
+                beginSkillCooldownOnSkillEnd = false,
+                forceSprintDuringState = false,
+                interruptPriority = EntityStates.InterruptPriority.PrioritySkill,
+                isCombatSkill = true,
+                canceledFromSprinting = false,
+                requiredStock = 1,
+                skillNameToken = TOKEN_PREFIX + "SECONDARY_NAME",
+                skillDescriptionToken = TOKEN_PREFIX + "SECONDARY_DESCRIPTION",
+                mustKeyPress = true,
+                resetCooldownTimerOnUse = false,
+                skillName = "GaleShockTrooper_MissilePainter",
+                skillIcon = Addressables.LoadAssetAsync<SkillDef>("RoR2/Base/Engi/EngiHarpoons.asset").WaitForCompletion().icon
+            });
+            Skills.AddSecondarySkills(bodyPrefab, skillDef1);
+            SkillDefs.Secondary_MicroMissile = skillDef1;
         }
 
         private void AddUtiitySkills()

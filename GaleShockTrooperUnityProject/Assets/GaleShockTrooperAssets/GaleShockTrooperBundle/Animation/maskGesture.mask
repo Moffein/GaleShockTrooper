@@ -15,97 +15,191 @@ AvatarMask:
     m_Weight: 0
   - m_Path: Armature/ROOT
     m_Weight: 0
-  - m_Path: Armature/ROOT/base
+  - m_Path: Armature/ROOT/BASE
     m_Weight: 0
-  - m_Path: Armature/ROOT/base/stomach
+  - m_Path: Armature/ROOT/BASE/IKHand.L
     m_Weight: 0
-  - m_Path: Armature/ROOT/base/stomach/chest
-    m_Weight: 1
-  - m_Path: Armature/ROOT/base/stomach/chest/head
-    m_Weight: 1
-  - m_Path: Armature/ROOT/base/stomach/chest/head/BandanaL
-    m_Weight: 1
-  - m_Path: Armature/ROOT/base/stomach/chest/head/BandanaL/BandanaL.002
-    m_Weight: 1
-  - m_Path: Armature/ROOT/base/stomach/chest/head/BandanaL/BandanaL.002/BandanaL.001
-    m_Weight: 1
-  - m_Path: Armature/ROOT/base/stomach/chest/head/BandanaL/BandanaL.002/BandanaL.001/BandanaL.003
-    m_Weight: 1
-  - m_Path: Armature/ROOT/base/stomach/chest/head/BandanaR.001
-    m_Weight: 1
-  - m_Path: Armature/ROOT/base/stomach/chest/head/BandanaR.001/BandanaR.003
-    m_Weight: 1
-  - m_Path: Armature/ROOT/base/stomach/chest/head/BandanaR.001/BandanaR.003/BandanaR.002
-    m_Weight: 1
-  - m_Path: Armature/ROOT/base/stomach/chest/head/BandanaR.001/BandanaR.003/BandanaR.002/BandanaR.004
-    m_Weight: 1
-  - m_Path: Armature/ROOT/base/stomach/chest/upper_arm.l
-    m_Weight: 1
-  - m_Path: Armature/ROOT/base/stomach/chest/upper_arm.l/lower_arm.l
-    m_Weight: 1
-  - m_Path: Armature/ROOT/base/stomach/chest/upper_arm.l/lower_arm.l/GunBase
-    m_Weight: 1
-  - m_Path: Armature/ROOT/base/stomach/chest/upper_arm.l/lower_arm.l/GunBase/GunTop
-    m_Weight: 1
-  - m_Path: Armature/ROOT/base/stomach/chest/upper_arm.l/lower_arm.l/hand.l
-    m_Weight: 1
-  - m_Path: Armature/ROOT/base/stomach/chest/upper_arm.r
-    m_Weight: 1
-  - m_Path: Armature/ROOT/base/stomach/chest/upper_arm.r/lower_arm.r
-    m_Weight: 1
-  - m_Path: Armature/ROOT/base/stomach/chest/upper_arm.r/lower_arm.r/hand.r
-    m_Weight: 1
-  - m_Path: Armature/ROOT/base/stomach/chest/upper_arm.r/lower_arm.r/SwordBase
-    m_Weight: 1
-  - m_Path: Armature/ROOT/base/stomach/chest/upper_arm.r/lower_arm.r/SwordBase/Sword.01
-    m_Weight: 1
-  - m_Path: Armature/ROOT/base/stomach/chest/upper_arm.r/lower_arm.r/SwordBase/Sword.01/Sword.02
-    m_Weight: 1
-  - m_Path: Armature/ROOT/base/stomach/chest/upper_arm.r/lower_arm.r/SwordBase/Sword.01/Sword.02/Sword.03
-    m_Weight: 1
-  - m_Path: Armature/ROOT/base/stomach/chest/upper_arm.r/lower_arm.r/SwordBase/Sword.01/Sword.02/Sword.03/Sword.04
-    m_Weight: 1
-  - m_Path: Armature/ROOT/base/stomach/chest/upper_arm.r/lower_arm.r/SwordBase/Sword.01/Sword.02/Sword.03/Sword.04/Sword.05
-    m_Weight: 1
-  - m_Path: Armature/ROOT/base/stomach/chest/upper_arm.r/lower_arm.r/SwordBase/Sword.01/Sword.02/Sword.03/Sword.04/Sword.05/Sword.06
-    m_Weight: 1
-  - m_Path: Armature/ROOT/base/stomach/chest/upper_arm.r/lower_arm.r/SwordBase/Sword.01/Sword.02/Sword.03/Sword.04/Sword.05/Sword.06/Sword.07
-    m_Weight: 1
-  - m_Path: Armature/ROOT/base/stomach/chest/upper_arm.r/lower_arm.r/SwordBase/Sword.01/Sword.02/Sword.03/Sword.04/Sword.05/Sword.06/Sword.07/SwordTip
-    m_Weight: 1
-  - m_Path: Armature/ROOT/base/stomach/thigh.l
+  - m_Path: Armature/ROOT/BASE/IKHand.L/armPT.L
     m_Weight: 0
-  - m_Path: Armature/ROOT/base/stomach/thigh.l/calf.l
+  - m_Path: Armature/ROOT/BASE/IKHand.R
     m_Weight: 0
-  - m_Path: Armature/ROOT/base/stomach/thigh.l/calf.l/foot.l
+  - m_Path: Armature/ROOT/BASE/IKHand.R/armPT.R
     m_Weight: 0
-  - m_Path: Armature/ROOT/base/stomach/thigh.r
+  - m_Path: Armature/ROOT/BASE/pelvis
     m_Weight: 0
-  - m_Path: Armature/ROOT/base/stomach/thigh.r/calf.r
+  - m_Path: Armature/ROOT/BASE/pelvis/hipguard.L
     m_Weight: 0
-  - m_Path: Armature/ROOT/base/stomach/thigh.r/calf.r/foot.r
+  - m_Path: Armature/ROOT/BASE/pelvis/hipguard.R
     m_Weight: 0
-  - m_Path: Armature/ROOT/ElbowIK.l
+  - m_Path: Armature/ROOT/BASE/pelvis/tail_0
     m_Weight: 0
-  - m_Path: Armature/ROOT/ElbowIK.r
+  - m_Path: Armature/ROOT/BASE/pelvis/tail_0/tail_1
     m_Weight: 0
-  - m_Path: Armature/ROOT/FootIK.l
+  - m_Path: Armature/ROOT/BASE/pelvis/tail_0/tail_1/tail_2
     m_Weight: 0
-  - m_Path: Armature/ROOT/FootIK.r
+  - m_Path: Armature/ROOT/BASE/pelvis/tail_0/tail_1/tail_2/tail_3
     m_Weight: 0
-  - m_Path: Armature/ROOT/HandIK.l
+  - m_Path: Armature/ROOT/BASE/pelvis/tail_0/tail_1/tail_2/tail_3/tail_4
     m_Weight: 0
-  - m_Path: Armature/ROOT/HandIK.r
+  - m_Path: Armature/ROOT/BASE/pelvis/thigh.L
     m_Weight: 0
-  - m_Path: Armature/ROOT/KneeIK.l
+  - m_Path: Armature/ROOT/BASE/pelvis/thigh.L/thigh.L.001
     m_Weight: 0
-  - m_Path: Armature/ROOT/KneeIK.r
+  - m_Path: Armature/ROOT/BASE/pelvis/thigh.L/thigh.L.001/shin.L
     m_Weight: 0
-  - m_Path: meshHenry
+  - m_Path: Armature/ROOT/BASE/pelvis/thigh.L/thigh.L.001/shin.L/foot.L
     m_Weight: 0
-  - m_Path: meshHenry.001
+  - m_Path: Armature/ROOT/BASE/pelvis/thigh.L/thigh.L.001/shin.L/foot.L/toe.L
     m_Weight: 0
-  - m_Path: MeshHenryGun
+  - m_Path: Armature/ROOT/BASE/pelvis/thigh.R
     m_Weight: 0
-  - m_Path: meshHenrySword
+  - m_Path: Armature/ROOT/BASE/pelvis/thigh.R/thigh.R.001
+    m_Weight: 0
+  - m_Path: Armature/ROOT/BASE/pelvis/thigh.R/thigh.R.001/shin.R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/BASE/pelvis/thigh.R/thigh.R.001/shin.R/foot.R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/BASE/pelvis/thigh.R/thigh.R.001/shin.R/foot.R/toe.R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/BASE/stomach
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/backpack
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/head
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/IKFK.R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.L/IKFK.L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.L/upper_arm.L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.L/upper_arm.L/forearm.L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.L/upper_arm.L/forearm.L/elbow_in.L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.L/upper_arm.L/forearm.L/elbow_out.L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.L/upper_arm.L/forearm.L/hand.L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.01.L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.01.L/f_index.01.L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.01.L/f_index.01.L/f_index.02.L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.01.L/f_index.01.L/f_index.02.L/f_index.03.L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.01.L/thumb.01.L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.01.L/thumb.01.L/thumb.02.L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.01.L/thumb.01.L/thumb.02.L/thumb.03.L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.02.L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.02.L/f_middle.01.L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.02.L/f_middle.01.L/f_middle.02.L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.02.L/f_middle.01.L/f_middle.02.L/f_middle.03.L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.03.L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.03.L/f_ring.01.L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.03.L/f_ring.01.L/f_ring.02.L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.L/upper_arm.L/forearm.L/hand.L/palm.03.L/f_ring.01.L/f_ring.02.L/f_ring.03.L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.L/upper_arm.L/forearm.L/handtwist.L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.L/upper_arm.L/upper_arm_twist.L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.R/upper_arm.R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.R/upper_arm.R/forearm.R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.R/upper_arm.R/forearm.R/elbow_in.R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.R/upper_arm.R/forearm.R/elbow_out.R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.R/upper_arm.R/forearm.R/hand.R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.R/upper_arm.R/forearm.R/hand.R/gun
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.R/upper_arm.R/forearm.R/hand.R/gun/gunplate.L
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.R/upper_arm.R/forearm.R/hand.R/gun/gunplate.R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.R/upper_arm.R/forearm.R/hand.R/palm.01.R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.R/upper_arm.R/forearm.R/hand.R/palm.01.R/f_index.01.R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.R/upper_arm.R/forearm.R/hand.R/palm.01.R/f_index.01.R/f_index.02.R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.R/upper_arm.R/forearm.R/hand.R/palm.01.R/f_index.01.R/f_index.02.R/f_index.03.R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.R/upper_arm.R/forearm.R/hand.R/palm.01.R/thumb.01.R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.R/upper_arm.R/forearm.R/hand.R/palm.01.R/thumb.01.R/thumb.02.R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.R/upper_arm.R/forearm.R/hand.R/palm.01.R/thumb.01.R/thumb.02.R/thumb.03.R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.R/upper_arm.R/forearm.R/hand.R/palm.02.R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.R/upper_arm.R/forearm.R/hand.R/palm.02.R/f_middle.01.R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.R/upper_arm.R/forearm.R/hand.R/palm.02.R/f_middle.01.R/f_middle.02.R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.R/upper_arm.R/forearm.R/hand.R/palm.02.R/f_middle.01.R/f_middle.02.R/f_middle.03.R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.R/upper_arm.R/forearm.R/hand.R/palm.03.R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.R/upper_arm.R/forearm.R/hand.R/palm.03.R/f_ring.01.R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.R/upper_arm.R/forearm.R/hand.R/palm.03.R/f_ring.01.R/f_ring.02.R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.R/upper_arm.R/forearm.R/hand.R/palm.03.R/f_ring.01.R/f_ring.02.R/f_ring.03.R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.R/upper_arm.R/forearm.R/handtwist.R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/BASE/stomach/spine/chest/shoulder.R/upper_arm.R/upper_arm_twist.R
+    m_Weight: 1
+  - m_Path: Armature/ROOT/FootBase.L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/FootBase.L/footroll.L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/FootBase.L/footroll.L/footIK.L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/FootBase.L/kneePT.L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/FootBase.L/toecontrol.L
+    m_Weight: 0
+  - m_Path: Armature/ROOT/FootBase.R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/FootBase.R/footroll.R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/FootBase.R/footroll.R/footIK.R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/FootBase.R/kneePT.R
+    m_Weight: 0
+  - m_Path: Armature/ROOT/FootBase.R/toecontrol.R
+    m_Weight: 0
+  - m_Path: trooper_armor
+    m_Weight: 0
+  - m_Path: trooper_back
+    m_Weight: 0
+  - m_Path: trooper_body
+    m_Weight: 0
+  - m_Path: trooper_drone
+    m_Weight: 0
+  - m_Path: trooper_gun
     m_Weight: 0
