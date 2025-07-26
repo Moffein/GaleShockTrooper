@@ -10,6 +10,31 @@ namespace GaleShockTrooper.Modules
 {
     internal static class Skills
     {
+        public static bool HasPassiveSkill(CharacterBody body, SkillDef skillDef)
+        {
+            if (body)
+            {
+                return HasPassiveSkill(body.skillLocator, skillDef);
+            }
+            return false;
+        }
+
+        public static bool HasPassiveSkill(SkillLocator skillLocator, SkillDef skillDef)
+        {
+            if (skillLocator && skillLocator.allSkills != null)
+            {
+                foreach (GenericSkill skill in skillLocator.allSkills)
+                {
+                    if (skill.skillDef == skillDef)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+
         #region genericskills
         public static void CreateSkillFamilies(GameObject targetPrefab) => CreateSkillFamilies(targetPrefab, SkillSlot.Primary, SkillSlot.Secondary, SkillSlot.Utility, SkillSlot.Special);
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using BepInEx.Configuration;
+using GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Content;
 using GaleShockTrooper.Modules;
 using GaleShockTrooper.Modules.Characters;
 using R2API;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Networking;
 
 namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
 {
@@ -31,6 +33,8 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
 
         //used when registering your survivor's language tokens
         public override string survivorTokenPrefix => TOKEN_PREFIX;
+
+        public static BodyIndex bodyIndex;
         
         public override BodyInfo bodyInfo => new BodyInfo
         {
@@ -105,6 +109,12 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
             base.Initialize();
 
             InitializeCharacter();
+            RoR2Application.onLoad += OnLoadActions;
+        }
+
+        private void OnLoadActions()
+        {
+            bodyIndex = BodyCatalog.FindBodyIndex("GaleShockTrooperBody");
         }
 
         public override void InitializeCharacter()
@@ -176,76 +186,61 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
         #region skills
         public override void InitializeSkills()
         {
-            //remove the genericskills from the commando body we cloned
             Skills.ClearGenericSkills(bodyPrefab);
-            //add our own
-            //AddPassiveSkill();
+            AddPassiveSkill();
             AddPrimarySkills();
             AddSecondarySkills();
             AddUtiitySkills();
             AddSpecialSkills();
         }
 
-        //skip if you don't have a passive
-        //also skip if this is your first look at skills
         private void AddPassiveSkill()
         {
-            //option 1. fake passive icon just to describe functionality we will implement elsewhere
-            bodyPrefab.GetComponent<SkillLocator>().passiveSkill = new SkillLocator.PassiveSkill
-            {
-                enabled = true,
-                skillNameToken = TOKEN_PREFIX + "PASSIVE_NAME",
-                skillDescriptionToken = TOKEN_PREFIX + "PASSIVE_DESCRIPTION",
-                keywordToken = "KEYWORD_STUNNING",
-                icon = assetBundle.LoadAsset<Sprite>("texPassiveIcon"),
-            };
-
-            //option 2. a new SkillFamily for a passive, used if you want multiple selectable passives
             GenericSkill passiveGenericSkill = Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, "PassiveSkill");
             SkillDef passiveSkillDef1 = Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = "HenryPassive",
+                skillName = "GaleShockTrooper_PassiveFrontArmor",
                 skillNameToken = TOKEN_PREFIX + "PASSIVE_NAME",
                 skillDescriptionToken = TOKEN_PREFIX + "PASSIVE_DESCRIPTION",
-                keywordTokens = new string[] { "KEYWORD_AGILE" },
-                skillIcon = assetBundle.LoadAsset<Sprite>("texPassiveIcon"),
-
-                //unless you're somehow activating your passive like a skill, none of the following is needed.
-                //but that's just me saying things. the tools are here at your disposal to do whatever you like with
-
-                //activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Shoot)),
-                //activationStateMachineName = "Weapon1",
-                //interruptPriority = EntityStates.InterruptPriority.Skill,
-
-                //baseRechargeInterval = 1f,
-                //baseMaxStock = 1,
-
-                //rechargeStock = 1,
-                //requiredStock = 1,
-                //stockToConsume = 1,
-
-                //resetCooldownTimerOnUse = false,
-                //fullRestockOnAssign = true,
-                //dontAllowPastMaxStocks = false,
-                //mustKeyPress = false,
-                //beginSkillCooldownOnSkillEnd = false,
-
-                //isCombatSkill = true,
-                //canceledFromSprinting = false,
-                //cancelSprintingOnActivation = false,
-                //forceSprintDuringState = false,
+                keywordTokens = new string[] { },
+                skillIcon = assetBundle.LoadAsset<Sprite>("texPassiveIcon")
 
             });
             Skills.AddSkillsToFamily(passiveGenericSkill.skillFamily, passiveSkillDef1);
+            SkillDefs.Passive_FrontArmor = passiveSkillDef1;
+
+            On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
         }
 
-        //if this is your first look at skilldef creation, take a look at Secondary first
+        //TODO: Change later.
+        private static NetworkSoundEventDef blockSound = Addressables.LoadAssetAsync<NetworkSoundEventDef>("RoR2/Base/ArmorPlate/nseArmorPlateBlock.asset").WaitForCompletion();
+        private void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
+        {
+            if (NetworkServer.active && damageInfo.attacker && self.body && self.body.bodyIndex == bodyIndex && Skills.HasPassiveSkill(self.body, SkillDefs.Passive_FrontArmor))
+            {
+                Vector3 attackDirection = -(damageInfo.attacker.transform.position - damageInfo.position);
+                if (!BackstabManager.IsBackstab(attackDirection, self.body))
+                {
+                    bool isBullet = damageInfo.damageType.HasModdedDamageType(ExtraDamageTypes.ExtraDamageTypes.Bullet);
+                    bool isProjectile = damageInfo.attacker != damageInfo.inflictor;
+                    bool isAoe = damageInfo.damageType.damageType.HasFlag(DamageType.AOE);
+
+                    if (isBullet || isProjectile || isAoe)
+                    {
+                        EffectManager.SimpleSoundEffect(blockSound.index, damageInfo.position, true);
+                        damageInfo.damage *= 0.6666666666f;
+                    }
+                }
+            }
+            orig(self, damageInfo);
+        }
+
         private void AddPrimarySkills()
         {
             Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, SkillSlot.Primary);
 
             Modules.Content.AddEntityState(typeof(EntityStates.GaleShockTrooperStates.Weapon.FireShotgun));
-            Skills.AddPrimarySkills(bodyPrefab, Modules.Skills.CreateSkillDef(new SkillDefInfo
+            SkillDef skillDef1 = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
                 activationState = new EntityStates.SerializableEntityStateType(typeof(EntityStates.GaleShockTrooperStates.Weapon.FireShotgun)),
                 stockToConsume = 1,
@@ -268,7 +263,9 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
                 resetCooldownTimerOnUse = false,
                 skillName = "GaleShockTrooper_AutoShotgun",
                 skillIcon = Addressables.LoadAssetAsync<SkillDef>("RoR2/Base/Commando/CommandoBodyFireShotgunBlast.asset").WaitForCompletion().icon
-            }));
+            });
+            Skills.AddPrimarySkills(bodyPrefab, skillDef1);
+            SkillDefs.Primary_AutoShotgun = skillDef1;
         }
 
         private void AddSecondarySkills()
@@ -285,7 +282,8 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
             Modules.Content.AddEntityState(typeof(EntityStates.GaleShockTrooperStates.Dash.ShockDashR));
             Modules.Content.AddEntityState(typeof(EntityStates.GaleShockTrooperStates.Dash.ShockDashL));
             Modules.Content.AddEntityState(typeof(EntityStates.GaleShockTrooperStates.Dash.ShockDashB));
-            Skills.AddUtilitySkills(bodyPrefab, Modules.Skills.CreateSkillDef(new SkillDefInfo
+
+            SkillDef skillDef1 = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
                 activationState = new EntityStates.SerializableEntityStateType(typeof(EntityStates.GaleShockTrooperStates.Dash.EnterShockDash)),
                 stockToConsume = 1,
@@ -312,14 +310,16 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
                     "KEYWORD_SHOCKING"
                 },
                 skillIcon = Addressables.LoadAssetAsync<SkillDef>("RoR2/Base/Huntress/HuntressBodyBlink.asset").WaitForCompletion().icon
-            }));
+            });
+            Skills.AddUtilitySkills(bodyPrefab, skillDef1);
+            SkillDefs.Utility_ShockDash = skillDef1;
         }
 
         private void AddSpecialSkills()
         {
             Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, SkillSlot.Special);
             Modules.Content.AddEntityState(typeof(EntityStates.GaleShockTrooperStates.Weapon.FireRicochetSlug));
-            Skills.AddSpecialSkills(bodyPrefab, Modules.Skills.CreateSkillDef(new SkillDefInfo
+            SkillDef skillDef1 = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
                 activationState = new EntityStates.SerializableEntityStateType(typeof(EntityStates.GaleShockTrooperStates.Weapon.FireRicochetSlug)),
                 stockToConsume = 1,
@@ -342,7 +342,9 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
                 resetCooldownTimerOnUse = false,
                 skillName = "GaleShockTrooper_RicochetSlug",
                 skillIcon = Addressables.LoadAssetAsync<SkillDef>("RoR2/Base/Bandit2/Bandit2Blast.asset").WaitForCompletion().icon
-            }));
+            });
+            Skills.AddSpecialSkills(bodyPrefab, skillDef1);
+            SkillDefs.Special_RicochetSlug = skillDef1;
         }
         #endregion skills
         

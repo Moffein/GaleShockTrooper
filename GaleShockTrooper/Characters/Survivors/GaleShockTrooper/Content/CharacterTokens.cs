@@ -41,8 +41,8 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
             #endregion
 
             #region Passive
-            Language.Add(prefix + "PASSIVE_NAME", "Henry passive");
-            Language.Add(prefix + "PASSIVE_DESCRIPTION", "Sample text.");
+            Language.Add(prefix + "PASSIVE_NAME", "Unstoppable Force");
+            Language.Add(prefix + "PASSIVE_DESCRIPTION", "The Shock Trooper takes <style=cIsUtility>33% reduced damage</style> against <style=cIsDamage>projectiles</style> and <style=cIsDamage>bullets</style> from the <style=cIsUtility>front</style>.");
             #endregion
 
             Language.Add(prefix + "PRIMARY_NAME", "PRD-12 Auto Shotgun");

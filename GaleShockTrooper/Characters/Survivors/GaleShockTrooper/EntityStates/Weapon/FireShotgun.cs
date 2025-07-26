@@ -25,7 +25,7 @@ namespace EntityStates.GaleShockTrooperStates.Weapon
             base.OnEnter();
             duration = baseDuration / attackSpeedStat;
 
-            Util.PlaySound("Play_bandit2_m1_shotgun", gameObject);
+            Util.PlaySound("Play_captain_m1_shootWide", gameObject);
             EffectManager.SimpleMuzzleFlash(muzzleflashEffectPrefab, gameObject, "Muzzle", false);
             PlayAnimation("Gesture, Additive", "ShootGun", "Shootgun.playbackRate", duration);
 
