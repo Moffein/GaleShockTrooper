@@ -27,7 +27,7 @@ namespace EntityStates.GaleShockTrooperStates.Weapon
 
             Util.PlaySound("Play_captain_m1_shootWide", gameObject);
             EffectManager.SimpleMuzzleFlash(muzzleflashEffectPrefab, gameObject, "Muzzle", false);
-            PlayAnimation("Gesture, Additive", "ShootGun", "Shootgun.playbackRate", duration);
+            PlayAnimation("Gesture, Override", "ShootGun", "Shootgun.playbackRate", duration);
 
             if (isAuthority)
             {

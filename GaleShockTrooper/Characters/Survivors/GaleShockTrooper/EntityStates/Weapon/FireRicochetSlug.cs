@@ -29,7 +29,7 @@ namespace EntityStates.GaleShockTrooperStates.Weapon
 
             Util.PlaySound("Play_bandit_M2_shot", gameObject);
             EffectManager.SimpleMuzzleFlash(muzzleflashEffectPrefab, gameObject, "Muzzle", false);
-            PlayAnimation("Gesture, Additive", "ShootSlug", "Shootgun.playbackRate", duration);
+            PlayAnimation("Gesture, Override", "ShootSlug", "Shootgun.playbackRate", duration);
 
             if (isAuthority)
             {
