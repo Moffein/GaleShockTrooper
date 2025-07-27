@@ -40,13 +40,13 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
         public class TargetInfo
         {
             public HurtBox hurtBox;
-            public Engi.EngiMissilePainter.Paint.EngiMissileIndicator indicator;
+            public STMissileIndicator indicator;
             private int targetCount;
 
             public TargetInfo(GameObject owner, HurtBox hurtBox)
             {
                 this.hurtBox = hurtBox;
-                indicator = new Engi.EngiMissilePainter.Paint.EngiMissileIndicator(owner, missileTrackingIndicator);
+                indicator = new STMissileIndicator(owner, missileTrackingIndicator);
                 indicator.targetTransform = hurtBox.transform;
                 indicator.active = true;
                 targetCount = 1;
@@ -306,6 +306,44 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
                 this.overriddenSkill.SetSkillOverride(this, primaryOverride, GenericSkill.SkillOverridePriority.Contextual);
                 this.overriddenSkill.stock = base.skillLocator.secondary.stock;
             }
+        }
+
+        public class STMissileIndicator : Indicator
+        {
+            // Token: 0x06001732 RID: 5938 RVA: 0x000A5A5C File Offset: 0x000A3C5C
+            public override void UpdateVisualizer()
+            {
+                base.UpdateVisualizer();
+                Transform transform = base.visualizerTransform.Find("DotOrigin");
+                for (int i = transform.childCount - 1; i >= this.missileCount; i--)
+                {
+                    EntityState.Destroy(transform.GetChild(i).gameObject);
+                }
+                for (int j = transform.childCount; j < this.missileCount; j++)
+                {
+                    GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(base.visualizerPrefab.transform.Find("DotOrigin/DotTemplate").gameObject, transform);
+                    base.FindRenderers(gameObject.transform);
+                }
+                if (transform.childCount > 0)
+                {
+                    float num = 360f / (float)transform.childCount;
+                    float num2 = (float)(transform.childCount - 1) * 90f;
+                    for (int k = 0; k < transform.childCount; k++)
+                    {
+                        Transform child = transform.GetChild(k);
+                        child.gameObject.SetActive(true);
+                        child.localRotation = Quaternion.Euler(0f, 0f, num2 + (float)k * num);
+                    }
+                }
+            }
+
+            // Token: 0x06001733 RID: 5939 RVA: 0x00011F95 File Offset: 0x00010195
+            public STMissileIndicator(GameObject owner, GameObject visualizerPrefab) : base(owner, visualizerPrefab)
+            {
+            }
+
+            // Token: 0x04001E35 RID: 7733
+            public int missileCount;
         }
     }
 }
