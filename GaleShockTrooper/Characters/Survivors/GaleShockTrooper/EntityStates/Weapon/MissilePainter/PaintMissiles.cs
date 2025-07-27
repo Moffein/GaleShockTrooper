@@ -68,7 +68,7 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
                 indicator = new STMissileIndicator(owner, missileTrackingIndicator);
                 indicator.targetTransform = hurtBox.transform;
                 indicator.active = true;
-                targetCount = 1;
+                SetTargetCount(1);
             }
 
             public int GetTargetCount()
