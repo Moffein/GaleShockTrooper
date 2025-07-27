@@ -7,7 +7,7 @@ namespace EntityStates.GaleShockTrooperStates.Dash
     {
         public static float baseCooldown = 8f;
 
-        public static float baseDuration = 0.2f;
+        public static float baseDuration = 0f;
         private float duration;
         private HurtBoxGroup hurtboxGroup;
 
