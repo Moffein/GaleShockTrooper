@@ -9,10 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4004672756824699053}
-  - component: {fileID: 4740697187307679137}
-  - component: {fileID: 5850344068400691068}
-  - component: {fileID: 1817436927802303522}
   - component: {fileID: 7383481473432671010}
+  - component: {fileID: 7977796642065635540}
+  - component: {fileID: 5850344068400691068}
+  - component: {fileID: 4740697187307679137}
+  - component: {fileID: 599608906439883522}
+  - component: {fileID: 1817436927802303522}
   - component: {fileID: 174662965163759377}
   m_Layer: 0
   m_Name: GaleShockTrooperMonsterMaster
@@ -31,11 +33,12 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.07919362, y: 1.6566222, z: 1.1186565}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4740697187307679137
+--- !u!114 &7383481473432671010
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47,17 +50,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68ee60b5bcd2668489cac0473619dffe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  customName: Use Primary Swing
-  skillSlot: 0
-  requireSkillReady: 0
+  customName: Special Slug
+  skillSlot: 3
+  requireSkillReady: 1
   requireEquipmentReady: 0
   minUserHealthFraction: -Infinity
   maxUserHealthFraction: Infinity
   minTargetHealthFraction: -Infinity
   maxTargetHealthFraction: Infinity
   minDistance: 0
-  maxDistance: 8
+  maxDistance: 60
   selectionRequiresTargetLoS: 0
+  selectionRequiresOnGround: 0
+  selectionRequiresAimTarget: 0
+  maxTimesSelected: -1
+  moveTargetType: 0
+  activationRequiresTargetLoS: 1
+  activationRequiresAimTargetLoS: 1
+  activationRequiresAimConfirmation: 1
+  movementType: 2
+  moveInputScale: 1
+  aimType: 2
+  ignoreNodeGraph: 0
+  shouldSprint: 0
+  shouldFireEquipment: 0
+  buttonPressType: 0
+  driverUpdateTimerOverride: 0.6
+  resetCurrentEnemyOnNextDriverSelection: 0
+  noRepeat: 1
+  nextHighPriorityOverride: {fileID: 0}
+--- !u!114 &7977796642065635540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3899544215857663902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68ee60b5bcd2668489cac0473619dffe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  customName: Utility Strafe
+  skillSlot: 2
+  requireSkillReady: 1
+  requireEquipmentReady: 0
+  minUserHealthFraction: -Infinity
+  maxUserHealthFraction: Infinity
+  minTargetHealthFraction: -Infinity
+  maxTargetHealthFraction: Infinity
+  minDistance: 0
+  maxDistance: 30
+  selectionRequiresTargetLoS: 1
   selectionRequiresOnGround: 0
   selectionRequiresAimTarget: 0
   maxTimesSelected: -1
@@ -65,16 +109,16 @@ MonoBehaviour:
   activationRequiresTargetLoS: 0
   activationRequiresAimTargetLoS: 0
   activationRequiresAimConfirmation: 0
-  movementType: 1
+  movementType: 2
   moveInputScale: 1
-  aimType: 1
+  aimType: 2
   ignoreNodeGraph: 0
-  shouldSprint: 0
+  shouldSprint: 1
   shouldFireEquipment: 0
   buttonPressType: 0
-  driverUpdateTimerOverride: -1
+  driverUpdateTimerOverride: 0.5
   resetCurrentEnemyOnNextDriverSelection: 0
-  noRepeat: 0
+  noRepeat: 1
   nextHighPriorityOverride: {fileID: 0}
 --- !u!114 &5850344068400691068
 MonoBehaviour:
@@ -88,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68ee60b5bcd2668489cac0473619dffe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  customName: Use Secondary Shoot
+  customName: MicroMissiles
   skillSlot: 1
   requireSkillReady: 1
   requireEquipmentReady: 0
@@ -96,24 +140,106 @@ MonoBehaviour:
   maxUserHealthFraction: Infinity
   minTargetHealthFraction: -Infinity
   maxTargetHealthFraction: Infinity
-  minDistance: 0
-  maxDistance: 25
-  selectionRequiresTargetLoS: 0
+  minDistance: 60
+  maxDistance: 120
+  selectionRequiresTargetLoS: 1
   selectionRequiresOnGround: 0
-  selectionRequiresAimTarget: 0
+  selectionRequiresAimTarget: 1
   maxTimesSelected: -1
   moveTargetType: 0
-  activationRequiresTargetLoS: 0
-  activationRequiresAimTargetLoS: 0
-  activationRequiresAimConfirmation: 0
-  movementType: 1
+  activationRequiresTargetLoS: 1
+  activationRequiresAimTargetLoS: 1
+  activationRequiresAimConfirmation: 1
+  movementType: 2
   moveInputScale: 1
-  aimType: 1
+  aimType: 2
   ignoreNodeGraph: 0
   shouldSprint: 0
   shouldFireEquipment: 0
   buttonPressType: 0
   driverUpdateTimerOverride: -1
+  resetCurrentEnemyOnNextDriverSelection: 0
+  noRepeat: 1
+  nextHighPriorityOverride: {fileID: 0}
+--- !u!114 &4740697187307679137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3899544215857663902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68ee60b5bcd2668489cac0473619dffe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  customName: Shoot Gun Strafe
+  skillSlot: 0
+  requireSkillReady: 0
+  requireEquipmentReady: 0
+  minUserHealthFraction: -Infinity
+  maxUserHealthFraction: Infinity
+  minTargetHealthFraction: -Infinity
+  maxTargetHealthFraction: Infinity
+  minDistance: 0
+  maxDistance: 20
+  selectionRequiresTargetLoS: 1
+  selectionRequiresOnGround: 0
+  selectionRequiresAimTarget: 1
+  maxTimesSelected: -1
+  moveTargetType: 0
+  activationRequiresTargetLoS: 1
+  activationRequiresAimTargetLoS: 1
+  activationRequiresAimConfirmation: 0
+  movementType: 2
+  moveInputScale: 1
+  aimType: 2
+  ignoreNodeGraph: 0
+  shouldSprint: 0
+  shouldFireEquipment: 0
+  buttonPressType: 0
+  driverUpdateTimerOverride: 2
+  resetCurrentEnemyOnNextDriverSelection: 0
+  noRepeat: 0
+  nextHighPriorityOverride: {fileID: 0}
+--- !u!114 &599608906439883522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3899544215857663902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68ee60b5bcd2668489cac0473619dffe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  customName: Shoot Gun and Chase
+  skillSlot: 0
+  requireSkillReady: 1
+  requireEquipmentReady: 0
+  minUserHealthFraction: -Infinity
+  maxUserHealthFraction: Infinity
+  minTargetHealthFraction: -Infinity
+  maxTargetHealthFraction: Infinity
+  minDistance: 0
+  maxDistance: 60
+  selectionRequiresTargetLoS: 1
+  selectionRequiresOnGround: 0
+  selectionRequiresAimTarget: 1
+  maxTimesSelected: -1
+  moveTargetType: 0
+  activationRequiresTargetLoS: 1
+  activationRequiresAimTargetLoS: 1
+  activationRequiresAimConfirmation: 0
+  movementType: 1
+  moveInputScale: 1
+  aimType: 2
+  ignoreNodeGraph: 0
+  shouldSprint: 0
+  shouldFireEquipment: 0
+  buttonPressType: 0
+  driverUpdateTimerOverride: 2
   resetCurrentEnemyOnNextDriverSelection: 0
   noRepeat: 0
   nextHighPriorityOverride: {fileID: 0}
@@ -129,7 +255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68ee60b5bcd2668489cac0473619dffe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  customName: Use Utility roll
+  customName: Utility Chase
   skillSlot: 2
   requireSkillReady: 1
   requireEquipmentReady: 0
@@ -137,50 +263,9 @@ MonoBehaviour:
   maxUserHealthFraction: Infinity
   minTargetHealthFraction: -Infinity
   maxTargetHealthFraction: Infinity
-  minDistance: 10
-  maxDistance: 20
-  selectionRequiresTargetLoS: 1
-  selectionRequiresOnGround: 0
-  selectionRequiresAimTarget: 0
-  maxTimesSelected: -1
-  moveTargetType: 0
-  activationRequiresTargetLoS: 0
-  activationRequiresAimTargetLoS: 0
-  activationRequiresAimConfirmation: 0
-  movementType: 2
-  moveInputScale: 1
-  aimType: 1
-  ignoreNodeGraph: 0
-  shouldSprint: 0
-  shouldFireEquipment: 0
-  buttonPressType: 0
-  driverUpdateTimerOverride: -1
-  resetCurrentEnemyOnNextDriverSelection: 0
-  noRepeat: 0
-  nextHighPriorityOverride: {fileID: 0}
---- !u!114 &7383481473432671010
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3899544215857663902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68ee60b5bcd2668489cac0473619dffe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  customName: Use Special Bomb
-  skillSlot: 3
-  requireSkillReady: 1
-  requireEquipmentReady: 0
-  minUserHealthFraction: -Infinity
-  maxUserHealthFraction: Infinity
-  minTargetHealthFraction: -Infinity
-  maxTargetHealthFraction: Infinity
   minDistance: 0
-  maxDistance: 20
-  selectionRequiresTargetLoS: 0
+  maxDistance: 10000
+  selectionRequiresTargetLoS: 1
   selectionRequiresOnGround: 0
   selectionRequiresAimTarget: 0
   maxTimesSelected: -1
@@ -190,9 +275,9 @@ MonoBehaviour:
   activationRequiresAimConfirmation: 0
   movementType: 1
   moveInputScale: 1
-  aimType: 1
+  aimType: 4
   ignoreNodeGraph: 0
-  shouldSprint: 0
+  shouldSprint: 1
   shouldFireEquipment: 0
   buttonPressType: 0
   driverUpdateTimerOverride: -1
@@ -233,7 +318,7 @@ MonoBehaviour:
   moveInputScale: 1
   aimType: 1
   ignoreNodeGraph: 0
-  shouldSprint: 0
+  shouldSprint: 1
   shouldFireEquipment: 0
   buttonPressType: 0
   driverUpdateTimerOverride: -1

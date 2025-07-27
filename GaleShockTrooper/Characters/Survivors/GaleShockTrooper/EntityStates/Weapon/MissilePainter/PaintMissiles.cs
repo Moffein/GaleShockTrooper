@@ -26,6 +26,10 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
         public static int baseMaxStocks = 3;
         public static float baseCooldown = 2.5f;
 
+
+        public static float smokeEffectFrequency = 10f;
+        private float smokeEffectStopwatch = 0f;
+
         private Indicator generalIndicator;
         private float lockonDuration;
         private float lockonStopwatch;
@@ -96,6 +100,15 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
         public override void FixedUpdate()
         {
             base.FixedUpdate();
+
+            smokeEffectStopwatch += GetDeltaTime();
+            if (smokeEffectStopwatch >= 1f / smokeEffectFrequency)
+            {
+                smokeEffectStopwatch -= 1f / smokeEffectFrequency;
+                EffectManager.SimpleMuzzleFlash(smokeEffectPrefab, gameObject, "VentL", false);
+                EffectManager.SimpleMuzzleFlash(smokeEffectPrefab, gameObject, "VentR", false);
+            }
+
             if (characterBody) characterBody.SetAimTimer(2f);
             if (base.isAuthority)
             {
@@ -114,14 +127,28 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
                 }
 
                 bool isAI = characterBody && !characterBody.isPlayerControlled;
+                if (isAI)
+                {
+                    if (fixedAge >= lockonDuration * GetMaxTargets())
+                    {
+                        outer.SetNextState(new FireMissiles
+                        {
+                            attacksFired = 0,
+                            targetList = this.targetList,
+                            maxAttacks = GetMaxTargets()
+                        });
+                    }
+                    return;
+                }
+
                 bool shouldExit = false;
                 if (inputBank)
                 {
-                    if (!startedPainting && (base.inputBank.skill1.down || isAI))
+                    if (!startedPainting)
                     {
                         startedPainting = true;
                     }
-                    else if (startedPainting && (!base.inputBank.skill1.down || (isAI && GetCurrentTargets() >= GetMaxTargets())))
+                    else if (startedPainting && (!base.inputBank.skill1.down))
                     {
                         if (GetCurrentTargets() > 0)
                         {

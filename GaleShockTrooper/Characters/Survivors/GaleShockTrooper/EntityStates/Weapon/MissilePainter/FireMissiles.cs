@@ -77,6 +77,9 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
             attacksFired++;
             Util.PlaySound("Play_GaleShockTrooper_MicroMissile", gameObject);
             PlayAnimation("Gesture, Override", "Missile_Shoot", "Shootgun.playbackRate", duration);
+            EffectManager.SimpleMuzzleFlash(muzzleflashEffectPrefab, gameObject, "Muzzle", false);
+            EffectManager.SimpleMuzzleFlash(PaintMissiles.smokeEffectPrefab, gameObject, "VentL", false);
+            EffectManager.SimpleMuzzleFlash(PaintMissiles.smokeEffectPrefab, gameObject, "VentR", false);
             if (isAuthority)
             {
                 if (skillLocator && skillLocator.secondary)
@@ -115,7 +118,6 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
                 ProjectileManager.instance.FireProjectile(fpi);
                 targetList = targetList.Where(tInfo => tInfo.GetTargetCount() > 0).ToList();
             }
-            EffectManager.SimpleMuzzleFlash(muzzleflashEffectPrefab, gameObject, "Muzzle", false);
         }
 
         public override InterruptPriority GetMinimumInterruptPriority()

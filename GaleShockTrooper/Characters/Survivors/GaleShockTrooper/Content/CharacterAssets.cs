@@ -79,8 +79,15 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
         private static void CreateMiniSmokeRing()
         {
             GameObject effect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Common/VFX/MuzzleflashSmokeRing.prefab").WaitForCompletion().InstantiateClone("GaleShockTrooper_MiniSmokeRing", false);
-            effect.transform.localScale *= 0.3f;
+            ParticleSystemRenderer[] renderers = effect.GetComponentsInChildren<ParticleSystemRenderer>();
+            foreach (var psr in renderers)
+            {
+                psr.maxParticleSize *= 0.4f;
+                psr.transform.localScale *= 0.4f;
+            }
+
             Modules.ContentPacks.effectDefs.Add(new EffectDef(effect));
+            PaintMissiles.smokeEffectPrefab = effect;
         }
 
         private static void CreateSpecialSlugAssets()

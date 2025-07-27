@@ -22,6 +22,14 @@ namespace EntityStates.GaleShockTrooperStates.Dash
                 int hurtBoxesDeactivatorCounter = hurtBoxGroup.hurtBoxesDeactivatorCounter + 1;
                 hurtBoxGroup.hurtBoxesDeactivatorCounter = hurtBoxesDeactivatorCounter;
             }
+
+            if (isAuthority)
+            {
+                if (characterMotor)
+                {
+                    characterMotor.velocity.y = 0f;
+                }
+            }
         }
 
         public override void OnExit()
@@ -39,9 +47,17 @@ namespace EntityStates.GaleShockTrooperStates.Dash
         {
             base.FixedUpdate();
 
-            if (isAuthority && fixedAge > duration)
+            if (isAuthority)
             {
-                ChangeStateAuthority();
+                if (characterMotor)
+                {
+                    characterMotor.velocity.y = 0f;
+                }
+
+                if (fixedAge >= duration)
+                {
+                    ChangeStateAuthority();
+                }
             }
         }
 
