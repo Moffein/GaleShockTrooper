@@ -3531,7 +3531,7 @@ AnimatorStateMachine:
     m_Position: {x: 330, y: 420, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8237407967230464210}
-    m_Position: {x: 330, y: 370, z: 0}
+    m_Position: {x: 330, y: 360, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4679837635803458340}
     m_Position: {x: 330, y: 300, z: 0}
@@ -4207,7 +4207,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Missile_start
+  m_Name: Missile_Start
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []

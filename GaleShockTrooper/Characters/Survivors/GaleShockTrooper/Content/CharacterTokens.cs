@@ -42,11 +42,14 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
 
             #region Passive
             Language.Add(prefix + "PASSIVE_NAME", "Unstoppable Force");
-            Language.Add(prefix + "PASSIVE_DESCRIPTION", "The Shock Trooper takes <style=cIsUtility>33% reduced damage</style> against <style=cIsDamage>projectiles</style> and <style=cIsDamage>bullets</style> from the <style=cIsUtility>front</style>.");
+            Language.Add(prefix + "PASSIVE_DESCRIPTION", "The Shock Trooper takes <style=cIsUtility>33% reduced damage</style> against <style=cIsDamage>projectiles</style>, <style=cIsDamage>blasts</style>, and <style=cIsDamage>bullets</style> from the <style=cIsUtility>front</style>.");
             #endregion
 
             Language.Add(prefix + "PRIMARY_NAME", "PRD-12 Auto Shotgun");
             Language.Add(prefix + "PRIMARY_DESCRIPTION", "Fire a shotgun blast for <style=cIsDamage>5x60%</style> damage.");
+
+            Language.Add(prefix + "SECONDARY_NAME", "Micro Missiles");
+            Language.Add(prefix + "SECONDARY_DESCRIPTION", "Enter <style=cIsUtility>target painting mode</style> to launch heat-seeking missiles that deal <style=cIsDamage>400% damage</style> each. Can store up to 3.");
 
             Language.Add(prefix + "UTILITY_NAME", "Overdrive");
             Language.Add(prefix + "UTILITY_DESCRIPTION", "<style=cIsDamage>Shocking</style>. <style=cIsUtility>Dash</style> a short distance while electrocuting nearby enemies for <style=cIsDamage>100% damage</style>.");

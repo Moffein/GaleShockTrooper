@@ -515,7 +515,7 @@ ModelImporter:
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 20
+      additiveReferencePoseFrame: 10
     - serializedVersion: 16
       name: Armature|Pose
       takeName: Armature|Pose

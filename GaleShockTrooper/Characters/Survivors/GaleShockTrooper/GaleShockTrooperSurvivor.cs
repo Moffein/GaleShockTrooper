@@ -203,7 +203,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
                 skillNameToken = TOKEN_PREFIX + "PASSIVE_NAME",
                 skillDescriptionToken = TOKEN_PREFIX + "PASSIVE_DESCRIPTION",
                 keywordTokens = new string[] { },
-                skillIcon = assetBundle.LoadAsset<Sprite>("texPassiveIcon")
+                skillIcon = Addressables.LoadAssetAsync<SkillDef>("RoR2/Base/Captain/CallSupplyDropShocking.asset").WaitForCompletion().icon
 
             });
             Skills.AddSkillsToFamily(passiveGenericSkill.skillFamily, passiveSkillDef1);
@@ -272,6 +272,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
         {
             Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, SkillSlot.Secondary);
             Modules.Content.AddEntityState(typeof(EntityStates.GaleShockTrooperStates.Weapon.MissilePainter.PaintMissiles));
+            Modules.Content.AddEntityState(typeof(EntityStates.GaleShockTrooperStates.Weapon.MissilePainter.FireMissiles));
             SkillDef skillDef1 = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
                 activationState = new EntityStates.SerializableEntityStateType(typeof(EntityStates.GaleShockTrooperStates.Weapon.MissilePainter.PaintMissiles)),
@@ -282,8 +283,8 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
                 cancelSprintingOnActivation = true,
                 fullRestockOnAssign = true,
                 dontAllowPastMaxStocks = true,
-                baseMaxStock = 1,
-                beginSkillCooldownOnSkillEnd = false,
+                baseMaxStock = 3,
+                beginSkillCooldownOnSkillEnd = true,
                 forceSprintDuringState = false,
                 interruptPriority = EntityStates.InterruptPriority.PrioritySkill,
                 isCombatSkill = true,
@@ -296,6 +297,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
                 skillName = "GaleShockTrooper_MissilePainter",
                 skillIcon = Addressables.LoadAssetAsync<SkillDef>("RoR2/Base/Engi/EngiHarpoons.asset").WaitForCompletion().icon
             });
+            skillDef1.autoHandleLuminousShot = false;
             Skills.AddSecondarySkills(bodyPrefab, skillDef1);
             SkillDefs.Secondary_MicroMissile = skillDef1;
         }

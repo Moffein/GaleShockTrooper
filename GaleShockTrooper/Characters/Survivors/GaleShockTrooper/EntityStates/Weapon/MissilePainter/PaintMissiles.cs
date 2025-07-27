@@ -1,6 +1,8 @@
 ﻿using RoR2;
 using RoR2.Skills;
 using RoR2.UI;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -8,43 +10,144 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
 {
     public class PaintMissiles : BaseState
     {
+        public static GameObject missileTrackingIndicator = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Engi/EngiMissileTrackingIndicator.prefab").WaitForCompletion();
         public static GameObject crosshairOverridePrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/Railgunner/RailgunnerCrosshair.prefab").WaitForCompletion();
-        public static SkillDef primaryOverride;
+        public static SkillDef primaryOverride = Addressables.LoadAssetAsync<SkillDef>("RoR2/Base/Engi/EngiConfirmTargetDummy.asset").WaitForCompletion();
         public static string entrySoundString = "Play_railgunner_m2_scope_in";
         public static string exitSoundString = "Play_railgunner_m2_scope_out";
-        public static float baseEntryduration = 0.25f;
+        public static float baseEntryduration = 0.3f;
+        public static float baseLockonDuration = 0.4f;
+        public static float baseLockonAngle = 60f;
+        public static float baseLockonRange = 200f;
+
+        private Indicator generalIndicator;
+        private float lockonDuration;
+        private float lockonStopwatch;
 
         private CrosshairUtils.OverrideRequest crosshairOverrideRequest;
         private GenericSkill overriddenSkill;
+        public BullseyeSearch search;
+
+        private HurtBox lockonTarget;
+        public List<TargetInfo> targetList;
+
+        private bool startedPainting = false;   //Jank for keeping track of whether to run missile painting code
+        private bool clearTargetList = true;    // Clear targeting indicators if this is true. Set to false when going to FireMissiles state.
+
+        private bool buttonReleased = false;
+        private bool buttonRepressed = false;
+
+        public class TargetInfo
+        {
+            public HurtBox hurtBox;
+            public Engi.EngiMissilePainter.Paint.EngiMissileIndicator indicator;
+            private int targetCount;
+
+            public TargetInfo(GameObject owner, HurtBox hurtBox)
+            {
+                this.hurtBox = hurtBox;
+                indicator = new Engi.EngiMissilePainter.Paint.EngiMissileIndicator(owner, missileTrackingIndicator);
+                indicator.targetTransform = hurtBox.transform;
+                indicator.active = true;
+                targetCount = 1;
+            }
+
+            public int GetTargetCount()
+            {
+                return targetCount;
+            }
+
+            public void SetTargetCount(int i)
+            {
+                targetCount = i;
+                indicator.missileCount = targetCount;
+            }
+        }
 
         public override void OnEnter()
         {
             base.OnEnter();
+            search = new BullseyeSearch();
+            generalIndicator = new Indicator(gameObject, missileTrackingIndicator);
+            targetList = new List<TargetInfo>();
+            lockonStopwatch = 0f;
+            lockonDuration = baseLockonDuration / attackSpeedStat;
             Util.PlaySound(entrySoundString, gameObject);
             Util.PlaySound("Play_railgunner_m2_scope_loop", gameObject);
             PlayAnimation("Gesture, Override", "Missile_Start", "Shootgun.playbackRate", baseEntryduration/attackSpeedStat);
             this.crosshairOverrideRequest = CrosshairUtils.RequestOverrideForBody(characterBody, crosshairOverridePrefab, CrosshairUtils.OverridePriority.Skill);
 
+            if (characterBody) characterBody.SetAimTimer(2f);
 
-
-            /*GenericSkill genericSkill = (skillLocator != null) ? skillLocator.primary : null;
+            GenericSkill genericSkill = (skillLocator != null) ? skillLocator.primary : null;
             if (genericSkill)
             {
                 this.TryOverrideSkill(genericSkill);
                 genericSkill.onSkillChanged += this.TryOverrideSkill;
-            }*/
+            }
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-
+            if (characterBody) characterBody.SetAimTimer(2f);
             if (base.isAuthority)
             {
-                bool shouldExit = false;
-                if (inputBank && !base.inputBank.skill2.down)
+                if (GetCurrentTargets() < GetMaxTargets())
                 {
-                    shouldExit = true;
+                    UpdateTrackerAuthority();
+                    if (startedPainting)
+                    {
+                        UpdatePainterAuthority();
+                    }
+                }
+                else
+                {
+                    generalIndicator.targetTransform = null;
+                    generalIndicator.active = false;
+                }
+
+                bool shouldExit = false;
+                if (inputBank)
+                {
+                    if (!startedPainting && base.inputBank.skill1.down)
+                    {
+                        startedPainting = true;
+                    }
+                    else if (startedPainting && !base.inputBank.skill1.down)
+                    {
+                        if (targetList.Count > 0)
+                        {
+                            outer.SetNextState(new FireMissiles
+                            {
+                                attacksFired = 0,
+                                targetList = this.targetList,
+                                maxAttacks = GetCurrentTargets()
+                            });
+                            return;
+                        }
+                        else
+                        {
+                            lockonStopwatch = 0f;
+                            startedPainting = false;
+                        }
+                    }
+                    
+                    //Jank for making this skill a toggle skill
+                    if (!buttonReleased && !base.inputBank.skill2.down)
+                    {
+                        buttonReleased = true;
+                    }
+                    else if (buttonReleased && base.inputBank.skill2.down)
+                    {
+                        buttonRepressed = true;
+                    }
+                    else if (buttonRepressed && buttonRepressed && !base.inputBank.skill2.down)
+                    {
+                        shouldExit = true;
+                    }
+
+                    if (characterBody && characterBody.isSprinting) shouldExit = true;
                 }
 
                 if (shouldExit)
@@ -54,9 +157,102 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
             }
         }
 
+        private int GetMaxTargets()
+        {
+            if (skillLocator && skillLocator.secondary) return skillLocator.secondary.stock;
+            return 3;
+        }
+
+        private int GetCurrentTargets()
+        {
+            int count = 0;
+            foreach (TargetInfo tInfo in targetList)
+            {
+                count += tInfo.GetTargetCount();
+            }
+            return count;
+        }
+
+        private void UpdateTrackerAuthority()
+        {
+            HurtBox oldTarget = lockonTarget;
+            SearchForTarget(GetAimRay());
+
+            if (lockonTarget)
+            {
+                generalIndicator.targetTransform = lockonTarget.transform;
+
+                foreach (TargetInfo tInfo in targetList)
+                {
+                    if (tInfo.hurtBox == lockonTarget)
+                    {
+                        generalIndicator.active = false;
+                    }
+                }
+                generalIndicator.active = true;
+            }
+            else
+            {
+                generalIndicator.targetTransform = null;
+                generalIndicator.active = false;
+            }
+
+            if (lockonTarget != oldTarget)
+            {
+                lockonStopwatch = lockonTarget ? lockonDuration * 0.75f : 0f;
+                return;
+            }
+        }
+
+        private void UpdatePainterAuthority()
+        {
+            if (!lockonTarget) return;
+            lockonStopwatch += GetDeltaTime();
+            if (lockonStopwatch >= lockonDuration)
+            {
+                lockonStopwatch -= lockonDuration;
+                AddLockonTarget();
+            }
+        }
+
+        private void AddLockonTarget()
+        {
+            if (!lockonTarget) return;
+
+            Util.PlaySound("Play_engi_seekerMissile_lockOn", gameObject);
+            bool setLock = false;
+            //Check if target is in list already
+            foreach (TargetInfo tInfo in targetList)
+            {
+                if (tInfo.hurtBox == lockonTarget)
+                {
+                    setLock = true;
+                    tInfo.SetTargetCount(tInfo.GetTargetCount() + 1);
+                }
+            }
+
+            //If not, add to list
+            if (!setLock)
+            {
+                TargetInfo info = new TargetInfo(gameObject, lockonTarget);
+                targetList.Add(info);
+            }
+        }
+
         public override void OnExit()
         {
-            /*
+            generalIndicator.active = false;
+            generalIndicator.DestroyVisualizer();
+
+            if (clearTargetList)
+            {
+                foreach (TargetInfo tInfo in targetList)
+                {
+                    tInfo.indicator.active = false;
+                    tInfo.indicator.DestroyVisualizer();
+                }
+            }
+            
             GenericSkill genericSkill = (skillLocator != null) ? skillLocator.primary : null;
             if (genericSkill)
             {
@@ -65,7 +261,7 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
             if (this.overriddenSkill)
             {
                 this.overriddenSkill.UnsetSkillOverride(this, primaryOverride, GenericSkill.SkillOverridePriority.Contextual);
-            }*/
+            }
 
             if (this.crosshairOverrideRequest != null)
             {
@@ -82,12 +278,26 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
             base.OnExit();
         }
 
+        private void SearchForTarget(Ray aimRay)
+        {
+            search.teamMaskFilter = TeamMask.all;
+            search.teamMaskFilter.RemoveTeam(GetTeam());
+            search.filterByLoS = true;
+            search.searchOrigin = aimRay.origin;
+            search.searchDirection = aimRay.direction;
+            search.sortMode = BullseyeSearch.SortMode.Angle;
+            search.maxDistanceFilter = baseLockonRange;
+            search.maxAngleFilter = baseLockonAngle;
+            search.RefreshCandidates();
+            search.FilterOutGameObject(base.gameObject);
+            lockonTarget = this.search.GetResults().FirstOrDefault<HurtBox>();
+        }
+
         public override InterruptPriority GetMinimumInterruptPriority()
         {
             return InterruptPriority.Pain;
         }
 
-        //Copied from Railgunner
         private void TryOverrideSkill(GenericSkill skill)
         {
             if (skill && !this.overriddenSkill && !skill.HasSkillOverrideOfPriority(GenericSkill.SkillOverridePriority.Contextual))

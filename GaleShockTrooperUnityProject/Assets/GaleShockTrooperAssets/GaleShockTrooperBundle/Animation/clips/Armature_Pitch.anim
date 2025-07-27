@@ -6664,7 +6664,7 @@ AnimationClip:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 110800030, guid: 5cf8f3ba84531e84598e96e8a36ed746,
       type: 3}
-    m_AdditiveReferencePoseTime: 0.6666667
+    m_AdditiveReferencePoseTime: 0.33333334
     m_StartTime: 0
     m_StopTime: 0.6666667
     m_OrientationOffsetY: 0
