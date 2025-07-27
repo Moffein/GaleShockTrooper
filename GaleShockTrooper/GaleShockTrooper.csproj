@@ -42,6 +42,9 @@
 	  <Reference Include="ExtraDamageTypes">
 	    <HintPath>..\libs\ExtraDamageTypes.dll</HintPath>
 	  </Reference>
+	  <Reference Include="RiskOfOptions">
+	    <HintPath>..\libs\RiskOfOptions.dll</HintPath>
+	  </Reference>
 	  <Reference Include="ShaderSwapper">
 	    <HintPath>..\libs\ShaderSwapper.dll</HintPath>
 	  </Reference>

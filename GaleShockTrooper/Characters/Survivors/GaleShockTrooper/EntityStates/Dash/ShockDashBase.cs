@@ -29,6 +29,8 @@ namespace EntityStates.GaleShockTrooperStates.Dash
         private HurtBoxGroup hurtboxGroup;
         private List<HealthComponent> victimList;
 
+        private int originalLayer;
+
         public override void OnEnter()
         {
             base.OnEnter();
@@ -81,6 +83,10 @@ namespace EntityStates.GaleShockTrooperStates.Dash
                 ShockEnemiesServer();
                 shockTickStopwatch = 0f;
             }
+
+            originalLayer = base.gameObject.layer;
+            gameObject.layer = LayerIndex.GetAppropriateFakeLayerForTeam(GetTeam()).intVal;
+            characterMotor.Motor.RebuildCollidableLayers();
         }
 
         public override void FixedUpdate()
@@ -107,17 +113,19 @@ namespace EntityStates.GaleShockTrooperStates.Dash
 
         public override void OnExit()
         {
-            base.OnExit();
+            gameObject.layer = originalLayer;
+            characterMotor.Motor.RebuildCollidableLayers();
             if (!outer.destroying)
             {
                 CreateBlinkEffect(Util.GetCorePosition(gameObject));
             }
             if (this.hurtboxGroup)
             {
-                HurtBoxGroup hurtBoxGroup = this.hurtboxGroup;
+                HurtBoxGroup hurtBoxGroup = hurtboxGroup;
                 int hurtBoxesDeactivatorCounter = hurtBoxGroup.hurtBoxesDeactivatorCounter - 1;
                 hurtBoxGroup.hurtBoxesDeactivatorCounter = hurtBoxesDeactivatorCounter;
             }
+            base.OnExit();
         }
 
         public override InterruptPriority GetMinimumInterruptPriority()

@@ -40,7 +40,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
         private static void CreatePrimaryShotgunTracer()
         {
             GameObject effect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/TracerCommandoShotgun.prefab").WaitForCompletion().InstantiateClone("GaleShockTrooper_ShotgunTracer", false);
-            effect.GetComponent<Tracer>().speed = 120f;
+            effect.GetComponent<Tracer>().speed = 200f;
             Modules.Content.AddEffectDef(new EffectDef(effect));
             EntityStates.GaleShockTrooperStates.Weapon.FireShotgun.tracerEffectPrefab = effect;
         }

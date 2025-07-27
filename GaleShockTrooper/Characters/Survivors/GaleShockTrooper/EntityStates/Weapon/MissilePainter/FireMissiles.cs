@@ -101,28 +101,75 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
                 }
                 //Fire Missile while reading from info if it is notnull
 
+
                 Ray aimRay = GetAimRay();
-                FireProjectileInfo fpi = new FireProjectileInfo
+
+                //ICBM
+                int icbmCount = 0;
+                if (characterBody && characterBody.inventory)
                 {
-                    damage = damageCoefficient * damageStat,
-                    damageTypeOverride = DamageTypeCombo.GenericSecondary,
-                    crit = isCrit,
-                    force = force,
-                    owner = gameObject,
-                    position = aimRay.origin,
-                    procChainMask = default,
-                    projectilePrefab = projectilePrefab,
-                    rotation = Util.QuaternionSafeLookRotation(aimRay.direction),
-                    target = target
-                };
-                ProjectileManager.instance.FireProjectile(fpi);
+                    icbmCount = characterBody.inventory.GetItemCount(DLC1Content.Items.MoreMissile);
+                }
+
+                if (icbmCount > 0)
+                {
+                    Vector3 rhs = Vector3.Cross(Vector3.up, aimRay.direction);
+                    Vector3 axis = Vector3.Cross(aimRay.direction, rhs);
+                    float currentSpread = 0f;
+                    float angle = 0f;
+                    float num2 = 0f;
+                    num2 = UnityEngine.Random.Range(1f + currentSpread, 1f + currentSpread) * 3f;   //Bandit is x2
+                    angle = num2 / 2f;  //3 - 1 rockets
+
+                    Vector3 direction = Quaternion.AngleAxis(-num2 * 0.5f, axis) * aimRay.direction;
+                    Quaternion rotation = Quaternion.AngleAxis(angle, axis);
+                    Ray aimRay2 = new Ray(aimRay.origin, direction);
+                    for (int i = 0; i < 3; i++)
+                    {
+                        FireProjectileInfo fpi = new FireProjectileInfo
+                        {
+                            damage = damageCoefficient * damageStat,
+                            damageTypeOverride = DamageTypeCombo.GenericSecondary,
+                            crit = isCrit,
+                            force = force,
+                            owner = gameObject,
+                            position = aimRay.origin,
+                            procChainMask = default,
+                            projectilePrefab = projectilePrefab,
+                            rotation = Util.QuaternionSafeLookRotation(aimRay2.direction),
+                            target = target
+                        };
+                        fpi.damage *= 1f + 0.5f * (icbmCount - 1);
+
+                        ProjectileManager.instance.FireProjectile(fpi);
+                        aimRay2.direction = rotation * aimRay2.direction;
+                    }
+                }
+                else
+                {
+                    FireProjectileInfo fpi = new FireProjectileInfo
+                    {
+                        damage = damageCoefficient * damageStat,
+                        damageTypeOverride = DamageTypeCombo.GenericSecondary,
+                        crit = isCrit,
+                        force = force,
+                        owner = gameObject,
+                        position = aimRay.origin,
+                        procChainMask = default,
+                        projectilePrefab = projectilePrefab,
+                        rotation = Util.QuaternionSafeLookRotation(aimRay.direction),
+                        target = target
+                    };
+                    ProjectileManager.instance.FireProjectile(fpi);
+                }
+
                 targetList = targetList.Where(tInfo => tInfo.GetTargetCount() > 0).ToList();
             }
         }
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.Skill;
+            return InterruptPriority.PrioritySkill;
         }
     }
 }

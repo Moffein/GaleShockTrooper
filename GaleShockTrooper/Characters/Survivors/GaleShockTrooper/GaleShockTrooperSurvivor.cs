@@ -76,7 +76,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
             new CustomRendererInfo
             {
                 childName = "Body",
-                material = assetBundle.LoadMaterial("matTrooper01"),
+                material = assetBundle.LoadMaterial("matTrooperBody"),
             },
             new CustomRendererInfo
             {
@@ -291,7 +291,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
                 baseMaxStock = PaintMissiles.baseMaxStocks,
                 beginSkillCooldownOnSkillEnd = true,
                 forceSprintDuringState = false,
-                interruptPriority = EntityStates.InterruptPriority.PrioritySkill,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
                 isCombatSkill = true,
                 canceledFromSprinting = false,
                 requiredStock = 1,
@@ -365,7 +365,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
                 baseMaxStock = 1,
                 beginSkillCooldownOnSkillEnd = false,
                 forceSprintDuringState = false,
-                interruptPriority = EntityStates.InterruptPriority.Skill,
+                interruptPriority = EntityStates.InterruptPriority.PrioritySkill,
                 isCombatSkill = true,
                 canceledFromSprinting = false,
                 requiredStock = 1,

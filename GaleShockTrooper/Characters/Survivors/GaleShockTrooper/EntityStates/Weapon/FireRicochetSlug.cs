@@ -13,6 +13,7 @@ namespace EntityStates.GaleShockTrooperStates.Weapon
         public static float force = 2000f;
         public static float recoil = 3f;
         public static int ricochetCount = 9;
+        public static float selfKnockbackForce = 3000f;
 
         //Shouldn't be here
         public static float baseCooldown = 10f;
@@ -36,6 +37,11 @@ namespace EntityStates.GaleShockTrooperStates.Weapon
 
             if (isAuthority)
             {
+                if (characterMotor && !(characterMotor.isGrounded && characterMotor.velocity == Vector3.zero))
+                {
+                    characterMotor.ApplyForce(-GetAimRay().direction * selfKnockbackForce, true, false);
+                }
+
                 Ray aimRay = GetAimRay();
                 BulletAttack ba = new BulletAttack
                 {

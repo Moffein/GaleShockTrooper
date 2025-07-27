@@ -18,6 +18,8 @@ namespace GaleShockTrooper
     [BepInDependency(R2API.PrefabAPI.PluginGUID)]
     [BepInDependency(R2API.SoundAPI.PluginGUID)]
     [BepInDependency(R2API.RecalculateStatsAPI.PluginGUID)]
+    [BepInDependency("com.Moffein.ExtraDamageTypes")]
+    [BepInDependency("com.rune580.riskofoptions", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInPlugin(MODUID, MODNAME, MODVERSION)]
     public class GaleShockTrooperPlugin : BaseUnityPlugin
     {
@@ -26,7 +28,7 @@ namespace GaleShockTrooper
         //   this shouldn't even have to be said
         public const string MODUID = "com.Gale.ShockTrooper";
         public const string MODNAME = "Shock Trooper";
-        public const string MODVERSION = "0.0.2";
+        public const string MODVERSION = "0.0.3";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string DEVELOPER_PREFIX = "GALE";

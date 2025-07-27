@@ -59,7 +59,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
                 chainGunOrb.procCoefficient = 1f;
                 chainGunOrb.procChainMask = damageInfo.procChainMask;
                 chainGunOrb.origin = damageInfo.position;
-                chainGunOrb.speed = 120f;
+                chainGunOrb.speed = 200f;
                 chainGunOrb.bouncesRemaining = FireRicochetSlug.ricochetCount;
                 chainGunOrb.bounceRange = FireRicochetSlug.ricochetRange;
                 chainGunOrb.damageCoefficientPerBounce = 1f;

@@ -1,4 +1,5 @@
-﻿using RoR2;
+﻿using BepInEx.Configuration;
+using RoR2;
 using RoR2.Skills;
 using RoR2.UI;
 using System.Collections.Generic;
@@ -10,6 +11,14 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
 {
     public class PaintMissiles : BaseState
     {
+        public enum InputMode
+        {
+            Hold,
+            Toggle
+        }
+
+        public static ConfigEntry<InputMode> selectedInput;
+
         public static GameObject missileTrackingIndicator = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Engi/EngiMissileTrackingIndicator.prefab").WaitForCompletion();
         public static GameObject crosshairOverridePrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/Railgunner/RailgunnerCrosshair.prefab").WaitForCompletion();
 
@@ -110,87 +119,96 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
             }
 
             if (characterBody) characterBody.SetAimTimer(2f);
-            if (base.isAuthority)
+            if (!isAuthority) return;
+            if (GetCurrentTargets() < GetMaxTargets())
             {
-                if (GetCurrentTargets() < GetMaxTargets())
+                UpdateTrackerAuthority();
+                if (startedPainting)
                 {
-                    UpdateTrackerAuthority();
-                    if (startedPainting)
-                    {
-                        UpdatePainterAuthority();
-                    }
+                    UpdatePainterAuthority();
                 }
-                else
-                {
-                    generalIndicator.targetTransform = null;
-                    generalIndicator.active = false;
-                }
+            }
+            else
+            {
+                generalIndicator.targetTransform = null;
+                generalIndicator.active = false;
+            }
 
-                bool isAI = characterBody && !characterBody.isPlayerControlled;
-                if (isAI)
+            bool isAI = characterBody && !characterBody.isPlayerControlled;
+            if (isAI)
+            {
+                if (fixedAge >= lockonDuration * GetMaxTargets())
                 {
-                    if (fixedAge >= lockonDuration * GetMaxTargets())
+                    outer.SetNextState(new FireMissiles
+                    {
+                        attacksFired = 0,
+                        targetList = this.targetList,
+                        maxAttacks = GetMaxTargets()
+                    });
+                }
+                return;
+            }
+
+            bool shouldExit = false;
+            if (inputBank)
+            {
+                if (!startedPainting && inputBank.skill1.down)
+                {
+                    startedPainting = true;
+                }
+                else if (startedPainting && !inputBank.skill1.down)
+                {
+                    if (GetCurrentTargets() > 0)
                     {
                         outer.SetNextState(new FireMissiles
                         {
                             attacksFired = 0,
                             targetList = this.targetList,
-                            maxAttacks = GetMaxTargets()
+                            maxAttacks = GetCurrentTargets()
                         });
+                        return;
                     }
-                    return;
+                    else
+                    {
+                        lockonStopwatch = 0f;
+                        startedPainting = false;
+                    }
                 }
 
-                bool shouldExit = false;
-                if (inputBank)
+                if (selectedInput.Value == InputMode.Toggle)
                 {
-                    if (!startedPainting)
+                    //Jank for making this skill a toggle skill
+                    if (!buttonReleased && !inputBank.skill2.down)
                     {
-                        startedPainting = true;
+                        buttonReleased = true;
                     }
-                    else if (startedPainting && (!base.inputBank.skill1.down))
+                    else if (buttonReleased && inputBank.skill2.down)
                     {
-                        if (GetCurrentTargets() > 0)
-                        {
-                            outer.SetNextState(new FireMissiles
-                            {
-                                attacksFired = 0,
-                                targetList = this.targetList,
-                                maxAttacks = GetCurrentTargets()
-                            });
-                            return;
-                        }
-                        else
-                        {
-                            lockonStopwatch = 0f;
-                            startedPainting = false;
-                        }
+                        buttonRepressed = true;
                     }
-                    
-                    if (!isAI)
+                    else if (buttonRepressed && buttonRepressed && !inputBank.skill2.down)
                     {
-                        //Jank for making this skill a toggle skill
-                        if (!buttonReleased && !base.inputBank.skill2.down)
-                        {
-                            buttonReleased = true;
-                        }
-                        else if (buttonReleased && base.inputBank.skill2.down)
-                        {
-                            buttonRepressed = true;
-                        }
-                        else if (buttonRepressed && buttonRepressed && !base.inputBank.skill2.down)
-                        {
-                            shouldExit = true;
-                        }
+                        shouldExit = true;
                     }
-
-                    if (characterBody && characterBody.isSprinting) shouldExit = true;
                 }
-
-                if (shouldExit)
+                else if (selectedInput.Value == InputMode.Hold)
                 {
-                    outer.SetNextStateToMain();
+                    if (!inputBank.skill2.down && !startedPainting)
+                    {
+                        shouldExit = true;
+                    }
                 }
+
+                if (characterBody && characterBody.isSprinting) shouldExit = true;
+            }
+            else
+            {
+                shouldExit = true;
+            }
+
+            if (shouldExit)
+            {
+                outer.SetNextStateToMain();
             }
         }
 
@@ -246,9 +264,9 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
         {
             if (!lockonTarget) return;
             lockonStopwatch += GetDeltaTime();
-            if (lockonStopwatch >= lockonDuration)
+            if (lockonStopwatch >= lockonDuration || GetCurrentTargets() <= 0)
             {
-                lockonStopwatch -= lockonDuration;
+                lockonStopwatch = 0f;
                 AddLockonTarget();
             }
         }
@@ -266,6 +284,7 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
                 {
                     setLock = true;
                     tInfo.SetTargetCount(tInfo.GetTargetCount() + 1);
+                    break;
                 }
             }
 
