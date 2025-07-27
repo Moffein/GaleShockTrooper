@@ -39,8 +39,28 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
 
         private static void CreatePrimaryShotgunTracer()
         {
-            GameObject effect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/TracerCommandoShotgun.prefab").WaitForCompletion().InstantiateClone("GaleShockTrooper_ShotgunTracer", false);
-            effect.GetComponent<Tracer>().speed = 200f;
+            GameObject effect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/TracerCommandoDefault.prefab").WaitForCompletion().InstantiateClone("GaleShockTrooper_ShotgunTracer", false);
+            //effect.GetComponent<Tracer>().speed = 250f;
+
+            LineRenderer[] lrs = effect.GetComponentsInChildren<LineRenderer>();
+            for (int i = 0; i < lrs.Length; i++)
+            {
+                //if (!lrs[i].sharedMaterial.ToString().Contains("matCommandoShotgunTracerCore")) UnityEngine.Object.Destroy(lrs[i]);
+
+                /*float blue = lrs[i].startColor.b;
+                float red = lrs[i].startColor.r;
+                lrs[i].startColor = new Color(blue, lrs[i].startColor.g, red);
+
+                blue = lrs[i].endColor.b;
+                red = lrs[i].endColor.r;
+                lrs[i].endColor = new Color(blue, lrs[i].endColor.g, red);*/
+
+                //lrs[i].startWidth = 0.15f;
+                //lrs[i].endWidth = 0.15f;
+                lrs[i].startColor = new Color(0.5f, 0.5f, 1f, lrs[i].startColor.a);
+                lrs[i].endColor = new Color(0.5f, 0.5f, 1f, lrs[i].endColor.a);
+            }
+
             Modules.Content.AddEffectDef(new EffectDef(effect));
             EntityStates.GaleShockTrooperStates.Weapon.FireShotgun.tracerEffectPrefab = effect;
         }
