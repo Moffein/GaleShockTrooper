@@ -16,7 +16,7 @@ namespace EntityStates.GaleShockTrooperStates.Weapon
         public static float selfKnockbackForce = 3000f;
 
         //Shouldn't be here
-        public static float baseCooldown = 10f;
+        public static float baseCooldown = 30f;
 
         public static GameObject hitEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/Railgunner/ImpactRailgun.prefab").WaitForCompletion();
         public static GameObject tracerEffectPrefab;
