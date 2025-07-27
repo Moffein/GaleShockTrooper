@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Networking;
 
 namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
 {
@@ -32,7 +33,29 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
             if (targetList == null) targetList = new List<PaintMissiles.TargetInfo>();
             if (characterBody) characterBody.SetAimTimer(2f);
             duration = baseDuration / attackSpeedStat;
+
+            if (skillLocator && skillLocator.secondary)
+            {
+                if (characterBody)
+                {
+                    characterBody.OnSkillActivated(skillLocator.secondary);
+                    if (NetworkServer.active)
+                    {
+                        HandleLuminousShotServer(characterBody);
+                    }
+                }
+                if (isAuthority) skillLocator.secondary.DeductStock(1);
+            }
+
             FireMissile();
+        }
+
+        internal static void HandleLuminousShotServer(CharacterBody body)
+        {
+            if (!NetworkServer.active || !body || !body.inventory) return;
+            if (body.inventory.GetItemCount(DLC2Content.Items.IncreasePrimaryDamage) <= 0) return;
+
+            body.AddIncreasePrimaryDamageStack();
         }
 
         public override void FixedUpdate()
@@ -82,16 +105,6 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
             EffectManager.SimpleMuzzleFlash(PaintMissiles.smokeEffectPrefab, gameObject, "VentR", false);
             if (isAuthority)
             {
-                if (skillLocator && skillLocator.secondary)
-                {
-                    skillLocator.secondary.DeductStock(1);
-
-                    if (characterBody)
-                    {
-                        characterBody.OnSkillActivated(skillLocator.secondary);
-                    }
-                }
-
                 GameObject target = null;
                 PaintMissiles.TargetInfo info = targetList.FirstOrDefault();
                 if (info != null)
