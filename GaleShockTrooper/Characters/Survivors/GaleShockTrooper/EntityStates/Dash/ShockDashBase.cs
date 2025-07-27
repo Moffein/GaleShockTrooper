@@ -37,7 +37,7 @@ namespace EntityStates.GaleShockTrooperStates.Dash
 
             Util.PlaySound("Play_huntress_shift_mini_blink", gameObject);
             PlayDashAnim();
-            //StartAimMode(GetAimRay(), baseDuration + 0.3f);
+            StartAimMode(GetAimRay(), baseDuration + 0.3f);
             CreateBlinkEffect(Util.GetCorePosition(gameObject));
 
             modelTransform = GetModelTransform();

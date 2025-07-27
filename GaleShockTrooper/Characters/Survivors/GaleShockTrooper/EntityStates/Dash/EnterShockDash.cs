@@ -66,11 +66,16 @@ namespace EntityStates.GaleShockTrooperStates.Dash
             if (isAuthority)
             {
                 Vector3 blinkVector = characterDirection.forward;
+                Ray aimRay = GetAimRay();
+                Vector3 aimRayWithoutVerticality = aimRay.direction;
+                aimRayWithoutVerticality.y = 0f;
+                aimRayWithoutVerticality.Normalize();
+
                 string animString = "DashF";
                 if (inputBank && inputBank.moveVector != Vector3.zero)
                 {
                     blinkVector = inputBank.moveVector.normalized;
-                    float blinkAngle = Vector3.SignedAngle(characterDirection.forward, blinkVector, Vector3.up);
+                    float blinkAngle = Vector3.SignedAngle(aimRayWithoutVerticality, blinkVector, Vector3.up);
 
                     if (blinkAngle >= 45f && blinkAngle < 135f)
                     {
@@ -109,7 +114,7 @@ namespace EntityStates.GaleShockTrooperStates.Dash
                     default:
                         this.outer.SetNextState(new ShockDashBase()
                         {
-                            blinkVector = blinkVector
+                            blinkVector = aimRay.direction
                         });
                         break;
                 }
