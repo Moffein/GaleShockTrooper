@@ -10,6 +10,7 @@ using RoR2;
 using RoR2.Skills;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
@@ -150,6 +151,13 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
             AdditionalBodySetup();
 
             AddHooks();
+            if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.score.AutoSprint")) AutoSprintCompat();
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+        private void AutoSprintCompat()
+        {
+            AutoSprint.Core.StateManager.SprintDisabledTypeNames.Add(typeof(EntityStates.GaleShockTrooperStates.Weapon.MissilePainter.PaintMissiles).FullName);
         }
 
         private void AdditionalBodySetup()

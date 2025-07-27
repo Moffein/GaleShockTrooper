@@ -39,6 +39,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Reference Include="AutoSprint">
+	    <HintPath>..\libs\AutoSprint.dll</HintPath>
+	  </Reference>
 	  <Reference Include="ExtraDamageTypes">
 	    <HintPath>..\libs\ExtraDamageTypes.dll</HintPath>
 	  </Reference>
