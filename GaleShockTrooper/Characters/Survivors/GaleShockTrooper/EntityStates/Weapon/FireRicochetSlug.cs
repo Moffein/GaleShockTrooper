@@ -14,6 +14,9 @@ namespace EntityStates.GaleShockTrooperStates.Weapon
         public static float recoil = 3f;
         public static int ricochetCount = 9;
 
+        //Shouldn't be here
+        public static float baseCooldown = 10f;
+
         public static GameObject hitEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/Railgunner/ImpactRailgun.prefab").WaitForCompletion();
         public static GameObject tracerEffectPrefab;
         public static GameObject muzzleflashEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Bandit2/MuzzleflashBandit2.prefab").WaitForCompletion();

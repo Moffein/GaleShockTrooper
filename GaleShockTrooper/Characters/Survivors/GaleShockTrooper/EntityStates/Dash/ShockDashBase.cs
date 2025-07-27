@@ -12,7 +12,8 @@ namespace EntityStates.GaleShockTrooperStates.Dash
     {
         public static float shockRange = 12f;
         public static float shockDamageCoefficient = 1f;
-        public static int shockTicksPerSecond = 10;
+        public static int shockTicksPerSecond = 30;
+        public static float baseSpeed = 8f;
 
         public static float baseDuration = 0.3f;
         public static GameObject blinkPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Huntress/HuntressBlinkEffect.prefab").WaitForCompletion();
@@ -185,13 +186,8 @@ namespace EntityStates.GaleShockTrooperStates.Dash
             if (characterMotor && characterDirection)
             {
                 characterMotor.velocity = Vector3.zero;
-                characterMotor.rootMotion += blinkVector * (moveSpeedStat * GetBlinkSpeed() * Time.deltaTime);
+                characterMotor.rootMotion += blinkVector * (moveSpeedStat * baseSpeed * Time.deltaTime);
             }
-        }
-
-        public virtual float GetBlinkSpeed()
-        {
-            return 6f;
         }
     }
 

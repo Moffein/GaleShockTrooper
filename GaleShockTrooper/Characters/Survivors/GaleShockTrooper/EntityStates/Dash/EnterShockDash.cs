@@ -5,10 +5,48 @@ namespace EntityStates.GaleShockTrooperStates.Dash
 {
     public class EnterShockDash : BaseState
     {
+        public static float baseCooldown = 5f;
+
+        public static float baseDuration = 0.2f;
+        private float duration;
+        private HurtBoxGroup hurtboxGroup;
+
         public override void OnEnter()
         {
             base.OnEnter();
+            duration = baseDuration / attackSpeedStat;
+            if (baseDuration > 0f) Util.PlaySound("Play_merc_shift_start", gameObject);
+            if (this.hurtboxGroup)
+            {
+                HurtBoxGroup hurtBoxGroup = this.hurtboxGroup;
+                int hurtBoxesDeactivatorCounter = hurtBoxGroup.hurtBoxesDeactivatorCounter + 1;
+                hurtBoxGroup.hurtBoxesDeactivatorCounter = hurtBoxesDeactivatorCounter;
+            }
+        }
 
+        public override void OnExit()
+        {
+            base.OnExit();
+            if (this.hurtboxGroup)
+            {
+                HurtBoxGroup hurtBoxGroup = this.hurtboxGroup;
+                int hurtBoxesDeactivatorCounter = hurtBoxGroup.hurtBoxesDeactivatorCounter - 1;
+                hurtBoxGroup.hurtBoxesDeactivatorCounter = hurtBoxesDeactivatorCounter;
+            }
+        }
+
+        public override void FixedUpdate()
+        {
+            base.FixedUpdate();
+
+            if (isAuthority && fixedAge > duration)
+            {
+                ChangeStateAuthority();
+            }
+        }
+
+        public void ChangeStateAuthority()
+        {
             if (isAuthority)
             {
                 Vector3 blinkVector = characterDirection.forward;

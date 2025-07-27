@@ -1,4 +1,7 @@
 ﻿using BepInEx.Configuration;
+using EntityStates.GaleShockTrooperStates.Dash;
+using EntityStates.GaleShockTrooperStates.Weapon;
+using EntityStates.GaleShockTrooperStates.Weapon.MissilePainter;
 using GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Content;
 using GaleShockTrooper.Modules;
 using GaleShockTrooper.Modules.Characters;
@@ -35,6 +38,8 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
         public override string survivorTokenPrefix => TOKEN_PREFIX;
 
         public static BodyIndex bodyIndex;
+
+        public static float passiveFrontArmorMult = 2f / 3f;
         
         public override BodyInfo bodyInfo => new BodyInfo
         {
@@ -228,7 +233,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
                     if (isBullet || isProjectile || isAoe)
                     {
                         EffectManager.SimpleSoundEffect(blockSound.index, damageInfo.position, true);
-                        damageInfo.damage *= 0.6666666666f;
+                        damageInfo.damage *= passiveFrontArmorMult;
                     }
                 }
             }
@@ -277,13 +282,13 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
             {
                 activationState = new EntityStates.SerializableEntityStateType(typeof(EntityStates.GaleShockTrooperStates.Weapon.MissilePainter.PaintMissiles)),
                 stockToConsume = 0,
-                baseRechargeInterval = 2.5f,
+                baseRechargeInterval = PaintMissiles.baseCooldown,
                 rechargeStock = 1,
                 activationStateMachineName = "Weapon",
                 cancelSprintingOnActivation = true,
                 fullRestockOnAssign = true,
-                dontAllowPastMaxStocks = true,
-                baseMaxStock = 3,
+                dontAllowPastMaxStocks = false,
+                baseMaxStock = PaintMissiles.baseMaxStocks,
                 beginSkillCooldownOnSkillEnd = true,
                 forceSprintDuringState = false,
                 interruptPriority = EntityStates.InterruptPriority.PrioritySkill,
@@ -315,7 +320,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
             {
                 activationState = new EntityStates.SerializableEntityStateType(typeof(EntityStates.GaleShockTrooperStates.Dash.EnterShockDash)),
                 stockToConsume = 1,
-                baseRechargeInterval = 5f,
+                baseRechargeInterval = EnterShockDash.baseCooldown,
                 rechargeStock = 1,
                 activationStateMachineName = "Body",
                 cancelSprintingOnActivation = false,
@@ -351,7 +356,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
             {
                 activationState = new EntityStates.SerializableEntityStateType(typeof(EntityStates.GaleShockTrooperStates.Weapon.FireRicochetSlug)),
                 stockToConsume = 1,
-                baseRechargeInterval = 7f,
+                baseRechargeInterval = FireRicochetSlug.baseCooldown,
                 rechargeStock = 1,
                 activationStateMachineName = "Weapon",
                 cancelSprintingOnActivation = true,

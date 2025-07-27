@@ -1,6 +1,10 @@
 ﻿using System;
+using EntityStates.GaleShockTrooperStates.Dash;
+using EntityStates.GaleShockTrooperStates.Weapon;
+using EntityStates.GaleShockTrooperStates.Weapon.MissilePainter;
 using GaleShockTrooper.Modules;
 using GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Achievements;
+using UnityEngine;
 
 namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
 {
@@ -42,20 +46,20 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
 
             #region Passive
             Language.Add(prefix + "PASSIVE_NAME", "Unstoppable Force");
-            Language.Add(prefix + "PASSIVE_DESCRIPTION", "The Shock Trooper takes <style=cIsUtility>33% reduced damage</style> against <style=cIsDamage>projectiles</style>, <style=cIsDamage>blasts</style>, and <style=cIsDamage>bullets</style> from the <style=cIsUtility>front</style>.");
+            Language.Add(prefix + "PASSIVE_DESCRIPTION", "The Shock Trooper takes <style=cIsUtility>"+Mathf.FloorToInt((1f-GaleShockTrooperSurvivor.passiveFrontArmorMult) * 100f)+"% reduced damage</style> against <style=cIsDamage>projectiles</style>, <style=cIsDamage>blasts</style>, and <style=cIsDamage>bullets</style> from the <style=cIsUtility>front</style>.");
             #endregion
 
             Language.Add(prefix + "PRIMARY_NAME", "PRD-12 Auto Shotgun");
-            Language.Add(prefix + "PRIMARY_DESCRIPTION", "Fire a shotgun blast for <style=cIsDamage>5x60%</style> damage.");
+            Language.Add(prefix + "PRIMARY_DESCRIPTION", "Fire a shotgun blast for <style=cIsDamage>"+FireShotgun.pelletCount+"x"+ Mathf.RoundToInt(FireShotgun.damageCoefficient * 100f) + "%</style> damage.");
 
             Language.Add(prefix + "SECONDARY_NAME", "Micro Missiles");
-            Language.Add(prefix + "SECONDARY_DESCRIPTION", "Enter <style=cIsUtility>target painting mode</style> to launch heat-seeking missiles that deal <style=cIsDamage>400% damage</style> each. Can store up to 3.");
+            Language.Add(prefix + "SECONDARY_DESCRIPTION", "Enter <style=cIsUtility>target painting mode</style> to launch heat-seeking missiles that deal <style=cIsDamage>"+ Mathf.RoundToInt(FireMissiles.damageCoefficient * 100f) + "% damage</style> each. Can store up to 3.");
 
             Language.Add(prefix + "UTILITY_NAME", "Overdrive");
-            Language.Add(prefix + "UTILITY_DESCRIPTION", "<style=cIsDamage>Shocking</style>. <style=cIsUtility>Dash</style> a short distance while electrocuting nearby enemies for <style=cIsDamage>100% damage</style>.");
+            Language.Add(prefix + "UTILITY_DESCRIPTION", "<style=cIsDamage>Shocking</style>. <style=cIsUtility>Dash</style> a short distance while electrocuting nearby enemies for <style=cIsDamage>"+ Mathf.RoundToInt(ShockDashBase.shockDamageCoefficient * 100f) + "% damage</style>.");
 
             Language.Add(prefix + "SPECIAL_NAME", "Easy Prey");
-            Language.Add(prefix + "SPECIAL_DESCRIPTION", "Fire a slug for <style=cIsDamage>1000% damage</style>. Upon hitting an enemy, <style=cIsDamage>ricochets</style> to up to <style=cIsDamage>9</style> additional targets.");
+            Language.Add(prefix + "SPECIAL_DESCRIPTION", "Fire a slug for <style=cIsDamage>"+ Mathf.RoundToInt(FireRicochetSlug.damageCoefficient * 100f) + "% damage</style>. Upon hitting an enemy, <style=cIsDamage>ricochets</style> to up to <style=cIsDamage>"+ FireRicochetSlug.ricochetCount+ "</style> additional targets.");
 
             #region Achievements
             Language.Add(Modules.Tokens.GetAchievementNameToken(MasteryAchievement.identifier), "Henry: Mastery");

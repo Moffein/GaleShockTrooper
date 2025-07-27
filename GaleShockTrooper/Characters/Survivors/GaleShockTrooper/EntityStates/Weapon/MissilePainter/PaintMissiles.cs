@@ -12,6 +12,8 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
     {
         public static GameObject missileTrackingIndicator = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Engi/EngiMissileTrackingIndicator.prefab").WaitForCompletion();
         public static GameObject crosshairOverridePrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/Railgunner/RailgunnerCrosshair.prefab").WaitForCompletion();
+
+        public static GameObject smokeEffectPrefab;
         public static SkillDef primaryOverride = Addressables.LoadAssetAsync<SkillDef>("RoR2/Base/Engi/EngiConfirmTargetDummy.asset").WaitForCompletion();
         public static string entrySoundString = "Play_railgunner_m2_scope_in";
         public static string exitSoundString = "Play_railgunner_m2_scope_out";
@@ -19,6 +21,10 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
         public static float baseLockonDuration = 0.4f;
         public static float baseLockonAngle = 60f;
         public static float baseLockonRange = 200f;
+
+        //Shouldn't be here.
+        public static int baseMaxStocks = 3;
+        public static float baseCooldown = 2.5f;
 
         private Indicator generalIndicator;
         private float lockonDuration;
@@ -107,16 +113,17 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
                     generalIndicator.active = false;
                 }
 
+                bool isAI = characterBody && !characterBody.isPlayerControlled;
                 bool shouldExit = false;
                 if (inputBank)
                 {
-                    if (!startedPainting && base.inputBank.skill1.down)
+                    if (!startedPainting && (base.inputBank.skill1.down || isAI))
                     {
                         startedPainting = true;
                     }
-                    else if (startedPainting && !base.inputBank.skill1.down)
+                    else if (startedPainting && (!base.inputBank.skill1.down || (isAI && GetCurrentTargets() >= GetMaxTargets())))
                     {
-                        if (targetList.Count > 0)
+                        if (GetCurrentTargets() > 0)
                         {
                             outer.SetNextState(new FireMissiles
                             {
@@ -133,18 +140,21 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
                         }
                     }
                     
-                    //Jank for making this skill a toggle skill
-                    if (!buttonReleased && !base.inputBank.skill2.down)
+                    if (!isAI)
                     {
-                        buttonReleased = true;
-                    }
-                    else if (buttonReleased && base.inputBank.skill2.down)
-                    {
-                        buttonRepressed = true;
-                    }
-                    else if (buttonRepressed && buttonRepressed && !base.inputBank.skill2.down)
-                    {
-                        shouldExit = true;
+                        //Jank for making this skill a toggle skill
+                        if (!buttonReleased && !base.inputBank.skill2.down)
+                        {
+                            buttonReleased = true;
+                        }
+                        else if (buttonReleased && base.inputBank.skill2.down)
+                        {
+                            buttonRepressed = true;
+                        }
+                        else if (buttonRepressed && buttonRepressed && !base.inputBank.skill2.down)
+                        {
+                            shouldExit = true;
+                        }
                     }
 
                     if (characterBody && characterBody.isSprinting) shouldExit = true;

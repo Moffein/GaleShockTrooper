@@ -22,6 +22,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
             LoadSounds();
             CreatePrimaryShotgunTracer();
             CreateSecondaryMissiles();
+            CreateMiniSmokeRing();
             CreateSpecialSlugAssets();
         }
 
@@ -75,12 +76,19 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
             FireMissiles.projectilePrefab = projectile;
         }
 
+        private static void CreateMiniSmokeRing()
+        {
+            GameObject effect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Common/VFX/MuzzleflashSmokeRing.prefab").WaitForCompletion().InstantiateClone("GaleShockTrooper_MiniSmokeRing", false);
+            effect.transform.localScale *= 0.3f;
+            Modules.ContentPacks.effectDefs.Add(new EffectDef(effect));
+        }
+
         private static void CreateSpecialSlugAssets()
         {
             GameObject impactEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/Railgunner/ImpactRailgun.prefab").WaitForCompletion().InstantiateClone("GaleShockTrooper_SlugTracerEffect", false);
             EffectComponent ec = impactEffect.GetComponent<EffectComponent>();
             ec.soundName = "Play_bandit_M2_shot";
-            ContentAddition.AddEffect(impactEffect);
+            Modules.ContentPacks.effectDefs.Add(new EffectDef(impactEffect));
             FireRicochetSlug.ricochetImpactEffect = impactEffect;
 
             GameObject tracerEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Bandit2/TracerBandit2Rifle.prefab").WaitForCompletion().InstantiateClone("GaleShockTrooper_SlugTracerEffect", false);
@@ -89,7 +97,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
             lr.endWidth = 0.4f;
             lr.widthMultiplier = 0.4f;
             var tracer = tracerEffect.GetComponent<Tracer>();
-            ContentAddition.AddEffect(tracerEffect);
+            Modules.ContentPacks.effectDefs.Add(new EffectDef(tracerEffect));
             FireRicochetSlug.tracerEffectPrefab = tracerEffect;
 
             Color orbColor = new Color32(255, 100, 215, 255);
@@ -100,7 +108,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
             tr.startWidth = 0.3f;
             tr.endWidth = 0.3f;
             tr.widthMultiplier = 0.3f;
-            ContentAddition.AddEffect(orbEffect);
+            Modules.ContentPacks.effectDefs.Add(new EffectDef(orbEffect));
             FireRicochetSlug.orbEffectPrefab = orbEffect;
         }
     }
