@@ -19,7 +19,7 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
 
         private float duration;
         private bool clearTargetList = true;
-        public bool isCrit;
+        public bool isCrit = false;
 
         public int maxAttacks;  //This determines how many missiles to fire, in case of a desync between TargetList and the actual attacks.
         public int attacksFired;
@@ -29,9 +29,9 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
         public override void OnEnter()
         {
             base.OnEnter();
+            if (targetList == null) targetList = new List<PaintMissiles.TargetInfo>();
             if (characterBody) characterBody.SetAimTimer(2f);
             duration = baseDuration / attackSpeedStat;
-            isCrit = RollCrit();
             FireMissile();
         }
 
@@ -99,7 +99,6 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
                     info.SetTargetCount(info.GetTargetCount() - 1);
                     target = info.hurtBox.gameObject;
                 }
-                //Fire Missile while reading from info if it is notnull
 
 
                 Ray aimRay = GetAimRay();

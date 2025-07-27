@@ -8,9 +8,9 @@ namespace EntityStates.GaleShockTrooperStates.Weapon
     {
         public static float maxRange = 80f;
         public static uint pelletCount = 5;
-        public static float damageCoefficient = 0.6f;
+        public static float damageCoefficient = 0.4f;
         public static float procCoefficient = 0.6f;
-        public static float baseDuration = 0.3f;
+        public static float baseDuration = 0.45f;
         public static float force = 100f;
         public static float spread = 3f;
         public static float recoil = 1f;

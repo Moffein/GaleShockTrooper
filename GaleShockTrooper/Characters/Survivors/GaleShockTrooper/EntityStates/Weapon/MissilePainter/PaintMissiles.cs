@@ -27,13 +27,13 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
         public static string entrySoundString = "Play_railgunner_m2_scope_in";
         public static string exitSoundString = "Play_railgunner_m2_scope_out";
         public static float baseEntryduration = 0.3f;
-        public static float baseLockonDuration = 0.4f;
+        public static float baseLockonDuration = 0.45f;
         public static float baseLockonAngle = 60f;
         public static float baseLockonRange = 200f;
 
         //Shouldn't be here.
-        public static int baseMaxStocks = 3;
-        public static float baseCooldown = 2.5f;
+        public static int baseMaxStocks = 6;
+        public static float baseCooldown = 6f;
 
 
         public static float smokeEffectFrequency = 10f;
@@ -143,7 +143,8 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
                     {
                         attacksFired = 0,
                         targetList = this.targetList,
-                        maxAttacks = GetMaxTargets()
+                        maxAttacks = GetMaxTargets(),
+                        isCrit = RollCrit()
                     });
                 }
                 return;
@@ -164,7 +165,8 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
                         {
                             attacksFired = 0,
                             targetList = this.targetList,
-                            maxAttacks = GetCurrentTargets()
+                            maxAttacks = GetCurrentTargets(),
+                            isCrit = RollCrit()
                         });
                         return;
                     }

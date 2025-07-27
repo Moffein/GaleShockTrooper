@@ -5,7 +5,7 @@ namespace EntityStates.GaleShockTrooperStates.Dash
 {
     public class EnterShockDash : BaseState
     {
-        public static float baseCooldown = 5f;
+        public static float baseCooldown = 8f;
 
         public static float baseDuration = 0.2f;
         private float duration;
