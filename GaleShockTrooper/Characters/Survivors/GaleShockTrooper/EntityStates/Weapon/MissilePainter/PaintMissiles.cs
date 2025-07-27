@@ -181,15 +181,16 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
             if (lockonTarget)
             {
                 generalIndicator.targetTransform = lockonTarget.transform;
+                generalIndicator.active = true;
 
                 foreach (TargetInfo tInfo in targetList)
                 {
                     if (tInfo.hurtBox == lockonTarget)
                     {
                         generalIndicator.active = false;
+                        break;
                     }
                 }
-                generalIndicator.active = true;
             }
             else
             {
