@@ -307,7 +307,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
                 forceSprintDuringState = false,
                 interruptPriority = EntityStates.InterruptPriority.Skill,
                 isCombatSkill = true,
-                canceledFromSprinting = false,
+                canceledFromSprinting = true,
                 requiredStock = 1,
                 skillNameToken = TOKEN_PREFIX + "SECONDARY_NAME",
                 skillDescriptionToken = TOKEN_PREFIX + "SECONDARY_DESCRIPTION",

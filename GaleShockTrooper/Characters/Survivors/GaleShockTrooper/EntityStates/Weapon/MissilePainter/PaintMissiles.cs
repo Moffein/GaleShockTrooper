@@ -14,7 +14,8 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
         public enum InputMode
         {
             Hold,
-            Toggle
+            Toggle,
+            M2Only
         }
 
         public static ConfigEntry<InputMode> selectedInput;
@@ -55,6 +56,7 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
 
         private bool buttonReleased = false;
         private bool buttonRepressed = false;
+        private bool appliedOverride = false;
 
         public class TargetInfo
         {
@@ -98,11 +100,15 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
 
             if (characterBody) characterBody.SetAimTimer(2f);
 
-            GenericSkill genericSkill = (skillLocator != null) ? skillLocator.primary : null;
-            if (genericSkill)
+            if (selectedInput.Value != InputMode.M2Only)
             {
-                this.TryOverrideSkill(genericSkill);
-                genericSkill.onSkillChanged += this.TryOverrideSkill;
+                GenericSkill genericSkill = (skillLocator != null) ? skillLocator.primary : null;
+                if (genericSkill)
+                {
+                    appliedOverride = true;
+                    this.TryOverrideSkill(genericSkill);
+                    genericSkill.onSkillChanged += this.TryOverrideSkill;
+                }
             }
         }
 
@@ -153,11 +159,11 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
             bool shouldExit = false;
             if (inputBank)
             {
-                if (!startedPainting && inputBank.skill1.down)
+                if (!startedPainting && (inputBank.skill1.down || selectedInput.Value == InputMode.M2Only))
                 {
                     startedPainting = true;
                 }
-                else if (startedPainting && !inputBank.skill1.down)
+                else if (startedPainting && ((selectedInput.Value != InputMode.M2Only && !inputBank.skill1.down) || (selectedInput.Value == InputMode.M2Only && !inputBank.skill2.down)))
                 {
                     if (GetCurrentTargets() > 0)
                     {
@@ -193,15 +199,13 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
                         shouldExit = true;
                     }
                 }
-                else if (selectedInput.Value == InputMode.Hold)
+                else if (selectedInput.Value == InputMode.Hold || selectedInput.Value == InputMode.M2Only)
                 {
                     if (!inputBank.skill2.down && !startedPainting)
                     {
                         shouldExit = true;
                     }
                 }
-
-                if (characterBody && characterBody.isSprinting) shouldExit = true;
             }
             else
             {
@@ -312,14 +316,17 @@ namespace EntityStates.GaleShockTrooperStates.Weapon.MissilePainter
                 }
             }
             
-            GenericSkill genericSkill = (skillLocator != null) ? skillLocator.primary : null;
-            if (genericSkill)
+            if (appliedOverride)
             {
-                genericSkill.onSkillChanged -= this.TryOverrideSkill;
-            }
-            if (this.overriddenSkill)
-            {
-                this.overriddenSkill.UnsetSkillOverride(this, primaryOverride, GenericSkill.SkillOverridePriority.Contextual);
+                GenericSkill genericSkill = (skillLocator != null) ? skillLocator.primary : null;
+                if (genericSkill)
+                {
+                    genericSkill.onSkillChanged -= this.TryOverrideSkill;
+                }
+                if (this.overriddenSkill)
+                {
+                    this.overriddenSkill.UnsetSkillOverride(this, primaryOverride, GenericSkill.SkillOverridePriority.Contextual);
+                }
             }
 
             if (this.crosshairOverrideRequest != null)
