@@ -13,7 +13,7 @@ namespace EntityStates.GaleShockTrooperStates.Weapon
         public static float force = 2000f;
         public static float recoil = 3f;
         public static int ricochetCount = 9;
-        public static float selfKnockbackForce = 3000f;
+        public static float selfKnockbackForce = 9000f;
 
         //Shouldn't be here
         public static float baseCooldown = 30f;

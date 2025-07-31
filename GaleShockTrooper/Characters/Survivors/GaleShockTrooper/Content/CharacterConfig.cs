@@ -50,6 +50,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
             FireRicochetSlug.baseCooldown = Modules.Config.BindAndOptions<float>("Skills - Ricochet Slug", "Cooldown", FireRicochetSlug.baseCooldown, "How long it takes for this skill to recharge.", true).Value;
             FireRicochetSlug.ricochetCount = Modules.Config.BindAndOptions<int>("Skills - Ricochet Slug", "Ricochet Count", FireRicochetSlug.ricochetCount, "How many extra targets this can ricochet to.", true).Value;
             FireRicochetSlug.ricochetRange = Modules.Config.BindAndOptions<float>("Skills - Ricochet Slug", "Ricochet Range", FireRicochetSlug.ricochetRange, "How far this can ricochet to.", true).Value;
+            FireRicochetSlug.selfKnockbackForce = Modules.Config.BindAndOptions<float>("Skills - Ricochet Slug", "Self Knockback Force", FireRicochetSlug.selfKnockbackForce, "Self knockback force when firing this skill.", true).Value;
 
             if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.rune580.riskofoptions")) RiskOfOptionsCompat();
         }

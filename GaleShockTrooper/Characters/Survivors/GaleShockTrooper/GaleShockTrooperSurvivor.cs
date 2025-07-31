@@ -179,6 +179,12 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
                      },
                 }
             };
+
+            CharacterMotor motor = bodyPrefab.GetComponent<CharacterMotor>();
+            if (motor)
+            {
+                motor.mass = 300f;
+            }
         }
 
         public override void InitializeEntityStateMachines() 
