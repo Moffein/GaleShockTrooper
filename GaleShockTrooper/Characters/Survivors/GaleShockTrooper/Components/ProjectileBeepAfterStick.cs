@@ -26,6 +26,15 @@ namespace GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Components
 
             beepStopwatch = 0f;
             beepDuration = pie.lifetimeAfterImpact / timesToBeep;
+
+            ProjectileStickOnImpact psi = GetComponent<ProjectileStickOnImpact>();
+            psi.stickEvent = new UnityEngine.Events.UnityEvent();
+            psi.stickEvent.AddListener(ChangeLayer);
+        }
+
+        private void ChangeLayer()
+        {
+            gameObject.layer = LayerIndex.projectileWorldOnly.intVal;
         }
 
         private void Update()
@@ -34,8 +43,6 @@ namespace GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Components
             beepStopwatch -= Time.deltaTime;
             if (beepStopwatch <= 0f)
             {
-                //I dont think this fixes the physics weirdness
-                gameObject.layer = LayerIndex.projectileWorldOnly.intVal;
                 beepStopwatch = beepDuration;
                 EffectManager.SimpleEffect(beepEffectPrefab, transform.position, transform.rotation, true);
                 timesBeeped++;
