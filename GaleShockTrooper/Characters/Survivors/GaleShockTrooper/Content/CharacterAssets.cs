@@ -147,7 +147,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
             psi.ignoreCharacters = false;
             psi.ignoreWorld = false;
 
-            //TODO: Add to bodyprefabs?
+            ContentPacks.bodyPrefabs.Add(projectile);
             ContentPacks.projectilePrefabs.Add(projectile);
             ThrowSticky.projectilePrefab = projectile;
         }
