@@ -408,7 +408,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
             #region DefaultSkin
             //this creates a SkinDef with all default fields
             SkinDef defaultSkin = Skins.CreateSkinDef("DEFAULT_SKIN",
-                assetBundle.LoadAsset<Sprite>("texMainSkin"),
+                assetBundle.LoadAsset<Sprite>("texSkinDefault"),
                 defaultRendererinfos,
                 prefabCharacterModel.gameObject);
 
@@ -427,13 +427,25 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
 
             //uncomment this when you have a mastery skin
             #region MasterySkin
-            
+
             ////creating a new skindef as we did before
             //SkinDef masterySkin = Modules.Skins.CreateSkinDef(HENRY_PREFIX + "MASTERY_SKIN_NAME",
             //    assetBundle.LoadAsset<Sprite>("texMasteryAchievement"),
             //    defaultRendererinfos,
             //    prefabCharacterModel.gameObject,
             //    HenryUnlockables.masterySkinUnlockableDef);
+
+            SkinDef masterySkin = Skins.CreateSkinDef(TOKEN_PREFIX + "MASTERY_SKIN_NAME",
+                assetBundle.LoadAsset<Sprite>("texSkinMastery"),
+                defaultRendererinfos,
+                prefabCharacterModel.gameObject,
+                Content.CharacterUnlockables.masterySkinUnlockableDef);
+
+            masterySkin.rendererInfos[0].defaultMaterial = assetBundle.LoadMaterial("matTrooperMastery01");
+            masterySkin.rendererInfos[1].defaultMaterial = assetBundle.LoadMaterial("matTrooperMasteryBackpack");
+            masterySkin.rendererInfos[2].defaultMaterial = assetBundle.LoadMaterial("matTrooperMasteryBody");
+            masterySkin.rendererInfos[3].defaultMaterial = assetBundle.LoadMaterial("matTrooperMastery01");
+            masterySkin.rendererInfos[4].defaultMaterial = assetBundle.LoadMaterial("matTrooperMasteryWeapon");
 
             ////adding the mesh replacements as above. 
             ////if you don't want to replace the mesh (for example, you only want to replace the material), pass in null so the order is preserved
@@ -459,8 +471,8 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
             //};
             ////simply find an object on your child locator you want to activate/deactivate and set if you want to activate/deacitvate it with this skin
 
-            //skins.Add(masterySkin);
-            
+            skins.Add(masterySkin);
+
             #endregion
 
             skinController.skins = skins.ToArray();

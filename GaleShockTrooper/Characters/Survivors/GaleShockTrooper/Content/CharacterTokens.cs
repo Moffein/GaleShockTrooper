@@ -41,7 +41,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
             Language.Add(prefix + "OUTRO_FAILURE", outroFailure);
 
             #region Skins
-            Language.Add(prefix + "MASTERY_SKIN_NAME", "Alternate");
+            Language.Add(prefix + "MASTERY_SKIN_NAME", "Bloodthirst");
             #endregion
 
             #region Passive
@@ -61,9 +61,10 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
             Language.Add(prefix + "SPECIAL_NAME", "Easy Prey");
             Language.Add(prefix + "SPECIAL_DESCRIPTION", "Fire a slug for <style=cIsDamage>"+ Mathf.RoundToInt(FireRicochetSlug.damageCoefficient * 100f) + "% damage</style>. Upon hitting an enemy, <style=cIsDamage>ricochets</style> to up to <style=cIsDamage>"+ FireRicochetSlug.ricochetCount+ "</style> additional targets.");
 
+
             #region Achievements
-            Language.Add(Modules.Tokens.GetAchievementNameToken(MasteryAchievement.identifier), "Henry: Mastery");
-            Language.Add(Modules.Tokens.GetAchievementDescriptionToken(MasteryAchievement.identifier), "As Henry, beat the game or obliterate on Monsoon.");
+            Language.Add(Modules.Tokens.GetAchievementNameToken(MasteryAchievement.identifier), "Shock Trooper: Mastery");
+            Language.Add(Modules.Tokens.GetAchievementDescriptionToken(MasteryAchievement.identifier), "As the Shock Trooper, beat the game or obliterate on Monsoon.");
             #endregion
         }
     }
