@@ -9,6 +9,7 @@ using BepInEx;
 using UnityEngine.AddressableAssets;
 using EntityStates.GaleShockTrooperStates.Weapon;
 using EntityStates.GaleShockTrooperStates.Weapon.MissilePainter;
+using GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Components;
 
 namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
 {
@@ -23,6 +24,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
             CreatePrimaryShotgunTracer();
             CreateSecondaryMissiles();
             CreateMiniSmokeRing();
+            CreateSecondarySticky();
             CreateSpecialSlugAssets();
         }
 
@@ -94,6 +96,60 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
 
             Modules.ContentPacks.projectilePrefabs.Add(projectile);
             FireMissiles.projectilePrefab = projectile;
+        }
+
+        private static void CreateSecondarySticky()
+        {
+            GameObject projectile = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/CommandoGrenadeProjectile.prefab").WaitForCompletion().InstantiateClone("GaleShockTrooper_StickyProjectile", true);
+
+            ProjectileSimple ps = projectile.GetComponent<ProjectileSimple>();
+            ps.lifetime = 30f;
+
+            ProjectileController pc = projectile.GetComponent<ProjectileController>();
+            pc.allowPrediction = false;
+
+            TeamComponent tc = projectile.AddComponent<TeamComponent>();
+            tc.hideAllyCardDisplay = true;
+
+            ProjectileImpactExplosion pie = projectile.GetComponent<ProjectileImpactExplosion>();
+            pie.lifetimeAfterImpact = ThrowSticky.detonationDelay;
+            pie.timerAfterImpact = true;
+            pie.blastRadius = ThrowSticky.blastRadius;
+            pie.destroyOnDistance = false;
+            pie.destroyOnWorld = false;
+            pie.destroyOnEnemy = false;
+            pie.impactEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Scav/ScavSackExplosion.prefab").WaitForCompletion();
+            pie.falloffModel = BlastAttack.FalloffModel.None;
+
+            SkillLocator sk = projectile.AddComponent<SkillLocator>();
+
+            CharacterBody cb = projectile.AddComponent<CharacterBody>();
+            cb.bodyFlags = CharacterBody.BodyFlags.Masterless;
+            cb.baseMaxHealth = 35f;
+            cb.levelMaxHealth = cb.baseMaxHealth * 0.3f;
+            cb.baseNameToken = "UNIDENTIFIED";
+            cb.preferredInitialStateType = new EntityStates.SerializableEntityStateType(typeof(EntityStates.Uninitialized));
+
+            HealthComponent hc = projectile.AddComponent<HealthComponent>();
+            hc.dontShowHealthbar = true;
+
+            projectile.AddComponent<ProjectileGrantOnKillOnDestroy>();
+            projectile.AddComponent<AssignTeamFilterToTeamComponent>();
+
+            var pbs = projectile.AddComponent<ProjectileBeepAfterStick>();
+            pbs.timesToBeep = Mathf.FloorToInt(ThrowSticky.detonationDelay / 0.5f);
+            pbs.beepEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/MuzzleflashFMJ.prefab").WaitForCompletion().InstantiateClone("GaleShockTrooper_StickyBeep", false);
+            EffectComponent ec = pbs.beepEffectPrefab.GetComponent<EffectComponent>();
+            ec.soundName = "Play_commando_M2_grenade_beep";
+            Modules.ContentPacks.effectDefs.Add(new EffectDef(pbs.beepEffectPrefab));
+
+            ProjectileStickOnImpact psi = projectile.AddComponent<ProjectileStickOnImpact>();
+            psi.ignoreCharacters = false;
+            psi.ignoreWorld = false;
+
+            //TODO: Add to bodyprefabs?
+            ContentPacks.projectilePrefabs.Add(projectile);
+            ThrowSticky.projectilePrefab = projectile;
         }
 
         private static void CreateMiniSmokeRing()

@@ -49,7 +49,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
             subtitleNameToken = TOKEN_PREFIX + "SUBTITLE",
 
             characterPortrait = assetBundle.LoadAsset<Texture>("texGaleShockTrooperPortrait"),
-            bodyColor = Color.white,
+            bodyColor = new Color32(64, 149, 128, 255),
             sortPosition = 100,
 
             crosshair = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Toolbot/SMGCrosshair.prefab").WaitForCompletion(),
@@ -317,8 +317,40 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
                 skillIcon = Addressables.LoadAssetAsync<SkillDef>("RoR2/Base/Engi/EngiHarpoons.asset").WaitForCompletion().icon
             });
             skillDef1.autoHandleLuminousShot = false;
-            Skills.AddSecondarySkills(bodyPrefab, skillDef1);
             SkillDefs.Secondary_MicroMissile = skillDef1;
+
+            Modules.Content.AddEntityState(typeof(EntityStates.GaleShockTrooperStates.Weapon.ThrowSticky));
+            SkillDef skillDef2 = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                activationState = new EntityStates.SerializableEntityStateType(typeof(EntityStates.GaleShockTrooperStates.Weapon.ThrowSticky)),
+                stockToConsume = 1,
+                baseRechargeInterval = ThrowSticky.baseCooldown,
+                rechargeStock = 1,
+                activationStateMachineName = "Weapon",
+                cancelSprintingOnActivation = true,
+                fullRestockOnAssign = true,
+                dontAllowPastMaxStocks = false,
+                baseMaxStock = ThrowSticky.baseMaxStocks,
+                beginSkillCooldownOnSkillEnd = true,
+                forceSprintDuringState = false,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                isCombatSkill = true,
+                canceledFromSprinting = false,
+                requiredStock = 1,
+                skillNameToken = TOKEN_PREFIX + "SECONDARY_STICKY_NAME",
+                skillDescriptionToken = TOKEN_PREFIX + "SECONDARY_STICKY_DESCRIPTION",
+                mustKeyPress = true,
+                resetCooldownTimerOnUse = false,
+                skillName = "GaleShockTrooper_Sticky",
+                skillIcon = Addressables.LoadAssetAsync<SkillDef>("RoR2/Base/Commando/ThrowGrenade.asset").WaitForCompletion().icon
+            });
+            SkillDefs.Secondary_Stickybomb = skillDef2;
+
+            Skills.AddSecondarySkills(bodyPrefab, new SkillDef[]
+            {
+                skillDef1,
+                skillDef2
+            });
         }
 
         private void AddUtiitySkills()

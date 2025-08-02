@@ -53,7 +53,12 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
             Language.Add(prefix + "PRIMARY_DESCRIPTION", "Fire a shotgun blast for <style=cIsDamage>"+FireShotgun.pelletCount+"x"+ Mathf.RoundToInt(FireShotgun.damageCoefficient * 100f) + "%</style> damage.");
 
             Language.Add(prefix + "SECONDARY_NAME", "Micro Missiles");
-            Language.Add(prefix + "SECONDARY_DESCRIPTION", "Enter <style=cIsUtility>target painting mode</style> to launch heat-seeking missiles that deal <style=cIsDamage>"+ Mathf.RoundToInt(FireMissiles.damageCoefficient * 100f) + "% damage</style> each. Can store up to 3.");
+            Language.Add(prefix + "SECONDARY_DESCRIPTION", "Enter <style=cIsUtility>target painting mode</style> to launch heat-seeking missiles that deal <style=cIsDamage>" + Mathf.RoundToInt(FireMissiles.damageCoefficient * 100f) + "% damage</style> each. Can store up to "+PaintMissiles.baseMaxStocks+".");
+
+            Language.Add(prefix + "SECONDARY_STICKY_NAME", "Thqwib Bomb");
+            string stickyString = "Throw a Thqwib-mounted bomb that explodes for <style=cIsDamage>" + Mathf.RoundToInt(ThrowSticky.damageCoefficient * 100f) + "% damage</style> and <style=cIsDamage>triggers on-kill effects</style>.";
+            if (ThrowSticky.baseMaxStocks > 1) stickyString += " Hold up to " + ThrowSticky.baseMaxStocks + ".";
+            Language.Add(prefix + "SECONDARY_STICKY_DESCRIPTION", stickyString);
 
             Language.Add(prefix + "UTILITY_NAME", "Overdrive");
             Language.Add(prefix + "UTILITY_DESCRIPTION", "<style=cIsDamage>Shocking</style>. <style=cIsUtility>Dash</style> a short distance while electrocuting nearby enemies for <style=cIsDamage>"+ Mathf.RoundToInt(ShockDashBase.shockDamageCoefficient * 100f) + "% damage</style>.");
