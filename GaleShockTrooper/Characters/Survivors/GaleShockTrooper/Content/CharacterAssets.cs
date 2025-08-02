@@ -10,6 +10,7 @@ using UnityEngine.AddressableAssets;
 using EntityStates.GaleShockTrooperStates.Weapon;
 using EntityStates.GaleShockTrooperStates.Weapon.MissilePainter;
 using GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Components;
+using System.Collections.Generic;
 
 namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
 {
@@ -168,22 +169,25 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
 
         private static void CreateSpecialSlugAssets()
         {
-            GameObject impactEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/Railgunner/ImpactRailgun.prefab").WaitForCompletion().InstantiateClone("GaleShockTrooper_SlugTracerEffect", false);
+            GameObject impactEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/OmniExplosionVFXFMJ.prefab").WaitForCompletion().InstantiateClone("GaleShockTrooper_SlugTracerEffect", false);
             EffectComponent ec = impactEffect.GetComponent<EffectComponent>();
             ec.soundName = "Play_bandit_M2_shot";
             Modules.ContentPacks.effectDefs.Add(new EffectDef(impactEffect));
             FireRicochetSlug.ricochetImpactEffect = impactEffect;
 
-            GameObject tracerEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Bandit2/TracerBandit2Rifle.prefab").WaitForCompletion().InstantiateClone("GaleShockTrooper_SlugTracerEffect", false);
-            var lr = tracerEffect.GetComponentInChildren<LineRenderer>();
+            GameObject tracerEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/TracerCommandoShotgun.prefab").WaitForCompletion().InstantiateClone("GaleShockTrooper_SlugTracerEffect", false);
+            /*var lr = tracerEffect.GetComponentInChildren<LineRenderer>();
             lr.startWidth = 0.4f;
             lr.endWidth = 0.4f;
-            lr.widthMultiplier = 0.4f;
+            lr.widthMultiplier = 0.4f;*/
             var tracer = tracerEffect.GetComponent<Tracer>();
+            tracer.speed = 150f;
+
+            Color orbColor = new Color32(50, 150, 255, 255);
+
             Modules.ContentPacks.effectDefs.Add(new EffectDef(tracerEffect));
             FireRicochetSlug.tracerEffectPrefab = tracerEffect;
 
-            Color orbColor = new Color32(255, 100, 215, 255);
             GameObject orbEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/DroneWeapons/ChainGunOrbEffect.prefab").WaitForCompletion().InstantiateClone("GaleShockTrooper_SlugOrbEffect", false);
             var tr = orbEffect.transform.Find("TrailParent/Trail").GetComponent<TrailRenderer>();
             tr.startColor = orbColor;

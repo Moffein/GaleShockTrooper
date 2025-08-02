@@ -18,7 +18,7 @@ namespace EntityStates.GaleShockTrooperStates.Weapon
         //Shouldn't be here
         public static float baseCooldown = 30f;
 
-        public static GameObject hitEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/Railgunner/ImpactRailgun.prefab").WaitForCompletion();
+        public static GameObject hitEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/OmniExplosionVFXFMJ.prefab").WaitForCompletion();
         public static GameObject tracerEffectPrefab;
         public static GameObject muzzleflashEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Bandit2/MuzzleflashBandit2.prefab").WaitForCompletion();
         public static GameObject orbEffectPrefab;
