@@ -24,7 +24,6 @@ namespace EntityStates.GaleShockTrooperStates.Weapon
         {
             base.OnEnter();
             duration = baseDuration / attackSpeedStat;
-
             Util.PlaySound("Play_MULT_m1_grenade_launcher_shoot", gameObject);
             EffectManager.SimpleMuzzleFlash(muzzleflashEffectPrefab, gameObject, "Muzzle", false);
             if (isAuthority)

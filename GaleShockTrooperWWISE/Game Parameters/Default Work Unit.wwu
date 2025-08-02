@@ -4,6 +4,7 @@
 		<WorkUnit Name="Default Work Unit" ID="{F380364C-CF23-422B-896E-260AD0DD1991}" PersistMode="Standalone">
 			<ChildrenList>
 				<GameParameter Name="Volume_SFX" ID="{62A72923-D039-44E8-8ECB-4153572F2D5A}"/>
+				<GameParameter Name="Volume_MSX" ID="{23CE3E49-ADA6-4189-A7EB-1709E47A0A09}"/>
 			</ChildrenList>
 		</WorkUnit>
 	</GameParameters>

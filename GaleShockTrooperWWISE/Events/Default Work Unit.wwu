@@ -14,6 +14,31 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Play_GaleShockTrooper_Music_Start" ID="{3281948B-7CF6-467D-A81E-99B36D08CBD8}">
+					<ChildrenList>
+						<Action Name="" ID="{83F55249-3FFE-49DD-AD21-F8BBA9B3E0D7}" ShortID="60725093">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="GaleShockTrooperMusicLoop" ID="{8415B37C-A36A-45B4-8A77-74DF3652E8D5}" WorkUnitID="{FCEAD9A6-3327-41F9-A6B6-2CB0B06B8BCE}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_GaleShockTrooper_Music_Stop" ID="{8EBE6940-FD94-4875-94FA-30FF30FE4B3A}">
+					<ChildrenList>
+						<Action Name="" ID="{2E0D91D1-911E-4D37-8330-0C1CD048BF05}" ShortID="340940344">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="GaleShockTrooperMusicLoop" ID="{8415B37C-A36A-45B4-8A77-74DF3652E8D5}" WorkUnitID="{FCEAD9A6-3327-41F9-A6B6-2CB0B06B8BCE}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

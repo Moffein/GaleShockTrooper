@@ -25,6 +25,8 @@ namespace GaleShockTrooper.Modules {
         public static List<BuffDef> buffDefs = new List<BuffDef>();
         public static List<EffectDef> effectDefs = new List<EffectDef>();
 
+        public static List<GameObject> networkedObjectPrefabs = new List<GameObject>();
+
         public static List<NetworkSoundEventDef> networkSoundEventDefs = new List<NetworkSoundEventDef>();
 
         public void Initialize()
@@ -56,6 +58,8 @@ namespace GaleShockTrooper.Modules {
             contentPack.effectDefs.Add(effectDefs.ToArray());
 
             contentPack.networkSoundEventDefs.Add(networkSoundEventDefs.ToArray());
+
+            contentPack.networkedObjectPrefabs.Add(networkedObjectPrefabs.ToArray());
 
             args.ReportProgress(1f);
             yield break;

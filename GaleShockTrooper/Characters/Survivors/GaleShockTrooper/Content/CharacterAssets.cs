@@ -11,12 +11,14 @@ using EntityStates.GaleShockTrooperStates.Weapon;
 using EntityStates.GaleShockTrooperStates.Weapon.MissilePainter;
 using GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Components;
 using System.Collections.Generic;
+using UnityEngine.Networking;
 
 namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
 {
     public static class CharacterAssets
     {
         private static AssetBundle _assetBundle;
+        public static GameObject bossMusicControllerPrefab;
 
         public static void Init(AssetBundle assetBundle)
         {
@@ -27,6 +29,17 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
             CreateMiniSmokeRing();
             CreateSecondarySticky();
             CreateSpecialSlugAssets();
+            CreateMusicController();
+        }
+
+        private static void CreateMusicController()
+        {
+            GameObject musicControllerObject = GaleShockTrooperSurvivor.instance.assetBundle.LoadAsset<GameObject>("EmptyGameobject").InstantiateClone("GaleShockTrooper_MusicController", false);
+            musicControllerObject.AddComponent<NetworkIdentity>();
+            var musicController = musicControllerObject.AddComponent<BossMusicController>();
+            musicController.soundName = "Play_GaleShockTrooper_Music_Start";
+            ContentPacks.networkedObjectPrefabs.Add(musicControllerObject);
+            bossMusicControllerPrefab = musicControllerObject;
         }
 
         private static void LoadSounds()
