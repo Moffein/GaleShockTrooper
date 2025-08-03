@@ -14,12 +14,12 @@ namespace EntityStates.GaleShockTrooperDroneStates
     {
         public static float damageCoefficient = 1f;
         public static float lockonAngle = 120f;
-        public static float baseShotDuration = 0.14f;
-        public static float baseDuration = 0.4f;
+        public static float baseShotDuration = 0.15f;
+        public static float baseDuration = 0.5f;
         public static int shotsPerBurst = 2;
         public static GameObject muzzleflashEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/MuzzleflashFMJ.prefab").WaitForCompletion();
         public static GameObject orbEffectPrefab;
-        public static float lockonRange = 60f;
+        public static float lockonRange = 90f;
 
         private float shotDuration, duration, stopwatch;
         private int shotsFired;
