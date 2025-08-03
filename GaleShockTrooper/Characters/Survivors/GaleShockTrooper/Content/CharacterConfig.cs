@@ -4,6 +4,7 @@ using EntityStates.GaleShockTrooperStates.Weapon;
 using EntityStates.GaleShockTrooperStates.Weapon.MissilePainter;
 using EntityStates.Jellyfish;
 using GaleShockTrooper.Modules;
+using R2API.Utils;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -11,7 +12,8 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
 {
     public static class CharacterConfig
     {
-        public static ConfigEntry<bool> forceUnlock;
+        public static bool forceUnlock;
+        public static bool alwaysTriggerBossfight;
 
         public static void Init()
         {
@@ -21,7 +23,8 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
                 section,
                 "Force Unlock",
                 false,
-                "TODO: IMPLEMENT UNLOCK CONDITION.");
+                "Unlock the survivor and all skills.").Value;
+            alwaysTriggerBossfight = Modules.Config.BindAndOptions<bool>(section, "Always Trigger Bossfight", false, "Trigger the bossfight even after unlocking the survivor", true).Value;
 
             GaleShockTrooperSurvivor.passiveFrontArmorMult = 1f - Modules.Config.BindAndOptions<float>("Skills - Passive Front Armor", "Damage Reduction", 1f/3f, "How much damage this passive reduces.", true).Value;
 

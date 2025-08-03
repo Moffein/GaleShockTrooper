@@ -1,5 +1,7 @@
-﻿using GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Achievements;
+﻿using GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Achievements;
+using GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Achievements;
 using RoR2;
+using System.Reflection;
 using UnityEngine;
 
 namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
@@ -11,6 +13,11 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
 
         public static void Init()
         {
+            characterUnlockableDef = Modules.Content.CreateAndAddUnlockbleDef(
+                UnlockAchievement.unlockableIdentifier,
+                Modules.Tokens.GetAchievementNameToken(UnlockAchievement.identifier),
+                GaleShockTrooperSurvivor.instance.assetBundle.LoadAsset<Sprite>("texGaleShockTrooperPortrait"));
+
             masterySkinUnlockableDef = Modules.Content.CreateAndAddUnlockbleDef(
                 MasteryAchievement.unlockableIdentifier,
                 Modules.Tokens.GetAchievementNameToken(MasteryAchievement.identifier),

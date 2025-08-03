@@ -6,6 +6,7 @@ using GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Bossfight;
 using GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Content;
 using GaleShockTrooper.Modules;
 using GaleShockTrooper.Modules.Characters;
+using GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content;
 using R2API;
 using RoR2;
 using RoR2.Skills;
@@ -92,7 +93,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
             }
         };
 
-        public override UnlockableDef characterUnlockableDef => Content.CharacterUnlockables.characterUnlockableDef;
+        public override UnlockableDef characterUnlockableDef => CharacterConfig.forceUnlock ? null : Content.CharacterUnlockables.characterUnlockableDef;
         
         public override ItemDisplaysBase itemDisplays => new Content.CharacterItemDisplaySetup();
 

@@ -10,6 +10,8 @@ namespace GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Bossfight
 {
     public class BossMissionController : MonoBehaviour
     {
+        public static event Action<BossMissionController> onBossDefeatedGlobal;
+
         public static GameObject prefab;
         public static BossMissionController instance;
 
@@ -99,7 +101,7 @@ namespace GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Bossfight
 
             if (cs.memberCount > 0)
             {
-                cs.onDefeatedServer += StopMusicOnMissionComplete;
+                cs.onDefeatedServer += OnBossDefeated;
                 NetworkServer.Spawn(combatGroupInstance);
 
                 if (!BossMusicController.instance)
@@ -125,12 +127,13 @@ namespace GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Bossfight
             }
         }
 
-        private void StopMusicOnMissionComplete()
+        private void OnBossDefeated()
         {
             if (BossMusicController.instance)
             {
                 UnityEngine.Object.Destroy(BossMusicController.instance);
             }
+            onBossDefeatedGlobal?.Invoke(this);
             if (instance)
             {
                 Destroy(instance);
@@ -145,12 +148,21 @@ namespace GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Bossfight
             }
         }
 
-        internal static void Stage_onServerStageBegin(Stage obj)
+        internal static void Stage_onServerStageBegin(Stage stage)
         {
             SceneDef sd = SceneCatalog.GetSceneDefForCurrentScene();
-            if (sd && sd.baseSceneName == "moon2")
+            if (sd && sd.baseSceneName == "moon2" && BossMissionController.instance == null)
             {
-                UnityEngine.Object.Instantiate(prefab);
+                GameObject obj = UnityEngine.Object.Instantiate(prefab);
+                var com = prefab.GetComponent<BossMissionController>();
+                if (com)
+                {
+                    instance = com;
+                }
+                else
+                {
+                    Destroy(obj);
+                }
             }
         }
     }

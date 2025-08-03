@@ -50,22 +50,29 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
             missionControllerObject.AddComponent<BossMissionController>();
             BossMissionController.prefab = missionControllerObject;
 
-            Stage.onServerStageBegin += BossMissionController.Stage_onServerStageBegin;
+            if (CharacterConfig.alwaysTriggerBossfight) Stage.onServerStageBegin += BossMissionController.Stage_onServerStageBegin;
 
             ItemDef item = ScriptableObject.CreateInstance<ItemDef>();
             item.nameToken = "GaleShockTrooper_BossStatItem";
+            item.loreToken = "None.";
+            item.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+            item.pickupToken = "None.";
             item.name = item.nameToken;
             (item as ScriptableObject).name = item.nameToken;
-            item.tier = ItemTier.NoTier;
+            item.deprecatedTier = ItemTier.NoTier;
             item.hidden = true;
             item.canRemove = false;
             item.tags = new ItemTag[]
             {
                 ItemTag.CannotSteal,
                 ItemTag.CannotCopy,
-                ItemTag.CannotDuplicate
+                ItemTag.CannotDuplicate,
+                ItemTag.WorldUnique
             };
             ContentPacks.itemDefs.Add(item);
+            //ItemDisplayRule[] idr = new ItemDisplayRule[0];
+            //ItemAPI.Add(new CustomItem(item, idr));
+
             BossMissionController.bossStatItem = item;
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
         }
