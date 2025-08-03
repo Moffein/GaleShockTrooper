@@ -42,6 +42,12 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
             PaintMissiles.baseCooldown = Modules.Config.BindAndOptions<float>("Skills - Micro Missiles", "Cooldown", PaintMissiles.baseCooldown, "How long it takes for each stock to recharge.", true).Value;
             PaintMissiles.selectedInput = Modules.Config.BindAndOptions<PaintMissiles.InputMode>("Skills - Micro Missiles", "Input Mode", PaintMissiles.InputMode.Hold, "Input Mode for Micro Missiles", true);
 
+            ThrowSticky.damageCoefficient = Modules.Config.BindAndOptions<float>("Skills - Stickybomb", "Damage Coefficient", ThrowSticky.damageCoefficient, "How much damage this skill does.", true).Value;
+            ThrowSticky.baseCooldown = Modules.Config.BindAndOptions<float>("Skills - Stickybomb", "Cooldown", ThrowSticky.baseCooldown, "How long it takes for this skill to recharge.", true).Value;
+            ThrowSticky.blastRadius = Modules.Config.BindAndOptions<float>("Skills - Stickybomb", "Blast Radius", ThrowSticky.blastRadius, "How big is the explosion.", true).Value;
+            ThrowSticky.baseMaxStocks = Modules.Config.BindAndOptions<int>("Skills - Stickybomb", "Stocks", ThrowSticky.baseMaxStocks, "How many charges this skill starts with.", true).Value;
+            ThrowSticky.detonationDelay = Modules.Config.BindAndOptions<float>("Skills - Stickybomb", "Detonation Delay", ThrowSticky.detonationDelay, "Delay before explosion.", true).Value;
+
             EnterShockDash.baseDuration = Modules.Config.BindAndOptions<float>("Skills - Dash", "Windup Duration", EnterShockDash.baseDuration, "Delay before entering the main dash.", true).Value;
             ShockDashBase.baseDuration = Modules.Config.BindAndOptions<float>("Skills - Dash", "Base Duration", ShockDashBase.baseDuration, "How long it take to use this skill.", true).Value;
             ShockDashBase.baseSpeed = Modules.Config.BindAndOptions<float>("Skills - Dash", "Speed", ShockDashBase.baseSpeed, "How fast the dash travels.", true).Value;
