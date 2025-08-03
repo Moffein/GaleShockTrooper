@@ -27,7 +27,7 @@ namespace GaleShockTrooper.Characters.Drones.GaleShockTrooperDrone
             bodyNameToken = TOKEN_PREFIX + "NAME",
             subtitleNameToken = "",
 
-            characterPortrait = assetBundle.LoadAsset<Texture>("texGaleShockTrooperPortrait"),
+            characterPortrait = assetBundle.LoadAsset<Texture>("texGaleShockTrooperDronePortrait"),
             bodyColor = new Color32(64, 149, 128, 255),
             sortPosition = 100,
 
