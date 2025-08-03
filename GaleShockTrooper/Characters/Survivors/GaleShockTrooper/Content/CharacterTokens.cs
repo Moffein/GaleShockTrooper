@@ -4,6 +4,7 @@ using EntityStates.GaleShockTrooperStates.Dash;
 using EntityStates.GaleShockTrooperStates.Weapon;
 using EntityStates.GaleShockTrooperStates.Weapon.MissilePainter;
 using GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Achievements;
+using GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Components;
 using GaleShockTrooper.Modules;
 using GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Achievements;
 using UnityEngine;
@@ -68,10 +69,13 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
             Language.Add(prefix + "SPECIAL_NAME", "Easy Prey");
             Language.Add(prefix + "SPECIAL_DESCRIPTION", "Fire a slug for <style=cIsDamage>"+ Mathf.RoundToInt(FireRicochetSlug.damageCoefficient * 100f) + "% damage</style>. Upon hitting an enemy, <style=cIsDamage>ricochets</style> to up to <style=cIsDamage>"+ FireRicochetSlug.ricochetCount+ "</style> additional targets.");
 
-            Language.Add(prefix + "SPECIAL_DRONE_NAME", "Hunter Killer");
-            Language.Add(prefix + "SPECIAL_DRONE_DESCRIPTION", "Deploy a Hunter Drone that attacks enemies for <style=cIsDamage>" + FireAutoTurret.shotsPerBurst + "x" + Mathf.RoundToInt(FireAutoTurret.damageCoefficient * 100f) + " damage</style>.");
+            string specialDroneDesc = "Deploy a Hunter Drone that attacks enemies for <style=cIsDamage>" + FireAutoTurret.shotsPerBurst + "x" + Mathf.RoundToInt(FireAutoTurret.damageCoefficient * 100f) + "% damage</style>.";
+            if (MasterDroneTracker.baseMaxDrones > 1) specialDroneDesc += " Can place up to " + MasterDroneTracker.baseMaxDrones + ".";
 
-            Language.Add("GALE_GALESHOCKTROOPERDRONE_BODY_NAME", "Hunter Drone");
+            Language.Add(prefix + "SPECIAL_DRONE_NAME", "Hunter Killer");
+            Language.Add(prefix + "SPECIAL_DRONE_DESCRIPTION", specialDroneDesc);
+
+            Language.Add("GALE_GaleShockTrooperDrone_NAME", "Hunter Drone");
 
             #region Achievements
             Language.Add(Modules.Tokens.GetAchievementNameToken(UnlockAchievement.identifier), "Dead Meat");

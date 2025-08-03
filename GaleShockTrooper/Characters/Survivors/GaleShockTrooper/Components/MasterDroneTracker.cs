@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
 
 namespace GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Components
@@ -18,6 +19,7 @@ namespace GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Components
         public CharacterMaster master;
 
         public static GameObject droneMasterPrefab;
+        public static GameObject droneSpawnEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Loader/OmniImpactVFXLoader.prefab").WaitForCompletion();
 
         public void Awake()
         {
@@ -55,7 +57,7 @@ namespace GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Components
                 }
             }
 
-            CharacterMaster characterMaster = new MasterSummon
+            MasterSummon summon = new MasterSummon
             {
                 masterPrefab = droneMasterPrefab,
                 position = pos,
@@ -63,11 +65,29 @@ namespace GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Components
                 summonerBodyObject = bodyObject,
                 ignoreTeamMemberLimit = true,
                 inventoryToCopy = master.inventory
-            }.Perform();
+            };
 
-            if (characterMaster)
+            /*CharacterBody masterBody = master.GetBody();
+            if (masterBody)
             {
-                summonedDrones.Enqueue(characterMaster);
+                summon.loadout = new Loadout();
+                summon.loadout.bodyLoadoutManager.SetSkinIndex(BodyCatalog.FindBodyIndex("GaleShockTrooperDroneBody"), masterBody.skinIndex);
+            }*/
+
+            CharacterMaster droneMaster = summon.Perform();
+
+            if (droneMaster)
+            {
+                summonedDrones.Enqueue(droneMaster);
+                CharacterBody droneBody = droneMaster.GetBody();
+                if (droneBody)
+                {
+                    EffectManager.SimpleEffect(droneSpawnEffect, droneBody.corePosition, Quaternion.identity, true);
+
+                    droneMaster.loadout.bodyLoadoutManager.SetSkinIndex(BodyCatalog.FindBodyIndex("GaleShockTrooperDroneBody"), master.loadout.bodyLoadoutManager.GetSkinIndex(BodyCatalog.FindBodyIndex("GaleShockTrooperBody")));
+                    droneMaster.SetLoadoutServer(droneMaster.loadout);
+                    droneMaster.Respawn(droneBody.footPosition, droneBody.transform.rotation);
+                }
             }
             else
             {

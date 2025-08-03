@@ -17,7 +17,7 @@ namespace EntityStates.GaleShockTrooperDroneStates
         public static float baseShotDuration = 0.15f;
         public static float baseDuration = 0.5f;
         public static int shotsPerBurst = 2;
-        public static GameObject muzzleflashEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/MuzzleflashFMJ.prefab").WaitForCompletion();
+        public static GameObject muzzleflashEffectPrefab;
         public static GameObject orbEffectPrefab;
         public static float lockonRange = 90f;
 
@@ -97,22 +97,16 @@ namespace EntityStates.GaleShockTrooperDroneStates
             }
             rightMuzzle = !rightMuzzle;
 
-            if (playEffects)
-            {
-                EffectManager.SimpleMuzzleFlash(muzzleflashEffectPrefab, gameObject, muzzleString, false);
-                Util.PlaySound("Play_engi_R_turret_shot", gameObject);
-            }
-
             if (NetworkServer.active)
             {
-                FireOrb(muzzleTransform);
+                FireOrb(muzzleTransform, playEffects);
             }
         }
 
-        private void FireOrb(Transform muzzleTransform)
+        private void FireOrb(Transform muzzleTransform, bool playEffects)
         {
             Ray aimRay = GetAimRay();
-            if (!(currentTarget && currentTarget.healthComponent && currentTarget.healthComponent.alive))
+            if (!currentTarget)
             {
                 search.teamMaskFilter = TeamMask.all;
                 search.teamMaskFilter.RemoveTeam(GetTeam());
@@ -147,6 +141,12 @@ namespace EntityStates.GaleShockTrooperDroneStates
 
             chainGunOrb.target = currentTarget;
             OrbManager.instance.AddOrb(chainGunOrb);
+
+            //Jank since this was moved at the last minute
+            if (playEffects)
+            {
+                EffectManager.SimpleMuzzleFlash(muzzleflashEffectPrefab, gameObject, muzzleTransform == muzzleR ? "MuzzleR" : "MuzzleL", true);
+            }
         }
 
         public override InterruptPriority GetMinimumInterruptPriority()

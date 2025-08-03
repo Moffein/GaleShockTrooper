@@ -42,8 +42,8 @@ namespace GaleShockTrooper.Characters.Drones.GaleShockTrooperDrone
 
             bodyNameToClone = "Drone1",
 
-            moveSpeed = 17f,
-            acceleration = 40f,
+            moveSpeed = 15f,
+            acceleration = 30f,
 
             hasRagdoll = false,
             hasFootstepController = false,
@@ -87,15 +87,15 @@ namespace GaleShockTrooper.Characters.Drones.GaleShockTrooperDrone
 
         public override void InitializeCharacterMaster()
         {
-            //GameObject master = assetBundle.LoadMaster(bodyPrefab, "GaleShockTrooperDroneMaster");
-            GameObject master = Prefabs.CloneGenericMaster(bodyPrefab, "GaleShockTrooperDroneMaster", Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Drones/Drone1Master.prefab").WaitForCompletion());
+            GameObject master = assetBundle.LoadMaster(bodyPrefab, "GaleShockTrooperDroneMaster");
+            //GameObject master = Prefabs.CloneGenericMaster(bodyPrefab, "GaleShockTrooperDroneMaster", Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Drones/Drone1Master.prefab").WaitForCompletion());
             MasterDroneTracker.droneMasterPrefab = master;
         }
 
         public override void InitializeEntityStateMachines()
         {
             Prefabs.ClearEntityStateMachines(bodyPrefab);
-            Prefabs.AddMainEntityStateMachine(bodyPrefab, "Body", typeof(EntityStates.FlyState), typeof(EntityStates.Uninitialized));
+            Prefabs.AddMainEntityStateMachine(bodyPrefab, "Body", typeof(EntityStates.FlyState), typeof(EntityStates.FlyState));
             Prefabs.AddEntityStateMachine(bodyPrefab, "Weapon");
         }
 
@@ -127,8 +127,8 @@ namespace GaleShockTrooper.Characters.Drones.GaleShockTrooperDrone
                 isCombatSkill = true,
                 canceledFromSprinting = false,
                 requiredStock = 0,
-                skillNameToken = "GALE_GALESHOCKTROOPER_SPECIAL_NAME",
-                skillDescriptionToken = "GALE_GALESHOCKTROOPER_SPECIAL_DESCRIPTION",
+                skillNameToken = "GALE_GaleShockTrooperDrone_SPECIAL_DRONE_NAME",
+                skillDescriptionToken = "GaleShockTrooperDrone_SPECIAL_DRONE_DESCRIPTION",
                 mustKeyPress = false,
                 resetCooldownTimerOnUse = false,
                 skillName = "GaleShockTrooperDrone_AutoTurret",
@@ -143,6 +143,12 @@ namespace GaleShockTrooper.Characters.Drones.GaleShockTrooperDrone
             tr.endColor = orbColor;
             Modules.ContentPacks.effectDefs.Add(new EffectDef(orbEffect));
             FireAutoTurret.orbEffectPrefab = orbEffect;
+
+            GameObject mf = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/MuzzleflashFMJ.prefab").WaitForCompletion().InstantiateClone("GaleShockTrooperDrone_MuzzleflashEffect", false);
+            EffectComponent ec = mf.GetComponent<EffectComponent>();
+            ec.soundName = "Play_engi_R_turret_shot";
+            Modules.ContentPacks.effectDefs.Add(new EffectDef(mf));
+            FireAutoTurret.muzzleflashEffectPrefab = mf;
         }
 
         public override void InitializeSkins()
@@ -165,6 +171,7 @@ namespace GaleShockTrooper.Characters.Drones.GaleShockTrooperDrone
                 defaultRendererinfos,
                 prefabCharacterModel.gameObject);
             masterySkin.rendererInfos[0].defaultMaterial = assetBundle.LoadMaterial("matTrooperMasteryWeapon");
+            skins.Add(masterySkin);
 
             skinController.skins = skins.ToArray();
         }
