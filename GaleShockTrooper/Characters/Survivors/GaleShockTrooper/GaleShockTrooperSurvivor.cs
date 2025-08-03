@@ -2,6 +2,7 @@
 using EntityStates.GaleShockTrooperStates.Dash;
 using EntityStates.GaleShockTrooperStates.Weapon;
 using EntityStates.GaleShockTrooperStates.Weapon.MissilePainter;
+using GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Bossfight;
 using GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Content;
 using GaleShockTrooper.Modules;
 using GaleShockTrooper.Modules.Characters;
@@ -520,10 +521,31 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
             //Modules.Prefabs.CloneDopplegangerMaster(bodyPrefab, masterName, "Merc");
 
             //how to set up AI in code
-            Content.CharacterAI.Init(bodyPrefab, masterName);
+            //Content.CharacterAI.Init(bodyPrefab, masterName);
 
             //how to load a master set up in unity, can be an empty gameobject with just AISkillDriver components
-            //assetBundle.LoadMaster(bodyPrefab, masterName);
+            GameObject master = assetBundle.LoadMaster(bodyPrefab, masterName);
+
+            CharacterSpawnCard csc = ScriptableObject.CreateInstance<CharacterSpawnCard>();
+            csc.hullSize = HullClassification.Human;
+            csc.noElites = false;
+            csc.directorCreditCost = 800;
+            csc.forbiddenAsBoss = false;
+            csc.prefab = master;
+            csc.itemsToGrant = new ItemCountPair[]
+            {
+                new ItemCountPair()
+                {
+                    itemDef = RoR2Content.Items.UseAmbientLevel,
+                    count = 1
+                },
+                new ItemCountPair()
+                {
+                    itemDef = BossMissionController.bossStatItem,
+                    count = 1
+                }
+            };
+            BossMissionController.spawnCard = csc;
         }
 
         private void AddHooks()

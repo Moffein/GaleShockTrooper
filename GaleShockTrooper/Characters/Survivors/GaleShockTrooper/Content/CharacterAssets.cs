@@ -12,13 +12,13 @@ using EntityStates.GaleShockTrooperStates.Weapon.MissilePainter;
 using GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Components;
 using System.Collections.Generic;
 using UnityEngine.Networking;
+using GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Bossfight;
 
 namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
 {
     public static class CharacterAssets
     {
         private static AssetBundle _assetBundle;
-        public static GameObject bossMusicControllerPrefab;
 
         public static void Init(AssetBundle assetBundle)
         {
@@ -30,16 +30,58 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
             CreateSecondarySticky();
             CreateSpecialSlugAssets();
             CreateMusicController();
+            CreateBossMissionController();
         }
 
         private static void CreateMusicController()
         {
-            GameObject musicControllerObject = GaleShockTrooperSurvivor.instance.assetBundle.LoadAsset<GameObject>("EmptyGameobject").InstantiateClone("GaleShockTrooper_MusicController", false);
+            GameObject musicControllerObject = GaleShockTrooperSurvivor.instance.assetBundle.LoadAsset<GameObject>("EmptyGameobject").InstantiateClone("GaleShockTrooper_BossMusicController", false);
             musicControllerObject.AddComponent<NetworkIdentity>();
             var musicController = musicControllerObject.AddComponent<BossMusicController>();
             musicController.soundName = "Play_GaleShockTrooper_Music_Start";
             ContentPacks.networkedObjectPrefabs.Add(musicControllerObject);
-            bossMusicControllerPrefab = musicControllerObject;
+            BossMusicController.prefab = musicControllerObject;
+            IL.RoR2.MusicController.LateUpdate += BossMusicController.MusicController_LateUpdate;
+        }
+
+        private static void CreateBossMissionController()
+        {
+            GameObject missionControllerObject = GaleShockTrooperSurvivor.instance.assetBundle.LoadAsset<GameObject>("EmptyGameobject").InstantiateClone("GaleShockTrooper_BossMissionController", false);
+            missionControllerObject.AddComponent<BossMissionController>();
+            BossMissionController.prefab = missionControllerObject;
+
+            Stage.onServerStageBegin += BossMissionController.Stage_onServerStageBegin;
+
+            ItemDef item = ScriptableObject.CreateInstance<ItemDef>();
+            item.nameToken = "GaleShockTrooper_BossStatItem";
+            item.name = item.nameToken;
+            (item as ScriptableObject).name = item.nameToken;
+            item.tier = ItemTier.NoTier;
+            item.hidden = true;
+            item.canRemove = false;
+            item.tags = new ItemTag[]
+            {
+                ItemTag.CannotSteal,
+                ItemTag.CannotCopy,
+                ItemTag.CannotDuplicate
+            };
+            ContentPacks.itemDefs.Add(item);
+            BossMissionController.bossStatItem = item;
+            RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+        }
+
+        private static void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
+        {
+            if (sender.inventory && sender.inventory.GetItemCount(BossMissionController.bossStatItem) > 0)
+            {
+                args.healthMultAdd += 19f;
+                args.shieldMultAdd += 19f;
+                args.moveSpeedMultAdd += 0.5f;
+                args.cooldownMultAdd -= 0.25f;
+
+                args.baseDamageAdd -= sender.baseDamage * 0.7f;
+                args.levelDamageAdd -= sender.levelDamage * 0.7f;
+            }
         }
 
         private static void LoadSounds()

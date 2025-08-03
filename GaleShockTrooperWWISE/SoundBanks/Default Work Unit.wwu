@@ -5,6 +5,8 @@
 			<ChildrenList>
 				<SoundBank Name="GaleShockTrooperSoundbank" ID="{9E6B8704-F70E-4E45-8157-1B5CDB018E7F}">
 					<ObjectInclusionList>
+						<ObjectRef Name="Play_GaleShockTrooper_Music_Start" ID="{3281948B-7CF6-467D-A81E-99B36D08CBD8}" WorkUnitID="{ED4A1FAA-691C-4356-931E-CD07E7847D50}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_GaleShockTrooper_Music_Stop" ID="{8EBE6940-FD94-4875-94FA-30FF30FE4B3A}" WorkUnitID="{ED4A1FAA-691C-4356-931E-CD07E7847D50}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_GaleShockTrooper_MicroMissile" ID="{4B0294E1-36BF-4B45-AC54-ED9425F0A01E}" WorkUnitID="{ED4A1FAA-691C-4356-931E-CD07E7847D50}" Origin="Manual" Filter="7"/>
 					</ObjectInclusionList>
 					<ObjectExclusionList/>

@@ -140,7 +140,7 @@ MonoBehaviour:
   maxUserHealthFraction: Infinity
   minTargetHealthFraction: -Infinity
   maxTargetHealthFraction: Infinity
-  minDistance: 60
+  minDistance: 20
   maxDistance: 120
   selectionRequiresTargetLoS: 1
   selectionRequiresOnGround: 0

@@ -21,6 +21,7 @@ namespace GaleShockTrooper.Modules {
         public static List<SkillFamily> skillFamilies = new List<SkillFamily>();
         public static List<SkillDef> skillDefs = new List<SkillDef>();
         public static List<Type> entityStates = new List<Type>();
+        public static List<ItemDef> itemDefs = new List<ItemDef>();
 
         public static List<BuffDef> buffDefs = new List<BuffDef>();
         public static List<EffectDef> effectDefs = new List<EffectDef>();
@@ -60,6 +61,8 @@ namespace GaleShockTrooper.Modules {
             contentPack.networkSoundEventDefs.Add(networkSoundEventDefs.ToArray());
 
             contentPack.networkedObjectPrefabs.Add(networkedObjectPrefabs.ToArray());
+
+            contentPack.itemDefs.Add(itemDefs.ToArray());
 
             args.ReportProgress(1f);
             yield break;
