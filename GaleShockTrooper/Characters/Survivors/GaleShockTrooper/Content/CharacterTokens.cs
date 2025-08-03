@@ -74,6 +74,9 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
 
             Language.Add(Modules.Tokens.GetAchievementNameToken(MasteryAchievement.identifier), "Shock Trooper: Mastery");
             Language.Add(Modules.Tokens.GetAchievementDescriptionToken(MasteryAchievement.identifier), "As the Shock Trooper, beat the game or obliterate on Monsoon.");
+
+            Language.Add(Modules.Tokens.GetAchievementNameToken(StickyAchievement.identifier), "Shock Trooper: Boom");
+            Language.Add(Modules.Tokens.GetAchievementDescriptionToken(StickyAchievement.identifier), "As the Shock Trooper, kill "+StickyAchievement.killsToUnlock+" enemies with explosives in a single run.");
             #endregion
         }
     }

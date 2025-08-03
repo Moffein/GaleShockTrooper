@@ -353,6 +353,15 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
                 skillDef1,
                 skillDef2
             });
+
+            if (!CharacterConfig.forceUnlock)
+            {
+                Skills.AddUnlockablesToFamily(bodyPrefab.GetComponent<SkillLocator>().secondary.skillFamily, new UnlockableDef[]
+                {
+                    null,
+                    CharacterUnlockables.stickybombUnlockableDef
+                });
+            }
         }
 
         private void AddUtiitySkills()

@@ -10,6 +10,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
     {
         public static UnlockableDef characterUnlockableDef = null;
         public static UnlockableDef masterySkinUnlockableDef = null;
+        public static UnlockableDef stickybombUnlockableDef = null;
 
         public static void Init()
         {
@@ -21,6 +22,11 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
             masterySkinUnlockableDef = Modules.Content.CreateAndAddUnlockbleDef(
                 MasteryAchievement.unlockableIdentifier,
                 Modules.Tokens.GetAchievementNameToken(MasteryAchievement.identifier),
+                GaleShockTrooperSurvivor.instance.assetBundle.LoadAsset<Sprite>("texMasteryAchievement"));
+
+            stickybombUnlockableDef = Modules.Content.CreateAndAddUnlockbleDef(
+                StickyAchievement.unlockableIdentifier,
+                Modules.Tokens.GetAchievementNameToken(StickyAchievement.identifier),
                 GaleShockTrooperSurvivor.instance.assetBundle.LoadAsset<Sprite>("texMasteryAchievement"));
         }
     }
