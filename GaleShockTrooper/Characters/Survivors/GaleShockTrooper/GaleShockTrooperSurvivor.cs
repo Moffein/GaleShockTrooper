@@ -3,6 +3,7 @@ using EntityStates.GaleShockTrooperStates.Dash;
 using EntityStates.GaleShockTrooperStates.Weapon;
 using EntityStates.GaleShockTrooperStates.Weapon.MissilePainter;
 using GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Bossfight;
+using GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Components;
 using GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Content;
 using GaleShockTrooper.Modules;
 using GaleShockTrooper.Modules.Characters;
@@ -431,7 +432,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
                 cancelSprintingOnActivation = false,
                 fullRestockOnAssign = true,
                 dontAllowPastMaxStocks = false,
-                baseMaxStock = 1,
+                baseMaxStock = MasterDroneTracker.baseMaxDrones,
                 beginSkillCooldownOnSkillEnd = false,
                 forceSprintDuringState = false,
                 interruptPriority = EntityStates.InterruptPriority.Skill,
