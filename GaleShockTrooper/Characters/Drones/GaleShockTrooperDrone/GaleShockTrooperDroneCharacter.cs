@@ -43,7 +43,11 @@ namespace GaleShockTrooper.Characters.Drones.GaleShockTrooperDrone
             bodyNameToClone = "Drone1",
 
             moveSpeed = 17f,
-            acceleration = 40f
+            acceleration = 40f,
+
+            hasRagdoll = false,
+            hasFootstepController = false,
+            modifyCollider = false
         };
 
         public override CustomRendererInfo[] customRendererInfos => new CustomRendererInfo[]

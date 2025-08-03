@@ -37,18 +37,10 @@ namespace GaleShockTrooper.Modules.Characters
 
         protected virtual void InitializeCharacterBodyPrefab()
         {
-            Debug.Log("Start");
             characterModelObject = Prefabs.LoadCharacterModel(assetBundle, modelPrefabName);
-            Debug.Log("Loaded model");
-
             bodyPrefab = Modules.Prefabs.CreateBodyPrefab(characterModelObject, bodyInfo);
-            Debug.Log("Created CB");
-
             prefabCharacterBody = bodyPrefab.GetComponent<CharacterBody>();
-            Debug.Log("Got CB");
-
-            prefabCharacterModel = Modules.Prefabs.SetupCharacterModel(bodyPrefab, customRendererInfos);
-            Debug.Log("Created CM");
+            prefabCharacterModel = Modules.Prefabs.SetupCharacterModel(bodyPrefab, bodyInfo, customRendererInfos);
         }
 
         public virtual void InitializeItemDisplays() {
@@ -169,5 +161,9 @@ namespace GaleShockTrooper.Modules.Characters
             set => _cameraParams = value;
         }
         #endregion camera
+
+        public bool hasRagdoll = true;
+        public bool hasFootstepController = true;
+        public bool modifyCollider = true;
     }
 }

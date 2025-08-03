@@ -130,7 +130,7 @@ namespace GaleShockTrooper.Modules
             SetupCharacterDirection(newBodyPrefab, modelBaseTransform, model.transform);
             SetupCameraTargetParams(newBodyPrefab, bodyInfo);
             //SetupRigidbody(newPrefab);
-            SetupCapsuleCollider(newBodyPrefab);
+            if (bodyInfo.modifyCollider) SetupCapsuleCollider(newBodyPrefab);
 
             Modules.Content.AddCharacterBodyPrefab(newBodyPrefab);
 
@@ -295,7 +295,7 @@ namespace GaleShockTrooper.Modules
         #endregion body setup
 
         #region ModelSetup
-        public static CharacterModel SetupCharacterModel(GameObject bodyPrefab, CustomRendererInfo[] customInfos = null)
+        public static CharacterModel SetupCharacterModel(GameObject bodyPrefab, BodyInfo bodyInfo, CustomRendererInfo[] customInfos = null)
         {
 
             CharacterModel characterModel = bodyPrefab.GetComponent<ModelLocator>().modelTransform.gameObject.GetComponent<CharacterModel>();
@@ -320,8 +320,8 @@ namespace GaleShockTrooper.Modules
 
             SetupHurtboxGroup(bodyPrefab, characterModel.gameObject);
             SetupAimAnimator(bodyPrefab, characterModel.gameObject);
-            SetupFootstepController(characterModel.gameObject);
-            SetupRagdoll(characterModel.gameObject);
+            if (bodyInfo.hasFootstepController) SetupFootstepController(characterModel.gameObject);
+            if (bodyInfo.hasRagdoll) SetupRagdoll(characterModel.gameObject);
 
             return characterModel;
         }
