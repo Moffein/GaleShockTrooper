@@ -71,6 +71,8 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
             Language.Add(prefix + "SPECIAL_DRONE_NAME", "Hunter Killer");
             Language.Add(prefix + "SPECIAL_DRONE_DESCRIPTION", "Deploy a Hunter Drone that attacks enemies for <style=cIsDamage>" + FireAutoTurret.shotsPerBurst + "x" + Mathf.RoundToInt(FireAutoTurret.damageCoefficient * 100f) + " damage</style>.");
 
+            Language.Add("GALE_GALESHOCKTROOPERDRONE_BODY_NAME", "Hunter Drone");
+
             #region Achievements
             Language.Add(Modules.Tokens.GetAchievementNameToken(UnlockAchievement.identifier), "Dead Meat");
             Language.Add(Modules.Tokens.GetAchievementDescriptionToken(UnlockAchievement.identifier), "Beat a competitor to his bounty.");
