@@ -13,7 +13,7 @@ namespace EntityStates.GaleShockTrooperDroneStates
     public class FireAutoTurret : BaseState
     {
         public static float damageCoefficient = 1f;
-        public static float lockonAngle = 120f;
+        public static float lockonAngle = 60f;
         public static float baseShotDuration = 0.15f;
         public static float baseDuration = 0.5f;
         public static int shotsPerBurst = 2;

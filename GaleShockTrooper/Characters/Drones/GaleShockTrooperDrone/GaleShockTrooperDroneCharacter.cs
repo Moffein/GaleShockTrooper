@@ -1,4 +1,5 @@
 ﻿using EntityStates.GaleShockTrooperDroneStates;
+using GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Components;
 using GaleShockTrooper.Modules;
 using GaleShockTrooper.Modules.Characters;
 using R2API;
@@ -34,12 +35,15 @@ namespace GaleShockTrooper.Characters.Drones.GaleShockTrooperDrone
             crosshair = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/Railgunner/RailgunnerCrosshair.prefab").WaitForCompletion(),
 
             maxHealth = 110f,
-            healthRegen = 1.5f,
+            healthRegen = 1f,
             armor = 0f,
 
             jumpCount = 1,
 
-            bodyNameToClone = "Drone1"
+            bodyNameToClone = "Drone1",
+
+            moveSpeed = 17f,
+            acceleration = 40f
         };
 
         public override CustomRendererInfo[] customRendererInfos => new CustomRendererInfo[]
@@ -73,11 +77,15 @@ namespace GaleShockTrooper.Characters.Drones.GaleShockTrooperDrone
             InitializeSkills();
             InitializeSkins();
             InitializeCharacterMaster();
+
+            bodyPrefab.GetComponent<CharacterBody>().bodyFlags = CharacterBody.BodyFlags.Mechanical;
         }
 
         public override void InitializeCharacterMaster()
         {
-            GameObject master = Modules.Prefabs.CloneGenericMaster(bodyPrefab, "GaleShockTrooperDroneMaster", Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Drones/Drone1Master.prefab").WaitForCompletion());
+            //GameObject master = assetBundle.LoadMaster(bodyPrefab, "GaleShockTrooperDroneMaster");
+            GameObject master = Prefabs.CloneGenericMaster(bodyPrefab, "GaleShockTrooperDroneMaster", Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Drones/Drone1Master.prefab").WaitForCompletion());
+            MasterDroneTracker.droneMasterPrefab = master;
         }
 
         public override void InitializeEntityStateMachines()
@@ -115,8 +123,8 @@ namespace GaleShockTrooper.Characters.Drones.GaleShockTrooperDrone
                 isCombatSkill = true,
                 canceledFromSprinting = false,
                 requiredStock = 0,
-                skillNameToken = TOKEN_PREFIX + "PRIMARY_NAME",
-                skillDescriptionToken = TOKEN_PREFIX + "PRIMARY_DESCRIPTION",
+                skillNameToken = "GALE_GALESHOCKTROOPER_SPECIAL_NAME",
+                skillDescriptionToken = "GALE_GALESHOCKTROOPER_SPECIAL_DESCRIPTION",
                 mustKeyPress = false,
                 resetCooldownTimerOnUse = false,
                 skillName = "GaleShockTrooperDrone_AutoTurret",

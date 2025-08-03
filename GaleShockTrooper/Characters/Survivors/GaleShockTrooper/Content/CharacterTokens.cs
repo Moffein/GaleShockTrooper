@@ -1,4 +1,5 @@
 ﻿using System;
+using EntityStates.GaleShockTrooperDroneStates;
 using EntityStates.GaleShockTrooperStates.Dash;
 using EntityStates.GaleShockTrooperStates.Weapon;
 using EntityStates.GaleShockTrooperStates.Weapon.MissilePainter;
@@ -67,6 +68,8 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
             Language.Add(prefix + "SPECIAL_NAME", "Easy Prey");
             Language.Add(prefix + "SPECIAL_DESCRIPTION", "Fire a slug for <style=cIsDamage>"+ Mathf.RoundToInt(FireRicochetSlug.damageCoefficient * 100f) + "% damage</style>. Upon hitting an enemy, <style=cIsDamage>ricochets</style> to up to <style=cIsDamage>"+ FireRicochetSlug.ricochetCount+ "</style> additional targets.");
 
+            Language.Add(prefix + "SPECIAL_DRONE_NAME", "Hunter Killer");
+            Language.Add(prefix + "SPECIAL_DRONE_DESCRIPTION", "Deploy a Hunter Drone that attacks enemies for <style=cIsDamage>" + FireAutoTurret.shotsPerBurst + "x" + Mathf.RoundToInt(FireAutoTurret.damageCoefficient * 100f) + " damage</style>.");
 
             #region Achievements
             Language.Add(Modules.Tokens.GetAchievementNameToken(UnlockAchievement.identifier), "Dead Meat");
@@ -78,8 +81,8 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
             Language.Add(Modules.Tokens.GetAchievementNameToken(StickyAchievement.identifier), "Shock Trooper: Boom");
             Language.Add(Modules.Tokens.GetAchievementDescriptionToken(StickyAchievement.identifier), "As the Shock Trooper, kill " + StickyAchievement.killsToUnlock + " enemies with explosives in a single run.");
 
-            Language.Add(Modules.Tokens.GetAchievementNameToken(StickyAchievement.identifier), "Shock Trooper: Powered Up");
-            Language.Add(Modules.Tokens.GetAchievementDescriptionToken(StickyAchievement.identifier), "As the Shock Trooper, escape the Moon while carrying the Fuel Array.");
+            Language.Add(Modules.Tokens.GetAchievementNameToken(DroneAchievement.identifier), "Shock Trooper: Powered Up");
+            Language.Add(Modules.Tokens.GetAchievementDescriptionToken(DroneAchievement.identifier), "As the Shock Trooper, escape the Moon while carrying the Fuel Array.");
             #endregion
         }
     }

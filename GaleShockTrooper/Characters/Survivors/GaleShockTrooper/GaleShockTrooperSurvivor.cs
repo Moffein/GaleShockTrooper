@@ -51,7 +51,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
             podPrefab = LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/SurvivorPod"),
 
             maxHealth = 110f,
-            healthRegen = 1.5f,
+            healthRegen = 1f,
             armor = 0f,
 
             jumpCount = 1
@@ -326,7 +326,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
                 requiredStock = 1,
                 skillNameToken = TOKEN_PREFIX + "SECONDARY_STICKY_NAME",
                 skillDescriptionToken = TOKEN_PREFIX + "SECONDARY_STICKY_DESCRIPTION",
-                mustKeyPress = true,
+                mustKeyPress = false,
                 resetCooldownTimerOnUse = false,
                 skillName = "GaleShockTrooper_Sticky",
                 skillIcon = Addressables.LoadAssetAsync<SkillDef>("RoR2/Base/Commando/ThrowGrenade.asset").WaitForCompletion().icon
@@ -418,8 +418,49 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
                 skillName = "GaleShockTrooper_RicochetSlug",
                 skillIcon = Addressables.LoadAssetAsync<SkillDef>("RoR2/Base/Bandit2/Bandit2Blast.asset").WaitForCompletion().icon
             });
-            Skills.AddSpecialSkills(bodyPrefab, skillDef1);
             SkillDefs.Special_RicochetSlug = skillDef1;
+
+            Modules.Content.AddEntityState(typeof(EntityStates.GaleShockTrooperStates.Weapon.DeployDrone));
+            SkillDef skillDef2 = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                activationState = new EntityStates.SerializableEntityStateType(typeof(EntityStates.GaleShockTrooperStates.Weapon.DeployDrone)),
+                stockToConsume = 1,
+                baseRechargeInterval = DeployDrone.baseCooldown,
+                rechargeStock = 1,
+                activationStateMachineName = "Weapon",
+                cancelSprintingOnActivation = false,
+                fullRestockOnAssign = true,
+                dontAllowPastMaxStocks = false,
+                baseMaxStock = 1,
+                beginSkillCooldownOnSkillEnd = false,
+                forceSprintDuringState = false,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                isCombatSkill = true,
+                canceledFromSprinting = false,
+                requiredStock = 1,
+                skillNameToken = TOKEN_PREFIX + "SPECIAL_DRONE_NAME",
+                skillDescriptionToken = TOKEN_PREFIX + "SPECIAL_DRONE_DESCRIPTION",
+                mustKeyPress = true,
+                resetCooldownTimerOnUse = false,
+                skillName = "GaleShockTrooper_DeployDrone",
+                skillIcon = Addressables.LoadAssetAsync<SkillDef>("RoR2/Base/Engi/EngiBodyPlaceWalkerTurret.asset").WaitForCompletion().icon
+            });
+            SkillDefs.Special_Drone = skillDef2;
+
+            Skills.AddSpecialSkills(bodyPrefab, new SkillDef[]
+            {
+                skillDef1,
+                skillDef2
+            });
+
+            if (!CharacterConfig.forceUnlock)
+            {
+                Skills.AddUnlockablesToFamily(bodyPrefab.GetComponent<SkillLocator>().special.skillFamily, new UnlockableDef[]
+                {
+                    null,
+                    CharacterUnlockables.droneUnlockableDef
+                });
+            }
         }
         #endregion skills
         
