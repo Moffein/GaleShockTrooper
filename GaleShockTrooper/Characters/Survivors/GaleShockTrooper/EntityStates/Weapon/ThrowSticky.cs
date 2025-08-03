@@ -39,7 +39,8 @@ namespace EntityStates.GaleShockTrooperStates.Weapon
                     projectilePrefab = projectilePrefab,
                     procChainMask = default,
                     rotation = Util.QuaternionSafeLookRotation(aimRay.direction),
-                    damageTypeOverride = (DamageTypeCombo) DamageType.AOE | DamageSource.Secondary
+                    damageTypeOverride = (DamageTypeCombo) DamageType.AOE | DamageSource.Secondary,
+                    speedOverride = 80f
                 };
                 ProjectileManager.instance.FireProjectile(fpi);
             }
