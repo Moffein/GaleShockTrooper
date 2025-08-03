@@ -21,17 +21,10 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
 {
     public class GaleShockTrooperSurvivor : SurvivorBase<GaleShockTrooperSurvivor>
     {
-        //used to load the assetbundle for this character. must be unique
-        public override string assetBundleName => "galeshocktrooperassetbundle"; //if you do not change this, you are giving permission to deprecate the mod
-        //used in the rest of your character setup. must be unique.
-        public const string CHARACTER_NAME = "GaleShockTrooper"; //if you do not change this, you are giving permission to deprecate the mod
-
-        //the name of your character prefab. must be unique
-        public override string bodyName => CHARACTER_NAME + "Body"; //if you do not change CHARACTER_NAME, you get the point by now
-        //the name of the ai master for vengeance and goobo. must be unique
-        public override string masterName => CHARACTER_NAME + "MonsterMaster"; //if you do not yadda yadda
-        //the names of the prefabs that we are loading from the bundle to build your character. must match the names of the asset names in unity.
-        //doesn't have to be unique, but probably should be anyways.
+        public override string assetBundleName => "galeshocktrooperassetbundle";
+        public const string CHARACTER_NAME = "GaleShockTrooper";
+        public override string bodyName => CHARACTER_NAME + "Body";
+        public override string masterName => CHARACTER_NAME + "MonsterMaster";
         public override string modelPrefabName => "mdl" + CHARACTER_NAME;
         public override string displayPrefabName => CHARACTER_NAME + "Display";
 
@@ -191,17 +184,9 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
 
         public override void InitializeEntityStateMachines() 
         {
-            //clear existing state machines from your cloned body (probably commando)
-            //omit all this if you want to just keep theirs
             Prefabs.ClearEntityStateMachines(bodyPrefab);
-
-            //the main "Body" state machine has some special properties
             Prefabs.AddMainEntityStateMachine(bodyPrefab, "Body", typeof(EntityStates.GenericCharacterMain), typeof(EntityStates.SpawnTeleporterState));
-            //if you set up a custom `CharacterMain` state, set it here. 
-                //don't forget to register custom entitystates in your HenryStates.cs
-
             Prefabs.AddEntityStateMachine(bodyPrefab, "Weapon");
-            Prefabs.AddEntityStateMachine(bodyPrefab, "Weapon2");
         }
 
         #region skills

@@ -554,6 +554,14 @@ namespace GaleShockTrooper.Modules
             Modules.Content.AddMasterPrefab(newMaster);
             return newMaster;
         }
+        public static GameObject CloneGenericMaster(GameObject bodyPrefab, string masterName, GameObject masterToCopy)
+        {
+            GameObject newMaster = PrefabAPI.InstantiateClone(masterToCopy, masterName, true);
+            newMaster.GetComponent<CharacterMaster>().bodyPrefab = bodyPrefab;
+
+            Modules.Content.AddMasterPrefab(newMaster);
+            return newMaster;
+        }
 
         public static GameObject CreateBlankMasterPrefab(GameObject bodyPrefab, string masterName)
         {

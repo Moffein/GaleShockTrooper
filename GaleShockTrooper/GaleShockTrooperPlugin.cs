@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using GaleShockTrooper.Characters.Drones.GaleShockTrooperDrone;
 using GaleShockTrooper.Survivors.GaleShockTrooperSurvivor;
 using R2API.Utils;
 using RoR2;
@@ -48,6 +49,7 @@ namespace GaleShockTrooper
 
             // character initialization
             new GaleShockTrooperSurvivor().Initialize();
+            new GaleShockTrooperDroneCharacter().Initialize();
 
             // make a content pack and add it. this has to be last
             new Modules.ContentPacks().Initialize();

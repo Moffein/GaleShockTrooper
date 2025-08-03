@@ -37,12 +37,18 @@ namespace GaleShockTrooper.Modules.Characters
 
         protected virtual void InitializeCharacterBodyPrefab()
         {
+            Debug.Log("Start");
             characterModelObject = Prefabs.LoadCharacterModel(assetBundle, modelPrefabName);
+            Debug.Log("Loaded model");
 
             bodyPrefab = Modules.Prefabs.CreateBodyPrefab(characterModelObject, bodyInfo);
+            Debug.Log("Created CB");
+
             prefabCharacterBody = bodyPrefab.GetComponent<CharacterBody>();
+            Debug.Log("Got CB");
 
             prefabCharacterModel = Modules.Prefabs.SetupCharacterModel(bodyPrefab, customRendererInfos);
+            Debug.Log("Created CM");
         }
 
         public virtual void InitializeItemDisplays() {
