@@ -122,7 +122,7 @@ namespace EntityStates.GaleShockTrooperDroneStates
             }
             if (!currentTarget) return;
 
-            ChainGunOrb chainGunOrb = new ChainGunOrb(FireRicochetSlug.orbEffectPrefab);
+            ChainGunOrb chainGunOrb = new ChainGunOrb(orbEffectPrefab);
             chainGunOrb.damageValue = damageCoefficient * damageStat;
             chainGunOrb.isCrit = isCrit;
             chainGunOrb.teamIndex = GetTeam();

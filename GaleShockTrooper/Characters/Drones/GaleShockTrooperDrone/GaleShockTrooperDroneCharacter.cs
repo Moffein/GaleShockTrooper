@@ -137,12 +137,12 @@ namespace GaleShockTrooper.Characters.Drones.GaleShockTrooperDrone
             Skills.AddPrimarySkills(bodyPrefab, skillDef1);
 
             Color orbColor = new Color32(50, 150, 255, 255);
-            GameObject orbEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/DroneWeapons/ChainGunOrbEffect.prefab").WaitForCompletion().InstantiateClone("GaleShockTrooperDrone_BulletOrbEffect", false);
-            var tr = orbEffect.transform.Find("TrailParent/Trail").GetComponent<TrailRenderer>();
-            tr.startColor = orbColor;
-            tr.endColor = orbColor;
-            Modules.ContentPacks.effectDefs.Add(new EffectDef(orbEffect));
-            FireAutoTurret.orbEffectPrefab = orbEffect;
+             GameObject orbEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/DroneWeapons/ChainGunOrbEffect.prefab").WaitForCompletion().InstantiateClone("GaleShockTrooperDrone_BulletOrbEffect", false);
+             var tr = orbEffect.transform.Find("TrailParent/Trail").GetComponent<TrailRenderer>();
+             tr.startColor = orbColor;
+             tr.endColor = orbColor;
+             Modules.ContentPacks.effectDefs.Add(new EffectDef(orbEffect));
+             FireAutoTurret.orbEffectPrefab = orbEffect;
 
             GameObject mf = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/MuzzleflashFMJ.prefab").WaitForCompletion().InstantiateClone("GaleShockTrooperDrone_MuzzleflashEffect", false);
             EffectComponent ec = mf.GetComponent<EffectComponent>();
