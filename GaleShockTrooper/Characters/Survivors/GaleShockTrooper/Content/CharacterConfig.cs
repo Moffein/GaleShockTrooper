@@ -69,7 +69,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
             FireAutoTurret.shotsPerBurst = Modules.Config.BindAndOptions<int>("Skills - Drone Attack", "Shots Per burst", FireAutoTurret.shotsPerBurst, "How long it takes to fire a shot in a burst.", true).Value;
             MasterDroneTracker.baseMaxDrones = Modules.Config.BindAndOptions<int>("Skills - Deploy Drone", "Stocks", MasterDroneTracker.baseMaxDrones, "How many charges this skill starts with. Max drones is based on this.", true).Value;
             MasterDroneTracker.maxExtraDrones = Modules.Config.BindAndOptions<int>("Skills - Deploy Drone", "Max Extra Drones", MasterDroneTracker.maxExtraDrones, "How many extra drones you can get with stock-increasing items.", true).Value;
-            DeployDrone.baseCooldown = Modules.Config.BindAndOptions<float>("Skills - Deploy Drone", "Cooldown", FireAutoTurret.baseDuration, "How long it takes for this skill to recharge.", true).Value;
+            DeployDrone.baseCooldown = Modules.Config.BindAndOptions<float>("Skills - Deploy Drone", "Cooldown", DeployDrone.baseCooldown, "How long it takes for this skill to recharge.", true).Value;
 
             if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.rune580.riskofoptions")) RiskOfOptionsCompat();
         }
