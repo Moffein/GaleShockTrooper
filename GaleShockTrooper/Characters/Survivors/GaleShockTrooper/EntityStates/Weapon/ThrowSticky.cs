@@ -8,7 +8,7 @@ namespace EntityStates.GaleShockTrooperStates.Weapon
     public class ThrowSticky : BaseState
     {
         public static int baseMaxStocks = 1;
-        public static float baseCooldown = 6;
+        public static float baseCooldown = 12f;
 
         public static float damageCoefficient = 3f;
         public static float blastRadius = 12f;

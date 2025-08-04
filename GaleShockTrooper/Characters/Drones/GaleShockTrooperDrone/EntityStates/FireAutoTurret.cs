@@ -110,6 +110,7 @@ namespace EntityStates.GaleShockTrooperDroneStates
             {
                 search.teamMaskFilter = TeamMask.all;
                 search.teamMaskFilter.RemoveTeam(GetTeam());
+                search.teamMaskFilter.RemoveTeam(TeamIndex.Neutral);
                 search.filterByLoS = true;
                 search.searchOrigin = aimRay.origin;
                 search.searchDirection = aimRay.direction;
