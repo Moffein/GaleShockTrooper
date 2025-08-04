@@ -8,7 +8,7 @@ namespace EntityStates.GaleShockTrooperStates.Weapon
     public class FireRicochetSlug : BaseState
     {
         public static float ricochetRange = 45f;
-        public static float damageCoefficient = 10f;
+        public static float damageCoefficient = 30f;
         public static float baseDuration = 0.6f;
         public static float force = 2000f;
         public static float recoil = 3f;
@@ -16,7 +16,7 @@ namespace EntityStates.GaleShockTrooperStates.Weapon
         public static float selfKnockbackForce = 9000f;
 
         //Shouldn't be here
-        public static float baseCooldown = 30f;
+        public static float baseCooldown = 20f;
 
         public static GameObject hitEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/OmniExplosionVFXFMJ.prefab").WaitForCompletion();
         public static GameObject tracerEffectPrefab;
