@@ -26,6 +26,7 @@ namespace EntityStates.GaleShockTrooperStates.Weapon
             duration = baseDuration / attackSpeedStat;
             Util.PlaySound("Play_MULT_m1_grenade_launcher_shoot", gameObject);
             EffectManager.SimpleMuzzleFlash(muzzleflashEffectPrefab, gameObject, "Muzzle", false);
+            PlayAnimation("Gesture, Override", "ShootSticky", "Shootgun.playbackRate", duration);
             if (isAuthority)
             {
                 Ray aimRay = GetAimRay();
