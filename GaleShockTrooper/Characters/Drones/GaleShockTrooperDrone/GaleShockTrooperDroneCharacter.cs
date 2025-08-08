@@ -22,6 +22,9 @@ namespace GaleShockTrooper.Characters.Drones.GaleShockTrooperDrone
 
         public const string TOKEN_PREFIX = GaleShockTrooperPlugin.DEVELOPER_PREFIX + "_" + CHARACTER_NAME + "_";
 
+        public static float baseHealth = 110f;
+        public static float baseArmor = 0f;
+
         public override BodyInfo bodyInfo => new BodyInfo
         {
             bodyName = bodyName,
@@ -82,7 +85,10 @@ namespace GaleShockTrooper.Characters.Drones.GaleShockTrooperDrone
             InitializeSkins();
             InitializeCharacterMaster();
 
-            bodyPrefab.GetComponent<CharacterBody>().bodyFlags = CharacterBody.BodyFlags.Mechanical;
+            CharacterBody body = bodyPrefab.GetComponent<CharacterBody>();
+            body.bodyFlags = CharacterBody.BodyFlags.Mechanical;
+            body.baseMaxHealth = baseHealth;
+            body.levelMaxHealth = body.baseMaxHealth * 0.3f;
         }
 
         public override void InitializeCharacterMaster()

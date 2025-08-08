@@ -37,6 +37,8 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
         public static BodyIndex bodyIndex;
 
         public static float passiveFrontArmorMult = 2f / 3f;
+        public static float baseHealth = 110f;
+        public static float baseArmor = 0f;
         
         public override BodyInfo bodyInfo => new BodyInfo
         {
@@ -159,6 +161,8 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
         private void AdditionalBodySetup()
         {
             CharacterBody body = bodyPrefab.GetComponent<CharacterBody>();
+            body.baseMaxHealth = baseHealth;
+            body.levelMaxHealth = body.baseMaxHealth * 0.3f;
             body.spreadBloomCurve = new AnimationCurve()
             {
                 keys = new Keyframe[]
