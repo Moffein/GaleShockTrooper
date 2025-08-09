@@ -161,15 +161,15 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
             itemDisplayRules.Add(ItemDisplays.CreateDisplayRuleGroupWithRules(ItemDisplays.KeyAssets["Hoof"],
                 ItemDisplays.CreateDisplayRule(ItemDisplays.LoadDisplay("DisplayHoof"),
                     "ShinR",
-                    new Vector3(0.0589F, 0.16568F, 0.0111F),
-                    new Vector3(90F, 0F, 0F),
+                    new Vector3(0.05773F, 0.09391F, -0.0936F),
+                    new Vector3(58.82795F, 349.0701F, 42.69231F),
                     new Vector3(0.07F, 0.07F, 0.07F)
                     ),
                 ItemDisplays.CreateLimbMaskDisplayRule(LimbFlags.RightCalf),
                 ItemDisplays.CreateDisplayRule(ItemDisplays.LoadDisplay("DisplayHoof"),
                     "ShinL",
-                    new Vector3(-0.05038F, 0.188F, 0.02857F),
-                    new Vector3(90F, 0F, 0F),
+                    new Vector3(-0.10191F, 0.0957F, -0.07128F),
+                    new Vector3(64.52972F, 29.94946F, 336.29F),
                     new Vector3(0.07F, 0.07F, 0.07F)
                     ),
                 ItemDisplays.CreateLimbMaskDisplayRule(LimbFlags.RightCalf) //intentional jank

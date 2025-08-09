@@ -20,7 +20,6 @@ This mod adds an aggressive survivor based on an original character by **Moobloo
 - Full itemdisplays
 - Skills++ Compatibility?
 - Scepter Compatibility?
-- Limb masking on Hoof ItemDisplay.
 
 ## CREDITS:
 
