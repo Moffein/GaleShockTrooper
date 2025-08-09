@@ -159,20 +159,20 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
                 ));
 
             itemDisplayRules.Add(ItemDisplays.CreateDisplayRuleGroupWithRules(ItemDisplays.KeyAssets["Hoof"],
-                ItemDisplays.CreateDisplayRule(ItemDisplays.LoadDisplay("Hoof"),
+                ItemDisplays.CreateDisplayRule(ItemDisplays.LoadDisplay("DisplayHoof"),
                     "ShinR",
                     new Vector3(0.0589F, 0.16568F, 0.0111F),
                     new Vector3(90F, 0F, 0F),
                     new Vector3(0.07F, 0.07F, 0.07F)
                     ),
                 ItemDisplays.CreateLimbMaskDisplayRule(LimbFlags.RightCalf),
-                ItemDisplays.CreateDisplayRule(ItemDisplays.LoadDisplay("Hoof"),
+                ItemDisplays.CreateDisplayRule(ItemDisplays.LoadDisplay("DisplayHoof"),
                     "ShinL",
                     new Vector3(-0.05038F, 0.188F, 0.02857F),
                     new Vector3(90F, 0F, 0F),
                     new Vector3(0.07F, 0.07F, 0.07F)
                     ),
-                ItemDisplays.CreateLimbMaskDisplayRule(LimbFlags.LeftLeg)
+                ItemDisplays.CreateLimbMaskDisplayRule(LimbFlags.RightCalf) //intentional jank
                 ));
 
             itemDisplayRules.Add(ItemDisplays.CreateDisplayRuleGroupWithRules(ItemDisplays.KeyAssets["FireRing"],
@@ -797,15 +797,6 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
                     new Vector3(0, 0, 0),
                     new Vector3(0, 0, 0)
                     )
-                ));
-            itemDisplayRules.Add(ItemDisplays.CreateDisplayRuleGroupWithRules(ItemDisplays.KeyAssets["Hoof"],
-                ItemDisplays.CreateDisplayRule(ItemDisplays.LoadDisplay("DisplayHoof"),
-                    "Chest",
-                    new Vector3(2, 2, 2),
-                    new Vector3(0, 0, 0),
-                    new Vector3(0, 0, 0)
-                    ),
-                ItemDisplays.CreateLimbMaskDisplayRule(LimbFlags.RightCalf)
                 ));
             itemDisplayRules.Add(ItemDisplays.CreateDisplayRuleGroupWithRules(ItemDisplays.KeyAssets["Icicle"],
                 ItemDisplays.CreateDisplayRule(ItemDisplays.LoadDisplay("DisplayFrostRelic"),
