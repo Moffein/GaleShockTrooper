@@ -25,7 +25,7 @@ ModelImporter:
       name: trooper_weapon
     second: {fileID: 2100000, guid: dcfbf9cea21805645ab35d750459f2b5, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1

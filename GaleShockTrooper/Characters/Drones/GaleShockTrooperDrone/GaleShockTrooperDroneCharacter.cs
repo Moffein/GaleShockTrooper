@@ -1,4 +1,6 @@
-﻿using EntityStates.GaleShockTrooperDroneStates;
+﻿using EntityStates;
+using EntityStates.GaleShockTrooperDroneStates;
+using GaleShockTrooper.Characters.Drones.GaleShockTrooperDrone.Components;
 using GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Components;
 using GaleShockTrooper.Modules;
 using GaleShockTrooper.Modules.Characters;
@@ -89,6 +91,11 @@ namespace GaleShockTrooper.Characters.Drones.GaleShockTrooperDrone
             body.bodyFlags = CharacterBody.BodyFlags.Mechanical;
             body.baseMaxHealth = baseHealth;
             body.levelMaxHealth = body.baseMaxHealth * 0.3f;
+
+            body.gameObject.AddComponent<DroneTargetingController>();
+
+            TeamComponent tc = bodyPrefab.GetComponent<TeamComponent>();
+            tc.hideAllyCardDisplay = false;
         }
 
         public override void InitializeCharacterMaster()
@@ -116,30 +123,30 @@ namespace GaleShockTrooper.Characters.Drones.GaleShockTrooperDrone
             Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, SkillSlot.Primary);
 
             Modules.Content.AddEntityState(typeof(FireAutoTurret));
-            SkillDef skillDef1 = Modules.Skills.CreateSkillDef(new SkillDefInfo
-            {
-                activationState = new EntityStates.SerializableEntityStateType(typeof(FireAutoTurret)),
-                stockToConsume = 1,
-                baseRechargeInterval = 0f,
-                rechargeStock = 1,
-                activationStateMachineName = "Weapon",
-                cancelSprintingOnActivation = true,
-                fullRestockOnAssign = true,
-                dontAllowPastMaxStocks = true,
-                baseMaxStock = 1,
-                beginSkillCooldownOnSkillEnd = false,
-                forceSprintDuringState = false,
-                interruptPriority = EntityStates.InterruptPriority.Any,
-                isCombatSkill = true,
-                canceledFromSprinting = false,
-                requiredStock = 0,
-                skillNameToken = "GALE_GaleShockTrooperDrone_SPECIAL_DRONE_NAME",
-                skillDescriptionToken = "GaleShockTrooperDrone_SPECIAL_DRONE_DESCRIPTION",
-                mustKeyPress = false,
-                resetCooldownTimerOnUse = false,
-                skillName = "GaleShockTrooperDrone_AutoTurret",
-                skillIcon = Addressables.LoadAssetAsync<SkillDef>("RoR2/Base/Commando/CommandoBodyFirePistol.asset").WaitForCompletion().icon
-            });
+
+            DroneTargetingControllerSkillDef skillDef1 = ScriptableObject.CreateInstance<DroneTargetingControllerSkillDef>();
+            skillDef1.activationState = new EntityStates.SerializableEntityStateType(typeof(FireAutoTurret));
+            skillDef1.stockToConsume = 1;
+            skillDef1.baseRechargeInterval = 0f;
+            skillDef1.rechargeStock = 1;
+            skillDef1.activationStateMachineName = "Weapon";
+            skillDef1.cancelSprintingOnActivation = true;
+            skillDef1.fullRestockOnAssign = true;
+            skillDef1.dontAllowPastMaxStocks = true;
+            skillDef1.baseMaxStock = 1;
+            skillDef1.beginSkillCooldownOnSkillEnd = false;
+            skillDef1.forceSprintDuringState = false;
+            skillDef1.interruptPriority = EntityStates.InterruptPriority.Any;
+            skillDef1.isCombatSkill = true;
+            skillDef1.canceledFromSprinting = false;
+            skillDef1.requiredStock = 0;
+            skillDef1.skillNameToken = "GALE_GaleShockTrooperDrone_SPECIAL_DRONE_NAME";
+            skillDef1.skillDescriptionToken = "GaleShockTrooperDrone_SPECIAL_DRONE_DESCRIPTION";
+            skillDef1.mustKeyPress = false;
+            skillDef1.resetCooldownTimerOnUse = false;
+            skillDef1.skillName = "GaleShockTrooperDrone_AutoTurret";
+            skillDef1.icon = Addressables.LoadAssetAsync<SkillDef>("RoR2/Base/Commando/CommandoBodyFirePistol.asset").WaitForCompletion().icon;
+
             Skills.AddPrimarySkills(bodyPrefab, skillDef1);
 
             Color orbColor = new Color32(50, 150, 255, 255);

@@ -3,10 +3,8 @@ using System.Linq;
 using System;
 using UnityEngine;
 using UnityEngine.Networking;
-using static UnityEngine.ParticleSystem.PlaybackState;
-using UnityEngine.AddressableAssets;
-using EntityStates.GaleShockTrooperStates.Weapon;
 using RoR2.Orbs;
+using GaleShockTrooper.Characters.Drones.GaleShockTrooperDrone.Components;
 
 namespace EntityStates.GaleShockTrooperDroneStates
 {
@@ -25,8 +23,8 @@ namespace EntityStates.GaleShockTrooperDroneStates
         private int shotsFired;
         private bool isCrit;
 
+        private bool triggeredPrimary = false;
         private bool rightMuzzle;
-        private BullseyeSearch search;
 
         private Transform muzzleL, muzzleR;
         private HurtBox currentTarget;
@@ -41,13 +39,16 @@ namespace EntityStates.GaleShockTrooperDroneStates
             shotDuration = baseShotDuration / attackSpeedStat;
             duration = baseDuration / attackSpeedStat;
             stopwatch = 0f;
-            search = new BullseyeSearch();
             ChildLocator cl = GetModelChildLocator();
             if (cl)
             {
                 muzzleR = cl.FindChild("MuzzleR");
                 muzzleL = cl.FindChild("MuzzleL");
             }
+
+            DroneTargetingController dtc = base.GetComponent<DroneTargetingController>();
+            currentTarget = dtc.GetCurrentTarget();
+
             FireShot();
         }
 
@@ -106,21 +107,6 @@ namespace EntityStates.GaleShockTrooperDroneStates
         private void FireOrb(Transform muzzleTransform, bool playEffects)
         {
             Ray aimRay = GetAimRay();
-            if (!currentTarget)
-            {
-                search.teamMaskFilter = TeamMask.all;
-                search.teamMaskFilter.RemoveTeam(GetTeam());
-                search.teamMaskFilter.RemoveTeam(TeamIndex.Neutral);
-                search.filterByLoS = true;
-                search.searchOrigin = aimRay.origin;
-                search.searchDirection = aimRay.direction;
-                search.sortMode = BullseyeSearch.SortMode.Angle;
-                search.maxDistanceFilter = lockonRange;
-                search.maxAngleFilter = lockonAngle;
-                search.RefreshCandidates();
-                search.FilterOutGameObject(base.gameObject);
-                currentTarget = this.search.GetResults().FirstOrDefault<HurtBox>();
-            }
             if (!currentTarget) return;
 
             ChainGunOrb chainGunOrb = new ChainGunOrb(orbEffectPrefab);
