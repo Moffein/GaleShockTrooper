@@ -64,22 +64,22 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
         {
             new CustomRendererInfo
             {
-                childName = "Armor",
+                childName = "ArmorRender",
                 material = assetBundle.LoadMaterial("matTrooper01"),
             },
             new CustomRendererInfo
             {
-                childName = "Back",
+                childName = "BackRender",
                 material = assetBundle.LoadMaterial("matTrooperBackpack"),
             },
             new CustomRendererInfo
             {
-                childName = "Body",
+                childName = "BodyRender",
                 material = assetBundle.LoadMaterial("matTrooperBody"),
             },
             new CustomRendererInfo
             {
-                childName = "Drone",
+                childName = "DroneRender",
                 material = assetBundle.LoadMaterial("matTrooper01"),
             },
             new CustomRendererInfo
@@ -90,8 +90,8 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
         };
 
         public override UnlockableDef characterUnlockableDef => CharacterConfig.forceUnlock ? null : Content.CharacterUnlockables.characterUnlockableDef;
-        
-        public override ItemDisplaysBase itemDisplays => new Content.CharacterItemDisplaySetup();
+
+        public override ItemDisplaysBase itemDisplays => new GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content.CharacterItemDisplaySetup();
 
         //set in base classes
         public override AssetBundle assetBundle { get; protected set; }

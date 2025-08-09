@@ -5411,16 +5411,18 @@ MonoBehaviour:
   transformPairs:
   - name: MainHurtbox
     transform: {fileID: 8399329506545387212}
-  - name: Armor
+  - name: ArmorRender
     transform: {fileID: 324300436919949110}
-  - name: Back
+  - name: BackRender
     transform: {fileID: 7107835098204696424}
-  - name: Body
+  - name: BodyRender
     transform: {fileID: 4713921932468697572}
-  - name: Drone
+  - name: DroneRender
     transform: {fileID: 1266164581481619538}
   - name: GunRender
     transform: {fileID: 8424376074508523882}
+  - name: Backpack
+    transform: {fileID: 8229881148701923268}
   - name: Head
     transform: {fileID: 8570175777143991790}
   - name: Muzzle
@@ -5433,6 +5435,58 @@ MonoBehaviour:
     transform: {fileID: 1709466023082366571}
   - name: FootL
     transform: {fileID: 8350494228812974919}
+  - name: Pelvis
+    transform: {fileID: 7570521431650239857}
+  - name: Stomach
+    transform: {fileID: 7931554440979862165}
+  - name: Tail0
+    transform: {fileID: 614711095011008468}
+  - name: Tail1
+    transform: {fileID: 8612414517995321006}
+  - name: Tail2
+    transform: {fileID: 4999512880607822845}
+  - name: Tail3
+    transform: {fileID: 6596518172715379818}
+  - name: Tail4
+    transform: {fileID: 8832299268937040475}
+  - name: ThighL
+    transform: {fileID: 8559881987123579038}
+  - name: ThighL1
+    transform: {fileID: 1094520127044051529}
+  - name: ShinL
+    transform: {fileID: 619952609586578632}
+  - name: ThighR
+    transform: {fileID: 9044834510065397354}
+  - name: ThighR1
+    transform: {fileID: 4855107356272310142}
+  - name: ShinR
+    transform: {fileID: 7029135726381057840}
+  - name: Spine
+    transform: {fileID: 929678550356062181}
+  - name: Chest
+    transform: {fileID: 7866470468167040816}
+  - name: ShoulderL
+    transform: {fileID: 324300436919949110}
+  - name: UpperArmL
+    transform: {fileID: 8424376074508523882}
+  - name: ForearmL
+    transform: {fileID: 42018854829508576}
+  - name: HandL
+    transform: {fileID: 3950269474525527925}
+  - name: ShoulderR
+    transform: {fileID: 6653539667838503491}
+  - name: UpperarmR
+    transform: {fileID: 3167270007525926331}
+  - name: ForearmR
+    transform: {fileID: 2172943339544526727}
+  - name: HandR
+    transform: {fileID: 4259111433238882489}
+  - name: GunplateL
+    transform: {fileID: 6573501111947650303}
+  - name: GunplateR
+    transform: {fileID: 3544278142837021475}
+  - name: Gun
+    transform: {fileID: 7833078016871015912}
 --- !u!114 &8173347870035828618
 MonoBehaviour:
   m_ObjectHideFlags: 0

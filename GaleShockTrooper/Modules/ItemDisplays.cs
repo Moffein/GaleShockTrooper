@@ -62,6 +62,7 @@ namespace GaleShockTrooper.Modules
                 for (int j = 0; j < rules.Length; j++)
                 {
                     GameObject followerPrefab = rules[j].followerPrefab;
+                    Debug.Log(itemRuleGroups[i].keyAsset.name + " - " + followerPrefab);
                     if (followerPrefab)
                     {
                         string key = followerPrefab.name?.ToLowerInvariant();
