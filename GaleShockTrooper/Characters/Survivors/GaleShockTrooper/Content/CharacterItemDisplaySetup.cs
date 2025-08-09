@@ -18,6 +18,15 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
         protected override void SetItemDisplayRules(List<ItemDisplayRuleSet.KeyAssetRuleGroup> itemDisplayRules)
         {
             //Completed
+            itemDisplayRules.Add(ItemDisplays.CreateDisplayRuleGroupWithRules(ItemDisplays.KeyAssets["BleedOnHit"],
+                ItemDisplays.CreateDisplayRule(ItemDisplays.LoadDisplay("DisplayTriTip"),
+                    "Gun",
+                    new Vector3(0F, -0.03F, 0.3F),
+                    new Vector3(0F, 0F, 0F),
+                    new Vector3(0.4F, 0.4F, 0.4F)
+
+                    )
+                ));
 
             itemDisplayRules.Add(ItemDisplays.CreateDisplayRuleGroupWithRules(ItemDisplays.KeyAssets["Pearl"],
                 ItemDisplays.CreateDisplayRule(ItemDisplays.LoadDisplay("DisplayPearl"),
@@ -448,14 +457,6 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
                 ));
             itemDisplayRules.Add(ItemDisplays.CreateDisplayRuleGroupWithRules(ItemDisplays.KeyAssets["Behemoth"],
                 ItemDisplays.CreateDisplayRule(ItemDisplays.LoadDisplay("DisplayBehemoth"),
-                    "Chest",
-                    new Vector3(2, 2, 2),
-                    new Vector3(0, 0, 0),
-                    new Vector3(0, 0, 0)
-                    )
-                ));
-            itemDisplayRules.Add(ItemDisplays.CreateDisplayRuleGroupWithRules(ItemDisplays.KeyAssets["BleedOnHit"],
-                ItemDisplays.CreateDisplayRule(ItemDisplays.LoadDisplay("DisplayTriTip"),
                     "Chest",
                     new Vector3(2, 2, 2),
                     new Vector3(0, 0, 0),
