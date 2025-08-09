@@ -30,7 +30,7 @@ namespace GaleShockTrooper
         //   this shouldn't even have to be said
         public const string MODUID = "com.Gale.ShockTrooper";
         public const string MODNAME = "Shock Trooper";
-        public const string MODVERSION = "0.1.2";
+        public const string MODVERSION = "0.2.0";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string DEVELOPER_PREFIX = "GALE";

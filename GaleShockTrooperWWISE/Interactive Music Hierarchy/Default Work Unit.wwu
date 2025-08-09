@@ -59,10 +59,11 @@
 						<MusicSegment Name="musicBoss3a" ID="{C61B1D5D-B4D7-47FB-9A07-68EB70D0171D}" ShortID="49867923">
 							<PropertyList>
 								<Property Name="EndPosition" Type="Real64" Value="225163.900226757"/>
+								<Property Name="OverrideConversion" Type="bool" Value="True"/>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
-									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7CD7D0A6-637F-426E-A31B-670A2972ABBB}"/>
+									<ObjectRef Name="Vorbis Quality High" ID="{53A9DE0F-3F4F-4B59-8614-3F9E3C7358FC}" WorkUnitID="{F6B2880C-85E5-47FA-A126-645B5DFD9ACC}"/>
 								</Reference>
 								<Reference Name="OutputBus">
 									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{689FC624-7E33-4DF9-A860-B73A8B34B749}"/>
