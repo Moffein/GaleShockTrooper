@@ -86,7 +86,6 @@ namespace GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Components
 
                     droneMaster.loadout.bodyLoadoutManager.SetSkinIndex(BodyCatalog.FindBodyIndex("GaleShockTrooperDroneBody"), master.loadout.bodyLoadoutManager.GetSkinIndex(BodyCatalog.FindBodyIndex("GaleShockTrooperBody")));
                     droneMaster.SetLoadoutServer(droneMaster.loadout);
-                    droneMaster.Respawn(droneBody.footPosition, droneBody.transform.rotation);
                 }
             }
             else
