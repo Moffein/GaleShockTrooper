@@ -46,7 +46,7 @@ namespace GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Components
             int currentDrones = summonedDrones.Count;
             if (currentDrones >= max)
             {
-                int diff = 1 + (max - currentDrones);
+                int diff = 1 + (currentDrones - max);
 
                 for (int i = 0; i < diff; i++)
                 {
