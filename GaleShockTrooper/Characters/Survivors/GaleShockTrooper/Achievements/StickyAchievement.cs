@@ -46,10 +46,14 @@ namespace GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Achievements
                 if (NetworkServer.active && damageReport.attackerBody && damageReport.attackerBody.bodyIndex == GaleShockTrooperSurvivor.bodyIndex && damageReport.damageInfo.damageType.damageType.HasFlag(DamageType.AOE))
                 {
                     killedServer++;
-                    Debug.Log("Total: " + killedServer);
+                    //Debug.Log("Total: " + killedServer);
                     if (killedServer >= killsToUnlock)
                     {
-                        base.Grant();
+                        CharacterBody body = base.GetCurrentBody();
+                        if (body && body.bodyIndex == GaleShockTrooperSurvivor.bodyIndex)
+                        {
+                            base.Grant();
+                        }
                     }
                 }
             }
