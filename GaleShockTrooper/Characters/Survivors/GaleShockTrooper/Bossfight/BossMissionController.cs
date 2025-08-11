@@ -27,15 +27,30 @@ namespace GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Bossfight
         private GameObject combatGroupInstance;
         private float stopwatch;
 
+        private bool spawnedBoss = false;
+
         private void Awake()
         {
             stopwatch = 0f;
             transform.position = spawnpoint;
+            SpawnBossMusicControllerServer();
+        }
+
+        private void SpawnBossMusicControllerServer()
+        {
+            if (!NetworkServer.active || BossMusicController.instance) return;
+            GameObject mc = UnityEngine.Object.Instantiate(BossMusicController.prefab);
+            NetworkServer.Spawn(mc);
+            var cont = mc.GetComponent<BossMusicController>();
+            if (cont)
+            {
+                BossMusicController.instance = cont;
+            }
         }
 
         private void FixedUpdate()
         {
-            if (!NetworkServer.active || combatGroupInstance) return;
+            if (!NetworkServer.active || spawnedBoss) return;
 
             stopwatch += Time.fixedDeltaTime;
             if (stopwatch >= 0.1f)
@@ -47,6 +62,7 @@ namespace GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Bossfight
 
         private void CheckForPlayers()
         {
+            if (spawnedBoss) return;
             foreach (CharacterMaster cm in CharacterMaster.instancesList)
             {
                 if (cm.teamIndex != TeamIndex.Player || cm.IsDeadAndOutOfLivesServer()) continue;
@@ -54,6 +70,7 @@ namespace GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Bossfight
                 if ((transform.position-bodyObject.transform.position).sqrMagnitude <= spawnDistanceSqr)
                 {
                     SpawnBossServer();
+                    return;
                 }
             }
         }
@@ -61,8 +78,8 @@ namespace GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Bossfight
         public void SpawnBossServer()
         {
             if (!NetworkServer.active || !spawnCard) return;
+            spawnedBoss = true;
             EffectManager.SimpleEffect(spawnEffectPrefab, spawnpoint, Quaternion.identity, true);
-
 
             DirectorSpawnRequest directorSpawnRequest = new DirectorSpawnRequest(spawnCard, new DirectorPlacementRule
             {
@@ -80,6 +97,7 @@ namespace GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Bossfight
                 Inventory inventory = spawnResult.spawnedInstance.GetComponent<Inventory>();
                 if (inventory)
                 {
+                    //BossStatItem is on the prefab, no need for this
                     //inventory.GiveItem(RoR2Content.Items.InvadingDoppelganger);
                 }
             }));
@@ -104,18 +122,8 @@ namespace GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Bossfight
                 cs.onDefeatedServer += OnBossDefeated;
                 NetworkServer.Spawn(combatGroupInstance);
 
-                if (!BossMusicController.instance)
-                {
-                    GameObject mc = UnityEngine.Object.Instantiate(BossMusicController.prefab);
-                    var cont = mc.GetComponent<BossMusicController>();
-                    if (cont)
-                    {
-                        BossMusicController.instance = cont;
-                        NetworkServer.Spawn(mc);
-                        cont.StartMusicServer();
-                    }
-                }
-                else
+                SpawnBossMusicControllerServer();
+                if (BossMusicController.instance)
                 {
                     BossMusicController.instance.StartMusicServer();
                 }

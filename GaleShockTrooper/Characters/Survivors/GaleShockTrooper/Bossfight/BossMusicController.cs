@@ -54,7 +54,7 @@ namespace GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Bossfight
                 if (b)
                     return true;
 
-                return musicSources != 0;
+                return musicSources > 0;
             });
         }
     }
