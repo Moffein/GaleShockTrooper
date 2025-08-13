@@ -72,7 +72,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
 
             #region Achievements
             Language.Add(Modules.Tokens.GetAchievementNameToken(UnlockAchievement.identifier), "Competitive Contracts");
-            Language.Add(Modules.Tokens.GetAchievementDescriptionToken(UnlockAchievement.identifier), "Beat a competitor to his bounty.");
+            Language.Add(Modules.Tokens.GetAchievementDescriptionToken(UnlockAchievement.identifier), "Beat a competitor to his bounty on the Moon.");
 
             Language.Add(Modules.Tokens.GetAchievementNameToken(MasteryAchievement.identifier), "Shock Trooper: Mastery");
             Language.Add(Modules.Tokens.GetAchievementDescriptionToken(MasteryAchievement.identifier), "As the Shock Trooper, beat the game or obliterate on Monsoon.");

@@ -10,10 +10,11 @@ namespace EntityStates.GaleShockTrooperStates.Weapon
         public static int baseMaxStocks = 1;
         public static float baseCooldown = 12f;
 
-        public static float damageCoefficient = 3f;
+        public static float damageCoefficient = 6f;
         public static float blastRadius = 12f;
         public static float baseDuration = 0.6f;
         public static float detonationDelay = 1.5f;
+        public static float projectileSpeed = 80f;
 
         public static GameObject projectilePrefab;
         public static GameObject muzzleflashEffectPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Common/VFX/MuzzleflashSmokeRing.prefab").WaitForCompletion();
@@ -42,7 +43,7 @@ namespace EntityStates.GaleShockTrooperStates.Weapon
                     procChainMask = default,
                     rotation = Util.QuaternionSafeLookRotation(aimRay.direction),
                     damageTypeOverride = (DamageTypeCombo) DamageType.AOE | DamageSource.Secondary,
-                    speedOverride = 80f
+                    speedOverride = projectileSpeed
                 };
                 ProjectileManager.instance.FireProjectile(fpi);
             }

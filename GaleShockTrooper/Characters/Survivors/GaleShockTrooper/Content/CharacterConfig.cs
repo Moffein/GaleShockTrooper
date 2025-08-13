@@ -8,6 +8,7 @@ using GaleShockTrooper.Characters.Drones.GaleShockTrooperDrone;
 using GaleShockTrooper.Characters.Survivors.GaleShockTrooper.Components;
 using GaleShockTrooper.Modules;
 using R2API.Utils;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -57,6 +58,7 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor.Content
                 ThrowSticky.blastRadius = Modules.Config.BindAndOptions<float>("Skills - Stickybomb", "Blast Radius", ThrowSticky.blastRadius, "How big is the explosion.", true).Value;
                 ThrowSticky.baseMaxStocks = Modules.Config.BindAndOptions<int>("Skills - Stickybomb", "Stocks", ThrowSticky.baseMaxStocks, "How many charges this skill starts with.", true).Value;
                 ThrowSticky.detonationDelay = Modules.Config.BindAndOptions<float>("Skills - Stickybomb", "Detonation Delay", ThrowSticky.detonationDelay, "Delay before explosion.", true).Value;
+                ThrowSticky.projectileSpeed = Modules.Config.BindAndOptions<float>("Skills - Stickybomb", "Projectile Speed", ThrowSticky.projectileSpeed, "How fast the projectile travels.", true).Value;
 
                 EnterShockDash.baseDuration = Modules.Config.BindAndOptions<float>("Skills - Dash", "Windup Duration", EnterShockDash.baseDuration, "Delay before entering the main dash.", true).Value;
                 ShockDashBase.baseDuration = Modules.Config.BindAndOptions<float>("Skills - Dash", "Base Duration", ShockDashBase.baseDuration, "How long it take to use this skill.", true).Value;
