@@ -60,7 +60,7 @@ namespace EntityStates.GaleShockTrooperStates.Weapon
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.PrioritySkill;
+            return InterruptPriority.Pain;
         }
     }
 }

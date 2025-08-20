@@ -312,9 +312,10 @@ namespace GaleShockTrooper.Survivors.GaleShockTrooperSurvivor
             SkillDefs.Secondary_MicroMissile = skillDef1;
 
             Modules.Content.AddEntityState(typeof(EntityStates.GaleShockTrooperStates.Weapon.ThrowSticky));
+            Modules.Content.AddEntityState(typeof(EntityStates.GaleShockTrooperStates.Weapon.AimSticky));
             SkillDef skillDef2 = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
-                activationState = new EntityStates.SerializableEntityStateType(typeof(EntityStates.GaleShockTrooperStates.Weapon.ThrowSticky)),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(EntityStates.GaleShockTrooperStates.Weapon.AimSticky)),
                 stockToConsume = 1,
                 baseRechargeInterval = ThrowSticky.baseCooldown,
                 rechargeStock = 1,
